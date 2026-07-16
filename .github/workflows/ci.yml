@@ -1,0 +1,61 @@
+# Phase-A CI for the official Mind Skill Registry.
+# Runs frontmatter validation, executable rejection, and content-digest
+# computation on every push/PR to main and on any skills/** change.
+#
+# The full §6.7 gate suite is DEFERRED to Phase B:
+#   - deterministic package/index build twice from clean checkouts
+#   - SBOM (SPDX) generation
+#   - provenance attestation (SLSA)
+#   - secret and sensitive-data scanning
+#   - static script/capability analysis without executing package code
+#   - per-package SPDX/license/notice/provenance consistency
+#   - risk-based review-policy enforcement (CODEOWNER review evidence)
+#   - first-party contract tests and eval fixtures
+# Phase A = script-free text skills only; CI fails closed on executables.
+#
+# Spec: docs/superpowers/specs/2026-07-14-official-skill-registry-marketplace-design.md §6.7
+
+name: validate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "schemas/**"
+      - "policies/**"
+      - "categories.yaml"
+      - "scripts/validate_skills.py"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "schemas/**"
+      - "policies/**"
+      - "categories.yaml"
+      - "scripts/validate_skills.py"
+      - ".github/workflows/ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out registry
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pyyaml
+        run: pip install --no-input pyyaml
+
+      - name: Validate skills (Phase A gates)
+        run: python scripts/validate_skills.py

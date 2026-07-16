@@ -1,0 +1,205 @@
+#!/usr/bin/env python3
+"""Phase-A validator for Registry skills.
+
+For each skills/<pkg>/SKILL.md:
+  1. Parse YAML frontmatter.
+  2. Assert required fields: name, description, license.
+  3. If metadata.mind.* keys are present:
+     - assert mind.id is present
+     - assert mind.distribution is present and in {builtin, marketplace}
+     - reject any unknown mind.* key (only the recognized set is allowed)
+  4. If mind.market-primary and mind.market-categories are present,
+     assert the primary appears in the categories array.
+  5. Reject any executable file under skills/ (Phase A: no executables).
+  6. Compute and print a content digest per package (sorted relative paths +
+     file bytes + length) for reproducibility (informational in Phase A).
+
+Exit non-zero on any violation.
+
+Spec: docs/superpowers/specs/2026-07-14-official-skill-registry-marketplace-design.md §6.7.
+The full §6.7 gate suite (deterministic archive build twice, SBOM, provenance
+attestation, secret scanning, static capability analysis) is deferred to Phase B.
+"""
+import hashlib
+import json
+import os
+import sys
+
+try:
+    import yaml
+except ImportError:
+    print("ERROR: pyyaml is required. Install with: pip install pyyaml", file=sys.stderr)
+    sys.exit(2)
+
+REGISTRY_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SKILLS_DIR = os.path.join(REGISTRY_ROOT, "skills")
+
+RECOGNIZED_MIND_KEYS = {
+    "mind.id",
+    "mind.distribution",
+    "mind.market-primary",
+    "mind.market-categories",
+    "mind.marketplace-summary",
+    "mind.publisher",
+    "mind.runtime-category",
+    "mind.tags",
+    "mind.min-harness-version",
+    "mind.upstream.repo",
+    "mind.upstream.commit",
+    "mind.upstream.path",
+    "mind.upstream.import-mode",
+    "mind.upstream.license",
+    "mind.upstream.evidence-urls",
+}
+
+# Phase A: no executables anywhere under skills/.
+EXECUTABLE_EXTENSIONS = {".sh", ".py", ".bat", ".ps1", ".exe", ".cmd"}
+
+
+def parse_frontmatter(path):
+    """Parse the YAML frontmatter block from a SKILL.md file."""
+    with open(path, "r", encoding="utf-8") as f:
+        text = f.read()
+    if not text.startswith("---"):
+        return None, "file does not start with YAML frontmatter (---)"
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return None, "malformed frontmatter block"
+    try:
+        data = yaml.safe_load(parts[1])
+    except yaml.YAMLError as e:
+        return None, f"YAML parse error: {e}"
+    if data is None:
+        return None, "empty frontmatter"
+    if not isinstance(data, dict):
+        return None, "frontmatter is not a mapping"
+    return data, None
+
+
+def validate_frontmatter(data, skill_path):
+    """Validate frontmatter fields per spec §6.3/§6.7. Returns list of errors."""
+    errors = []
+    # Required top-level fields
+    for field in ("name", "description", "license"):
+        val = data.get(field)
+        if val is None or (isinstance(val, str) and not val.strip()):
+            errors.append(f"missing or empty required field: {field}")
+    # metadata.mind.* validation
+    metadata = data.get("metadata")
+    if metadata is not None:
+        if not isinstance(metadata, dict):
+            errors.append("metadata must be a mapping (string-to-string)")
+            return errors
+        mind_keys = [k for k in metadata.keys() if k.startswith("mind.")]
+        if mind_keys:
+            if not metadata.get("mind.id"):
+                errors.append("mind.id is required when any mind.* key is present")
+            dist = metadata.get("mind.distribution")
+            if dist is not None and dist not in ("builtin", "marketplace"):
+                errors.append(
+                    f"mind.distribution must be 'builtin' or 'marketplace', got: {dist!r}"
+                )
+            # Reject unknown mind.* keys
+            for key in mind_keys:
+                if key not in RECOGNIZED_MIND_KEYS:
+                    errors.append(f"unknown mind.* key (rejected): {key}")
+            # market-primary must be in market-categories if both present
+            primary = metadata.get("mind.market-primary")
+            cats_raw = metadata.get("mind.market-categories")
+            if primary and cats_raw:
+                try:
+                    cats = json.loads(cats_raw) if isinstance(cats_raw, str) else cats_raw
+                    if isinstance(cats, list) and primary not in cats:
+                        errors.append(
+                            f"mind.market-primary '{primary}' not in mind.market-categories {cats}"
+                        )
+                except (json.JSONDecodeError, TypeError) as e:
+                    errors.append(f"mind.market-categories is not valid JSON: {e}")
+    return errors
+
+
+def find_skill_packages():
+    """Walk skills/ and find directories containing SKILL.md (stop-on-first rule).
+    Returns list of (package_dir, skill_md_path)."""
+    packages = []
+    if not os.path.isdir(SKILLS_DIR):
+        return packages
+    for root, dirs, files in os.walk(SKILLS_DIR):
+        if "SKILL.md" in files:
+            packages.append((root, os.path.join(root, "SKILL.md")))
+            # stop-on-first: don't descend further into this package
+            dirs.clear()
+    return packages
+
+
+def check_no_executables():
+    """Reject any executable file under skills/ (Phase A)."""
+    violations = []
+    if not os.path.isdir(SKILLS_DIR):
+        return violations
+    for root, dirs, files in os.walk(SKILLS_DIR):
+        for fname in files:
+            ext = os.path.splitext(fname)[1].lower()
+            if ext in EXECUTABLE_EXTENSIONS:
+                rel = os.path.relpath(os.path.join(root, fname), REGISTRY_ROOT)
+                violations.append(rel)
+    return violations
+
+
+def compute_digest(package_dir):
+    """Deterministic content digest: sorted POSIX relative paths + file bytes + length."""
+    files = []
+    for root, dirs, fs in os.walk(package_dir):
+        for fname in fs:
+            full = os.path.join(root, fname)
+            rel = os.path.relpath(full, package_dir).replace(os.sep, "/")
+            files.append(rel)
+    files.sort()
+    h = hashlib.sha256()
+    for rel in files:
+        full = os.path.join(package_dir, rel)
+        with open(full, "rb") as f:
+            content = f.read()
+        h.update(rel.encode("utf-8"))
+        h.update(str(len(content)).encode("ascii"))
+        h.update(content)
+    return h.hexdigest()
+
+
+def main():
+    all_errors = []
+
+    # 1. No executables under skills/
+    exec_violations = check_no_executables()
+    for v in exec_violations:
+        all_errors.append(f"executable file rejected (Phase A no-executables): {v}")
+
+    # 2. Validate each package's SKILL.md frontmatter
+    packages = find_skill_packages()
+    if not packages:
+        print("INFO: no skill packages found under skills/ (nothing to validate)")
+    for pkg_dir, skill_path in packages:
+        rel_pkg = os.path.relpath(pkg_dir, REGISTRY_ROOT)
+        data, err = parse_frontmatter(skill_path)
+        if err:
+            all_errors.append(f"{rel_pkg}/SKILL.md: {err}")
+            continue
+        errs = validate_frontmatter(data, skill_path)
+        for e in errs:
+            all_errors.append(f"{rel_pkg}/SKILL.md: {e}")
+        # Print content digest (informational in Phase A)
+        digest = compute_digest(pkg_dir)
+        mind_id = data.get("metadata", {}).get("mind.id", "<no-mind-id>") if isinstance(data.get("metadata"), dict) else "<no-mind-id>"
+        print(f"OK  {rel_pkg}  mind.id={mind_id}  digest=sha256:{digest}")
+
+    if all_errors:
+        print("\nFAIL — validation errors:")
+        for e in all_errors:
+            print(f"  - {e}")
+        sys.exit(1)
+    print("\nPASS — all skills valid (Phase A gates).")
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

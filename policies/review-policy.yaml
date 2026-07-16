@@ -1,0 +1,58 @@
+# Review Policy — change-class to required-review mapping.
+# Spec §6.7. This policy is versioned; a change to this file requires Platform
+# CODEOWNER approval and cannot weaken the policy that governs itself.
+# A policy change is itself a "schema/release-workflow" change-class entry.
+
+version: "1"
+
+# Each change-class lists the code-owner team(s) whose approval is required
+# before a PR carrying that class of change may merge.
+# Teams (spec §6.1): skill-platform-maintainers, skill-curation, product-security.
+# Legal approval is recorded through a required review/ticket for third-party
+# packages and license changes (not a GitHub team in Phase A).
+
+change_classes:
+  - id: third-party-addition
+    description: >-
+      Adding a new vendored/curated third-party skill, or re-vendoring an
+      upstream commit.
+    required_reviews:
+      - team: skill-curation
+      - approval: legal
+        evidence: ticket_or_pr_comment
+    cannot_self_weaken: true
+
+  - id: license-change
+    description: >-
+      Any change to a package LICENSE.txt, NOTICE.txt, MODIFICATIONS.md, or the
+      frontmatter `license` field.
+    required_reviews:
+      - team: skill-platform-maintainers
+      - approval: legal
+        evidence: ticket_or_pr_comment
+    cannot_self_weaken: true
+
+  - id: script-network-capability
+    description: >-
+      Any change that introduces or alters scripts, network access, or
+      capability declarations (allowed-tools, compatibility runtime constraints).
+    required_reviews:
+      - team: product-security
+    cannot_self_weaken: true
+
+  - id: schema-release-workflow
+    description: >-
+      Changes to schemas/, policies/, CI workflows, release automation, or this
+      review-policy file itself.
+    required_reviews:
+      - team: skill-platform-maintainers
+    cannot_self_weaken: true
+
+  - id: first-party-content
+    description: >-
+      Edits to first-party MedrixAI-original skill content (instructions,
+      resources, frontmatter mind.* defaults) that do not trigger a higher
+      change-class.
+    required_reviews:
+      - team: skill-curation
+    cannot_self_weaken: true

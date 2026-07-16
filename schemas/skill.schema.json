@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MedrixAI/mind-skill-registry/schemas/skill.schema.json",
+  "title": "Registry Skill frontmatter",
+  "description": "Validates the YAML frontmatter of a Registry SKILL.md. Top-level additionalProperties is true so vendored upstream fields are preserved verbatim (spec §6.3). The metadata.mind.* subschema rejects unknown keys.",
+  "type": "object",
+  "required": ["name", "description", "license"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Agent Skills spec name."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Agent Skills spec description."
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SPDX identifier or plain license name; must agree with the package LICENSE.txt."
+    },
+    "compatibility": {
+      "type": "string",
+      "description": "Descriptive harness/network/dependency constraints. Not an authorization grant."
+    },
+    "allowed-tools": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Capability request, never an authorization grant."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "String-to-string map. Mind extensions live under mind.* keys. All values are strings (JSON arrays encoded as strings).",
+      "additionalProperties": { "type": "string" },
+      "properties": {
+        "mind.id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]*$",
+          "description": "Stable reverse-domain reconciliation key (e.g. ai.medrix.skill.sop-builder). Never changes, never reused."
+        },
+        "mind.distribution": {
+          "type": "string",
+          "enum": ["builtin", "marketplace"],
+          "description": "builtin maps to platform_builtin; marketplace maps directly; unknown rejected."
+        },
+        "mind.market-primary": {
+          "type": "string",
+          "description": "Primary Marketplace category slug; must appear in mind.market-categories if present."
+        },
+        "mind.market-categories": {
+          "type": "string",
+          "description": "JSON array of category slugs encoded as a string."
+        },
+        "mind.marketplace-summary": {
+          "type": "string",
+          "description": "Optional display summary overridable by Webadmin."
+        },
+        "mind.publisher": {
+          "type": "string",
+          "description": "Optional display publisher overridable by Webadmin."
+        },
+        "mind.runtime-category": {
+          "type": "string",
+          "description": "Optional artifact/runtime enum (report, ppt, html, flashcard, slides, markdown, video). Not a Marketplace category."
+        },
+        "mind.tags": {
+          "type": "string",
+          "description": "JSON array of tags encoded as a string."
+        },
+        "mind.min-harness-version": {
+          "type": "string",
+          "description": "Optional minimum harness version constraint."
+        },
+        "mind.upstream.repo": {
+          "type": "string",
+          "description": "Canonical upstream repo URL (vendored/curated only)."
+        },
+        "mind.upstream.commit": {
+          "type": "string",
+          "description": "40-char upstream commit SHA vendored from."
+        },
+        "mind.upstream.path": {
+          "type": "string",
+          "description": "Upstream subpath vendored from."
+        },
+        "mind.upstream.import-mode": {
+          "type": "string",
+          "enum": ["exact-snapshot", "curated-fork"],
+          "description": "How the upstream content was imported."
+        },
+        "mind.upstream.license": {
+          "type": "string",
+          "description": "Upstream license identifier."
+        },
+        "mind.upstream.evidence-urls": {
+          "type": "string",
+          "description": "JSON array of immutable evidence URLs encoded as a string."
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

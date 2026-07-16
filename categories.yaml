@@ -1,0 +1,64 @@
+# Official Skill Registry — v1 taxonomy
+# Canonical category definitions. Slugs are permanent: a rename changes the
+# label, a structural replacement deprecates the old slug and provides aliases.
+# Mind DB is the runtime projection of this file, not an independent author.
+#
+# Spec: docs/superpowers/specs/2026-07-14-official-skill-registry-marketplace-design.md §6.5
+
+version: "1"
+
+# Five legacy single-value categories (writing, image, slides, video, web) fold
+# into content-creation by deliberate consolidation. The 8 legacy values map with
+# no orphan: learning→knowledge-learning; writing/image/slides/video/web→content-creation;
+# data→data-analysis; code→development-tools. If finer granularity is later needed it
+# lands as an additive sub-facet, never by re-expanding these seven stable slugs.
+categories:
+  - slug: general
+    label:
+      zh-CN: 通用
+    aliases: []
+    status: active
+
+  - slug: development-tools
+    label:
+      zh-CN: 开发工具
+    aliases:
+      - code
+    status: active
+
+  - slug: content-creation
+    label:
+      zh-CN: 内容创作
+    aliases:
+      - writing
+      - image
+      - slides
+      - video
+      - web
+    status: active
+
+  - slug: data-analysis
+    label:
+      zh-CN: 数据分析
+    aliases:
+      - data
+    status: active
+
+  - slug: productivity-tools
+    label:
+      zh-CN: 效率工具
+    aliases: []
+    status: active
+
+  - slug: business-operations
+    label:
+      zh-CN: 商业运营
+    aliases: []
+    status: active
+
+  - slug: knowledge-learning
+    label:
+      zh-CN: 知识与学习
+    aliases:
+      - learning
+    status: active
