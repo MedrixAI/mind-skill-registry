@@ -1,6 +1,6 @@
 ---
 name: sop-builder
-description: Build clear, executable standard operating procedures from goals, roles, inputs, controls, and escalation rules. Use when a user needs to create or improve an SOP, runbook, or repeatable process.
+description: Build clear, executable standard operating procedures from goals, roles, inputs, controls, and escalation rules. Use when a user needs to create or improve an SOP, runbook, or repeatable process. [E2E update-propagation test marker v2]
 license: Apache-2.0
 compatibility: Requires Mind Agent Harness 1.0 or later. No network access or external packages required.
 metadata:
