@@ -33,7 +33,11 @@
     "metadata": {
       "type": "object",
       "description": "String-to-string map. Mind extensions live under mind.* keys. All values are strings (JSON arrays encoded as strings).",
+      "$comment": "Unknown `mind.*` keys are rejected by scripts/validate_skills.py (the authoritative gate); this schema validates structure + the recognized `mind.*` keys listed below but CANNOT reject arbitrary `mind.`-prefixed keys because metadata is a flat string-to-string map and JSON Schema `additionalProperties` cannot isolate a key-prefix namespace. Use the Python validator as the closed-set mind.* gate. `patternProperties` formalizes that any `mind.`-prefixed value, when present, must be a string.",
       "additionalProperties": { "type": "string" },
+      "patternProperties": {
+        "^mind\\..*": { "type": "string" }
+      },
       "properties": {
         "mind.id": {
           "type": "string",

@@ -8,6 +8,9 @@ For each skills/<pkg>/SKILL.md:
      - assert mind.id is present
      - assert mind.distribution is present and in {builtin, marketplace}
      - reject any unknown mind.* key (only the recognized set is allowed)
+
+  Spec §6.3: when any mind.* key is present, BOTH mind.id AND mind.distribution
+  are required; missing either is an error.
   4. If mind.market-primary and mind.market-categories are present,
      assert the primary appears in the categories array.
   5. Reject any executable file under skills/ (Phase A: no executables).
@@ -23,6 +26,7 @@ attestation, secret scanning, static capability analysis) is deferred to Phase B
 import hashlib
 import json
 import os
+import re
 import sys
 
 try:
@@ -30,6 +34,12 @@ try:
 except ImportError:
     print("ERROR: pyyaml is required. Install with: pip install pyyaml", file=sys.stderr)
     sys.exit(2)
+
+# Frontmatter delimiter: a line that is exactly --- (with optional trailing
+# whitespace). Matching the delimiter LINE (not the bare substring) avoids
+# mis-splitting on values that happen to contain "---" (e.g. a description
+# like "a---b"). See spec §6.3 frontmatter framing.
+FRONTMATTER_DELIMITER_RE = re.compile(r"^---\s*$", re.MULTILINE)
 
 REGISTRY_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILLS_DIR = os.path.join(REGISTRY_ROOT, "skills")
@@ -57,12 +67,17 @@ EXECUTABLE_EXTENSIONS = {".sh", ".py", ".bat", ".ps1", ".exe", ".cmd"}
 
 
 def parse_frontmatter(path):
-    """Parse the YAML frontmatter block from a SKILL.md file."""
+    """Parse the YAML frontmatter block from a SKILL.md file.
+
+    Splits on the ``---`` DELIMITER LINE only (``^---\\s*$``), never on the
+    bare substring, so values containing ``---`` (e.g. ``description: "a---b"``)
+    do not truncate the frontmatter block.
+    """
     with open(path, "r", encoding="utf-8") as f:
         text = f.read()
     if not text.startswith("---"):
         return None, "file does not start with YAML frontmatter (---)"
-    parts = text.split("---", 2)
+    parts = FRONTMATTER_DELIMITER_RE.split(text, maxsplit=2)
     if len(parts) < 3:
         return None, "malformed frontmatter block"
     try:
@@ -92,10 +107,16 @@ def validate_frontmatter(data, skill_path):
             return errors
         mind_keys = [k for k in metadata.keys() if k.startswith("mind.")]
         if mind_keys:
+            # Spec §6.3: when any mind.* key is present, BOTH mind.id AND
+            # mind.distribution are required. Missing either is an error.
             if not metadata.get("mind.id"):
                 errors.append("mind.id is required when any mind.* key is present")
             dist = metadata.get("mind.distribution")
-            if dist is not None and dist not in ("builtin", "marketplace"):
+            if not dist:
+                errors.append(
+                    "mind.distribution is required when any mind.* key is present"
+                )
+            elif dist not in ("builtin", "marketplace"):
                 errors.append(
                     f"mind.distribution must be 'builtin' or 'marketplace', got: {dist!r}"
                 )
@@ -147,7 +168,14 @@ def check_no_executables():
 
 
 def compute_digest(package_dir):
-    """Deterministic content digest: sorted POSIX relative paths + file bytes + length."""
+    """Deterministic content digest per spec §6.6.
+
+    For each file (sorted POSIX relative paths): fold the path, the byte
+    length, the file bytes, and the executable bit (``os.stat(st_mode) &
+    0o111`` → ``1`` or ``0``) into the per-file digest stream. Phase A has
+    no executables so the bit is always 0, but the implementation honors
+    the spec for forward compatibility.
+    """
     files = []
     for root, dirs, fs in os.walk(package_dir):
         for fname in fs:
@@ -160,8 +188,10 @@ def compute_digest(package_dir):
         full = os.path.join(package_dir, rel)
         with open(full, "rb") as f:
             content = f.read()
+        exec_bit = "1" if (os.stat(full).st_mode & 0o111) else "0"
         h.update(rel.encode("utf-8"))
         h.update(str(len(content)).encode("ascii"))
+        h.update(exec_bit.encode("ascii"))
         h.update(content)
     return h.hexdigest()
 
