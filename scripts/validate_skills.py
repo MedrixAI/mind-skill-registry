@@ -13,7 +13,9 @@ For each skills/<pkg>/SKILL.md:
   are required; missing either is an error.
   4. If mind.market-primary and mind.market-categories are present,
      assert the primary appears in the categories array.
-  5. Reject any executable file under skills/ (Phase A: no executables).
+  5. Allow executable/script files under skills/ (script-capable skills run in the
+     claw sandbox via the shell tool; human-reviewed at webadmin-approve before
+     listing). Script files are reported as INFO, not rejected.
   6. Compute and print a content digest per package (sorted relative paths +
      file bytes + length) for reproducibility (informational in Phase A).
 
@@ -62,7 +64,7 @@ RECOGNIZED_MIND_KEYS = {
     "mind.upstream.evidence-urls",
 }
 
-# Phase A: no executables anywhere under skills/.
+# Script files are allowed (reviewed at approve); collected to report as INFO.
 EXECUTABLE_EXTENSIONS = {".sh", ".py", ".bat", ".ps1", ".exe", ".cmd"}
 
 
@@ -154,7 +156,7 @@ def find_skill_packages():
 
 
 def check_no_executables():
-    """Reject any executable file under skills/ (Phase A)."""
+    """Collect executable/script files under skills/ (reported as INFO; allowed, reviewed at approve)."""
     violations = []
     if not os.path.isdir(SKILLS_DIR):
         return violations
@@ -199,10 +201,11 @@ def compute_digest(package_dir):
 def main():
     all_errors = []
 
-    # 1. No executables under skills/
-    exec_violations = check_no_executables()
-    for v in exec_violations:
-        all_errors.append(f"executable file rejected (Phase A no-executables): {v}")
+    # 1. Script-capable skills are ALLOWED (run in the claw sandbox via the shell
+    #    tool; human-reviewed at webadmin-approve before listing). Report as INFO.
+    script_files = check_no_executables()
+    for v in script_files:
+        print(f"INFO: script-capable (reviewed at approve): {v}")
 
     # 2. Validate each package's SKILL.md frontmatter
     packages = find_skill_packages()
