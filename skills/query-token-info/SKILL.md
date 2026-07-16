@@ -15,7 +15,7 @@ description: 'Per-token details for a specific token identified by keyword, symb
   $W",
 
   "social links for $V", "holder count of $U", "candlestick data", "find the contract
-  address of <token>".
+  address of a token".
 
   '
 metadata:
