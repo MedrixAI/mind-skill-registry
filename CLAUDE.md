@@ -400,6 +400,19 @@ authoritative: a missing or empty list does not continue fallback. This
 presentation metadata does not replace the top-level description used for Agent
 discovery.
 
+Current full-Registry baseline as of 2026-07-21:
+
+- all 93 Marketplace packages carry `mind.presentation`;
+- every package carries both `en-US` and `zh-CN`;
+- every locale currently carries three ordered prompts, for 558 prompts total;
+- 92 packages default to `en-US`; the Chinese-native dispatcher defaults to
+  `zh-CN`.
+
+This baseline is release evidence, not a schema constant. Package additions or
+removals must update the counts in `README.md`, regenerate the interactive
+catalog, and report the new coverage. Content updates must not silently drop a
+locale or starter prompt unless that behavior change is explicitly requested.
+
 ### 8.6 Third-party template
 
 ```yaml
@@ -1148,6 +1161,17 @@ It embeds both release lanes so it works when opened directly without a server:
 - source links point to the corresponding Registry, `mind-api`, or pinned
   third-party GitHub file.
 
+The catalog UI must expose presentation data rather than merely embed it:
+
+- the display-language control resolves Marketplace presentation by exact
+  locale, language fallback, then package `default_locale`;
+- the resolved description is rendered on the card;
+- the selected locale and ordered starter prompts are inspectable, with the
+  first prompt marked as the chat activation default;
+- search covers canonical metadata plus every localized description and prompt;
+- Builtin cards continue to show their canonical description because they use
+  the separate platform-builtin release lane.
+
 Every package add, update, re-vendor, move, rename, reclassification, removal,
 or batch operation must update `skill-catalog.html` in the same change. This
 includes description, presentation, summary, category, publisher, tag,
@@ -1177,6 +1201,11 @@ After generation, verify the displayed totals, type tabs, categories, search,
 source filters, source links, empty state, and mobile layout. A stale or missing
 catalog is a blocking validation failure, not an optional documentation
 follow-up.
+
+A documentation- or catalog-shell-only Registry commit changes no package
+digest. WebAdmin source sync should therefore advance the source commit with an
+`ok` status while producing zero candidates. Do not introduce a no-op package
+edit merely to stamp the documentation commit onto live Skill releases.
 
 The audit-oriented Markdown inventory remains in the `mind-api` repository at:
 

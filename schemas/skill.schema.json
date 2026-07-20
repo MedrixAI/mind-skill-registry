@@ -63,7 +63,7 @@
         },
         "mind.presentation": {
           "type": "string",
-          "description": "JSON object encoded as a string with default_locale and up to 10 localized description/starter_prompts entries. Descriptions are limited to 1024 Unicode code points and prompts to 4096. The default locale description must equal the canonical top-level description."
+          "description": "JSON object encoded as a string with default_locale and up to 10 localized description/starter_prompts entries. Descriptions are limited to 1024 Unicode code points. Each locale may contain at most 8 prompts of at most 4096 Unicode code points; the default locale requires 1-8 prompts. The default locale description must equal the canonical top-level description. A selected non-default locale with no prompts does not inherit prompts from another locale."
         },
         "mind.publisher": {
           "type": "string",

@@ -720,7 +720,7 @@
 
     .filter-secondary {
       display: grid;
-      grid-template-columns: minmax(190px, 1fr) minmax(170px, 0.72fr) minmax(170px, 0.72fr) auto;
+      grid-template-columns: minmax(190px, 1fr) repeat(3, minmax(145px, 0.72fr)) auto;
       gap: 12px;
       align-items: end;
       margin-top: 15px;
@@ -875,6 +875,26 @@
       font-weight: 650;
     }
 
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .locale-chip {
+      flex: none;
+      padding: 3px 7px;
+      border: 1px solid #d9e5df;
+      border-radius: 999px;
+      background: #f1f8f4;
+      color: #37755b;
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
     .skill-title {
       margin: 0;
       overflow-wrap: anywhere;
@@ -944,6 +964,70 @@
 
     .description-toggle.expanded svg {
       transform: rotate(180deg);
+    }
+
+    .starter-prompts {
+      margin: -3px 0 18px;
+      border: 1px solid #e5e9ef;
+      border-radius: 10px;
+      background: #fafbfc;
+    }
+
+    .starter-prompts summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      color: #566278;
+      font-size: 11px;
+      font-weight: 760;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .starter-prompts summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .starter-prompts summary::after {
+      color: var(--subtle);
+      content: "+";
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .starter-prompts[open] summary::after {
+      content: "−";
+    }
+
+    .starter-prompt-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0 12px 12px 30px;
+      color: #687388;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .starter-prompt-list li {
+      padding-left: 2px;
+      overflow-wrap: anywhere;
+    }
+
+    .prompt-default {
+      display: inline-block;
+      margin-right: 5px;
+      color: #37755b;
+      font-size: 10px;
+      font-weight: 780;
+    }
+
+    .starter-prompt-empty {
+      padding: 0 12px 12px;
+      color: var(--subtle);
+      font-size: 11px;
     }
 
     .categories {
@@ -1046,7 +1130,7 @@
 
     .catalog-notes {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
       margin-top: 24px;
     }
@@ -1117,7 +1201,7 @@
       }
 
       .filter-secondary {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .reset-button {
@@ -1375,6 +1459,14 @@
               </select>
             </div>
             <div class="field">
+              <label for="locale-select">展示语言</label>
+              <select class="select" id="locale-select">
+                <option value="zh-CN">中文（zh-CN）</option>
+                <option value="en-US">English（en-US）</option>
+                <option value="default">Skill 默认语言</option>
+              </select>
+            </div>
+            <div class="field">
               <label for="sort-select">排序</label>
               <select class="select" id="sort-select">
                 <option value="name">按名称</option>
@@ -1407,6 +1499,10 @@
         <div class="note">
           <strong>Registry 合并不等于 Marketplace 发布</strong>
           Registry 合并后，WebAdmin 同步只生成待审候选；完成候选批准后才进入 Marketplace。
+        </div>
+        <div class="note">
+          <strong>Marketplace presentation 已全量覆盖</strong>
+          当前 93/93 个 Marketplace Skill 均包含 en-US、zh-CN 和有序 starter prompts；第一条是聊天激活后的默认指令。
         </div>
       </section>
     </div>
@@ -6847,6 +6943,7 @@
         searchClear: document.getElementById("search-clear"),
         category: document.getElementById("category-select"),
         source: document.getElementById("source-select"),
+        locale: document.getElementById("locale-select"),
         sort: document.getElementById("sort-select"),
         reset: document.getElementById("reset-button"),
         emptyReset: document.getElementById("empty-reset"),
@@ -6879,6 +6976,7 @@
         type: ["all", "builtin", "marketplace"].includes(params.get("type")) ? params.get("type") : "all",
         category: params.get("category") || "all",
         source: ["all", "first-party", "third-party"].includes(params.get("source")) ? params.get("source") : "all",
+        locale: ["zh-CN", "en-US", "default"].includes(params.get("locale")) ? params.get("locale") : "zh-CN",
         sort: ["name", "category", "source"].includes(params.get("sort")) ? params.get("sort") : "name",
         insight: ["category", "source"].includes(params.get("view")) ? params.get("view") : "category"
       };
@@ -6926,7 +7024,33 @@
         return String(value || "").normalize("NFKC").toLocaleLowerCase("zh-CN");
       }
 
+      function resolvePresentation(skill) {
+        const presentation = skill && skill.presentation;
+        const locales = presentation && presentation.locales;
+        if (skill.type !== "marketplace" || !locales || typeof locales !== "object") {
+          return { locale: "", description: skill.description || skill.summary || "", prompts: [] };
+        }
+
+        const requested = state.locale === "default" ? presentation.default_locale : state.locale;
+        const language = String(requested || "").split("-")[0].toLocaleLowerCase("en-US");
+        const languageFallback = Object.keys(locales).find(
+          (locale) => locale.split("-")[0].toLocaleLowerCase("en-US") === language
+        );
+        const locale = locales[requested]
+          ? requested
+          : languageFallback || presentation.default_locale;
+        const content = locales[locale] || {};
+        return {
+          locale,
+          description: content.description || skill.description || skill.summary || "",
+          prompts: Array.isArray(content.starter_prompts) ? content.starter_prompts : []
+        };
+      }
+
       function searchableText(skill) {
+        const localized = Object.values((skill.presentation && skill.presentation.locales) || {}).flatMap(
+          (content) => [content.description, ...(Array.isArray(content.starter_prompts) ? content.starter_prompts : [])]
+        );
         return normalize([
           skill.name,
           skill.slug,
@@ -6936,7 +7060,8 @@
           skill.sourceLabel,
           skill.mindId,
           ...(skill.categories || []),
-          ...(skill.tags || [])
+          ...(skill.tags || []),
+          ...localized
         ].join(" "));
       }
 
@@ -7254,16 +7379,22 @@
 
       function renderCard(skill) {
         const card = createElement("article", `skill-card ${skill.type}`);
+        const presentation = resolvePresentation(skill);
 
         const kicker = createElement("div", "card-kicker");
+        const cardMeta = createElement("span", "card-meta");
+        cardMeta.append(
+          createElement("span", "source-kind", skill.sourceKind === "third-party" ? "第三方来源" : "第一方来源")
+        );
+        if (presentation.locale) cardMeta.append(createElement("span", "locale-chip", presentation.locale));
         kicker.append(
           createElement("span", "skill-type", skill.type === "builtin" ? "Builtin" : "Marketplace"),
-          createElement("span", "source-kind", skill.sourceKind === "third-party" ? "第三方来源" : "第一方来源")
+          cardMeta
         );
 
         const title = createElement("h3", "skill-title", skill.name);
         const slug = createElement("code", "skill-slug", skill.slug);
-        const descriptionText = skill.description || skill.summary || "暂无说明";
+        const descriptionText = presentation.description || "暂无说明";
         const descriptionBlock = createElement("div", "description-block");
         const description = createElement("p", "skill-description", descriptionText);
         descriptionBlock.append(description);
@@ -7287,6 +7418,29 @@
           descriptionBlock.append(toggle);
         }
 
+        let starterPrompts;
+        if (skill.type === "marketplace") {
+          starterPrompts = createElement("details", "starter-prompts");
+          const promptSummary = createElement(
+            "summary",
+            "",
+            `开场指令 · ${presentation.prompts.length}`
+          );
+          starterPrompts.append(promptSummary);
+          if (presentation.prompts.length > 0) {
+            const promptList = createElement("ol", "starter-prompt-list");
+            presentation.prompts.forEach((prompt, index) => {
+              const item = document.createElement("li");
+              if (index === 0) item.append(createElement("span", "prompt-default", "默认"));
+              item.append(document.createTextNode(prompt));
+              promptList.append(item);
+            });
+            starterPrompts.append(promptList);
+          } else {
+            starterPrompts.append(createElement("div", "starter-prompt-empty", "当前语言未配置开场指令"));
+          }
+        }
+
         const categories = createElement("div", "categories");
         (skill.categories || []).forEach((category) => {
           const button = createElement("button", "category-button", categoryLabel(category));
@@ -7308,7 +7462,9 @@
         link.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg>');
 
         footer.append(publisher, link);
-        card.append(kicker, title, slug, descriptionBlock, categories, footer);
+        card.append(kicker, title, slug, descriptionBlock);
+        if (starterPrompts) card.append(starterPrompts);
+        card.append(categories, footer);
         return card;
       }
 
@@ -7329,6 +7485,7 @@
         if (state.type !== "all") next.set("type", state.type);
         if (state.category !== "all") next.set("category", state.category);
         if (state.source !== "all") next.set("source", state.source);
+        if (state.locale !== "zh-CN") next.set("locale", state.locale);
         if (state.sort !== "name") next.set("sort", state.sort);
         if (state.insight !== "category") next.set("view", state.insight);
         const query = next.toString();
@@ -7379,6 +7536,7 @@
 
       elements.search.value = state.query;
       elements.source.value = state.source;
+      elements.locale.value = state.locale;
       elements.sort.value = state.sort;
       populateCategories();
 
@@ -7411,6 +7569,10 @@
       });
       elements.source.addEventListener("change", (event) => {
         state.source = event.target.value;
+        render();
+      });
+      elements.locale.addEventListener("change", (event) => {
+        state.locale = event.target.value;
         render();
       });
       elements.sort.addEventListener("change", (event) => {

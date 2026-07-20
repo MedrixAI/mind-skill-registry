@@ -24,7 +24,7 @@ cd mind-skill-registry
 
 ## Skill 全景目录
 
-[`skill-catalog.html`](skill-catalog.html) 是 Builtin 与 Marketplace Skill 的可交互清单。下载或克隆仓库后可直接打开，支持发布类型、分类、来源筛选和关键词搜索，并提供对应 GitHub 来源链接。
+[`skill-catalog.html`](skill-catalog.html) 是 Builtin 与 Marketplace Skill 的可交互清单。下载或克隆仓库后可直接打开，支持发布类型、分类、来源筛选、关键词搜索、Marketplace 展示语言切换和 starter prompts 预览，并提供对应 GitHub 来源链接。
 
 任何 Marketplace Skill 增删改都必须在同一变更中刷新该 HTML。具体命令和 Builtin 快照更新方式见 [`CLAUDE.md`](CLAUDE.md#26-interactive-and-cross-repository-catalog-maintenance)。
 
@@ -89,6 +89,21 @@ Marketplace 描述和多条可直接发送的 starter prompts。`default_locale`
 与顶层 canonical `description` 一致；加号激活 Skill 时默认使用当前语言的第一条
 prompt。locale entry 一旦选中，其 prompts 独立生效；缺省或空数组表示该语言没有
 prompts，不会继承默认语言。完整 shape、限制和示例见 [`CLAUDE.md`](CLAUDE.md#85-marketplace-presentation)。
+
+当前发布基线（2026-07-21）：
+
+| 项目 | 覆盖 |
+|---|---:|
+| Marketplace Skill | 93 |
+| 含 `mind.presentation` | 93 / 93 |
+| 含 `en-US` | 93 / 93 |
+| 含 `zh-CN` | 93 / 93 |
+| starter prompts | 558（每个 Skill 两种语言各 3 条） |
+| 默认语言 | 92 个 `en-US`，1 个 `zh-CN` |
+
+维护任一 Skill 时必须继续满足 presentation 合同，并重新生成
+`skill-catalog.html`。Catalog 的语言选择只影响离线目录展示；线上 Marketplace
+仍根据用户 UI locale 解析 description 与 starter prompts。
 
 ## 本地校验
 
