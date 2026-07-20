@@ -229,6 +229,358 @@
       font-variant-numeric: tabular-nums;
     }
 
+    .insights-panel {
+      margin-bottom: 22px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .insights-header {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .insights-heading {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .insights-icon {
+      width: 38px;
+      height: 38px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #edf2ff;
+      color: var(--accent);
+    }
+
+    .insights-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .insights-heading h2 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+
+    .insights-heading p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .insight-tabs {
+      display: inline-grid;
+      grid-template-columns: repeat(2, auto);
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--surface-soft);
+    }
+
+    .insight-tab {
+      min-height: 36px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 720;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .insight-tab:hover {
+      color: var(--ink);
+    }
+
+    .insight-tab.active {
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 2px 8px rgba(31, 43, 68, 0.09);
+    }
+
+    .insights-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
+    }
+
+    .insight-chart {
+      min-width: 0;
+      padding: 24px;
+    }
+
+    .insight-table-wrap {
+      min-width: 0;
+      overflow-x: auto;
+      border-left: 1px solid var(--border);
+    }
+
+    .distribution-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .distribution-group + .distribution-group {
+      margin-top: 24px;
+    }
+
+    .distribution-columns .distribution-group + .distribution-group {
+      margin-top: 0;
+    }
+
+    .distribution-group-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .distribution-group-header strong {
+      font-size: 13px;
+    }
+
+    .distribution-group-header span {
+      color: var(--subtle);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .distribution-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .distribution-row {
+      width: 100%;
+      min-height: 32px;
+      display: grid;
+      grid-template-columns: minmax(86px, 0.62fr) minmax(90px, 1fr) 34px;
+      gap: 10px;
+      align-items: center;
+      padding: 4px 5px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .distribution-row:hover {
+      background: var(--surface-soft);
+    }
+
+    .distribution-label {
+      overflow: hidden;
+      font-size: 12px;
+      font-weight: 650;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .distribution-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 5px;
+      background: #e9edf3;
+    }
+
+    .distribution-fill {
+      width: var(--bar-size, 0%);
+      height: 100%;
+      display: block;
+      border-radius: inherit;
+      background: var(--builtin);
+      transition: width 240ms ease;
+    }
+
+    .distribution-fill.marketplace {
+      background: var(--market);
+    }
+
+    .distribution-fill.source {
+      background: var(--accent);
+    }
+
+    .distribution-count {
+      color: #455168;
+      font-size: 12px;
+      font-weight: 760;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .source-overview {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      margin-bottom: 21px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--border);
+    }
+
+    .source-overview-button {
+      min-height: 78px;
+      padding: 14px 16px;
+      border: 0;
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .source-overview-button:hover {
+      background: var(--surface-soft);
+    }
+
+    .source-overview-button span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 680;
+    }
+
+    .source-overview-button strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: -0.035em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .source-stack {
+      height: 10px;
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border-radius: 5px;
+      background: #e9edf3;
+    }
+
+    .source-stack span {
+      min-width: 0;
+      transition: width 240ms ease;
+    }
+
+    .source-stack .first-party {
+      background: var(--builtin);
+    }
+
+    .source-stack .third-party {
+      background: var(--market);
+    }
+
+    .insight-empty {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .insight-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .insight-table th {
+      height: 42px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 720;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .insight-table th.numeric,
+    .insight-table td.numeric {
+      text-align: right;
+    }
+
+    .insight-table td {
+      height: 42px;
+      padding: 7px 14px;
+      border-bottom: 1px solid #edf0f4;
+      color: #536077;
+      vertical-align: middle;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .insight-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .table-action {
+      max-width: 220px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 680;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .table-action:hover {
+      color: var(--accent);
+    }
+
+    .table-action span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .table-action svg {
+      width: 13px;
+      height: 13px;
+      flex: none;
+    }
+
+    .table-type {
+      color: var(--builtin);
+      font-size: 10px;
+      font-weight: 780;
+      letter-spacing: 0.035em;
+      text-transform: uppercase;
+    }
+
+    .table-type.marketplace {
+      color: var(--market);
+    }
+
     .catalog-panel {
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
@@ -454,7 +806,7 @@
     .skill-card {
       position: relative;
       min-width: 0;
-      min-height: 258px;
+      min-height: 300px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -543,16 +895,55 @@
       white-space: nowrap;
     }
 
+    .description-block {
+      min-height: 112px;
+      margin: 15px 0 18px;
+    }
+
     .skill-description {
       display: -webkit-box;
-      min-height: 68px;
-      margin: 15px 0 18px;
+      margin: 0;
       overflow: hidden;
       color: #59657a;
       font-size: 13px;
       line-height: 1.72;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 4;
+    }
+
+    .skill-description.expanded {
+      display: block;
+      overflow: visible;
+      -webkit-line-clamp: unset;
+    }
+
+    .description-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 5px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 720;
+      cursor: pointer;
+    }
+
+    .description-toggle:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .description-toggle svg {
+      width: 13px;
+      height: 13px;
+      transition: transform 160ms ease;
+    }
+
+    .description-toggle.expanded svg {
+      transform: rotate(180deg);
     }
 
     .categories {
@@ -707,6 +1098,19 @@
         grid-template-columns: 1fr;
       }
 
+      .insights-body {
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.86fr);
+      }
+
+      .distribution-columns {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .distribution-columns .distribution-group + .distribution-group {
+        margin-top: 0;
+      }
+
       .type-tabs {
         width: 100%;
         grid-template-columns: repeat(3, 1fr);
@@ -752,6 +1156,51 @@
 
       .stats {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .insights-header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px;
+      }
+
+      .insight-tabs {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .insights-body {
+        grid-template-columns: 1fr;
+      }
+
+      .insight-chart {
+        padding: 20px 18px;
+      }
+
+      .insight-table-wrap {
+        border-top: 1px solid var(--border);
+        border-left: 0;
+      }
+
+      .insight-table th,
+      .insight-table td {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      .insight-table th:nth-child(2),
+      .insight-table td:nth-child(2) {
+        display: none;
+      }
+
+      .table-action {
+        max-width: 150px;
+      }
+
+      .distribution-row {
+        grid-template-columns: minmax(82px, 0.7fr) minmax(72px, 1fr) 30px;
+        gap: 8px;
       }
 
       .stat {
@@ -862,6 +1311,34 @@
         <div class="stat">
           <span class="stat-label"><span class="stat-dot"></span>当前结果</span>
           <strong class="stat-value" id="visible-count">0</strong>
+        </div>
+      </section>
+
+      <section class="insights-panel" aria-labelledby="insights-title">
+        <header class="insights-header">
+          <div class="insights-heading">
+            <span class="insights-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"></path>
+                <path d="M7 16v-3"></path>
+                <path d="M11 16V8"></path>
+                <path d="M15 16v-5"></path>
+                <path d="M19 16V5"></path>
+              </svg>
+            </span>
+            <div>
+              <h2 id="insights-title">Skill 分布</h2>
+              <p id="insights-caption" aria-live="polite">正在计算当前结果…</p>
+            </div>
+          </div>
+          <div class="insight-tabs" role="group" aria-label="分布视图">
+            <button class="insight-tab active" type="button" data-insight="category">分类分布</button>
+            <button class="insight-tab" type="button" data-insight="source">来源分布</button>
+          </div>
+        </header>
+        <div class="insights-body">
+          <div class="insight-chart" id="insight-chart"></div>
+          <div class="insight-table-wrap" id="insight-table-wrap"></div>
         </div>
       </section>
 
@@ -4430,7 +4907,11 @@
         tabAllCount: document.getElementById("tab-all-count"),
         tabBuiltinCount: document.getElementById("tab-builtin-count"),
         tabMarketplaceCount: document.getElementById("tab-marketplace-count"),
-        typeTabs: [...document.querySelectorAll(".type-tab")]
+        typeTabs: [...document.querySelectorAll(".type-tab")],
+        insightChart: document.getElementById("insight-chart"),
+        insightTableWrap: document.getElementById("insight-table-wrap"),
+        insightsCaption: document.getElementById("insights-caption"),
+        insightTabs: [...document.querySelectorAll(".insight-tab")]
       };
 
       const counts = {
@@ -4445,7 +4926,8 @@
         type: ["all", "builtin", "marketplace"].includes(params.get("type")) ? params.get("type") : "all",
         category: params.get("category") || "all",
         source: ["all", "first-party", "third-party"].includes(params.get("source")) ? params.get("source") : "all",
-        sort: ["name", "category", "source"].includes(params.get("sort")) ? params.get("sort") : "name"
+        sort: ["name", "category", "source"].includes(params.get("sort")) ? params.get("sort") : "name",
+        insight: ["category", "source"].includes(params.get("view")) ? params.get("view") : "category"
       };
 
       function createElement(tag, className, text) {
@@ -4530,6 +5012,284 @@
         return result;
       }
 
+      function percent(value, total) {
+        return total > 0 ? Math.round((value / total) * 100) : 0;
+      }
+
+      function typeLabel(type) {
+        return type === "builtin" ? "Builtin" : "Marketplace";
+      }
+
+      function applyCategoryFilter(type, category) {
+        state.type = type;
+        state.category = category;
+        populateCategories();
+        render();
+        document.getElementById("filters").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function applySourceKindFilter(sourceKind) {
+        state.source = sourceKind;
+        elements.source.value = sourceKind;
+        render();
+      }
+
+      function applySourceSearch(sourceLabel) {
+        state.query = sourceLabel;
+        elements.search.value = sourceLabel;
+        render();
+        document.getElementById("filters").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function createActionButton(label, onClick, ariaLabel) {
+        const button = createElement("button", "table-action");
+        button.type = "button";
+        button.setAttribute("aria-label", ariaLabel);
+        button.append(createElement("span", "", label));
+        button.insertAdjacentHTML(
+          "beforeend",
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>'
+        );
+        button.addEventListener("click", onClick);
+        return button;
+      }
+
+      function createDistributionRow({ label, count, max, tone, onClick }) {
+        const row = createElement("button", "distribution-row");
+        row.type = "button";
+        row.title = `筛选 ${label}`;
+        const track = createElement("span", "distribution-track");
+        const fill = createElement("span", `distribution-fill ${tone}`);
+        fill.style.setProperty("--bar-size", `${max > 0 ? Math.max((count / max) * 100, 3) : 0}%`);
+        track.append(fill);
+        row.append(
+          createElement("span", "distribution-label", label),
+          track,
+          createElement("span", "distribution-count", String(count))
+        );
+        row.addEventListener("click", onClick);
+        return row;
+      }
+
+      function createInsightTable(headers) {
+        const table = createElement("table", "insight-table");
+        const thead = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+        headers.forEach(({ label, numeric }) => {
+          const cell = createElement("th", numeric ? "numeric" : "", label);
+          cell.scope = "col";
+          headerRow.append(cell);
+        });
+        thead.append(headerRow);
+        const tbody = document.createElement("tbody");
+        table.append(thead, tbody);
+        return { table, tbody };
+      }
+
+      function renderInsightEmpty() {
+        elements.insightChart.replaceChildren(
+          createElement("div", "insight-empty", "当前筛选条件下没有可统计的 Skill")
+        );
+        elements.insightTableWrap.replaceChildren();
+      }
+
+      function renderCategoryInsights(visible) {
+        if (visible.length === 0) {
+          renderInsightEmpty();
+          return;
+        }
+
+        const chart = createElement("div", "distribution-columns");
+        const tableRows = [];
+        [
+          { type: "builtin", categories: BUILTIN_CATEGORIES, tone: "builtin" },
+          { type: "marketplace", categories: MARKETPLACE_CATEGORIES, tone: "marketplace" }
+        ].forEach((groupConfig) => {
+          const groupSkills = visible.filter((skill) => skill.type === groupConfig.type);
+          if (groupSkills.length === 0) return;
+
+          const rows = groupConfig.categories
+            .map((category) => ({
+              type: groupConfig.type,
+              category,
+              primaryCount: groupSkills.filter((skill) => skill.primaryCategory === category).length,
+              count: groupSkills.filter((skill) => skill.categories.includes(category)).length,
+              tone: groupConfig.tone
+            }))
+            .filter((row) => row.count > 0);
+          const max = Math.max(...rows.map((row) => row.count), 1);
+          const group = createElement("div", "distribution-group");
+          const header = createElement("div", "distribution-group-header");
+          header.append(
+            createElement("strong", "", typeLabel(groupConfig.type)),
+            createElement("span", "", `${groupSkills.length} 个`)
+          );
+          const list = createElement("div", "distribution-list");
+          rows.forEach((row) => {
+            const label = categoryLabel(row.category);
+            list.append(
+              createDistributionRow({
+                label,
+                count: row.count,
+                max,
+                tone: row.tone,
+                onClick: () => applyCategoryFilter(row.type, row.category)
+              })
+            );
+            tableRows.push(row);
+          });
+          group.append(header, list);
+          chart.append(group);
+        });
+        elements.insightChart.replaceChildren(chart);
+
+        const { table, tbody } = createInsightTable([
+          { label: "分类" },
+          { label: "类型" },
+          { label: "主分类", numeric: true },
+          { label: "任一分类", numeric: true },
+          { label: "覆盖率", numeric: true }
+        ]);
+        tableRows.forEach((row) => {
+          const tr = document.createElement("tr");
+          const nameCell = document.createElement("td");
+          nameCell.append(
+            createActionButton(
+              categoryLabel(row.category),
+              () => applyCategoryFilter(row.type, row.category),
+              `筛选 ${typeLabel(row.type)} 的 ${categoryLabel(row.category)}`
+            )
+          );
+          const typeCell = document.createElement("td");
+          typeCell.append(createElement("span", `table-type ${row.type}`, typeLabel(row.type)));
+          tr.append(
+            nameCell,
+            typeCell,
+            createElement("td", "numeric", String(row.primaryCount)),
+            createElement("td", "numeric", String(row.count)),
+            createElement("td", "numeric", `${percent(row.count, visible.length)}%`)
+          );
+          tbody.append(tr);
+        });
+        elements.insightTableWrap.replaceChildren(table);
+      }
+
+      function renderSourceInsights(visible) {
+        if (visible.length === 0) {
+          renderInsightEmpty();
+          return;
+        }
+
+        const firstParty = visible.filter((skill) => skill.sourceKind === "first-party").length;
+        const thirdParty = visible.filter((skill) => skill.sourceKind === "third-party").length;
+        const chart = document.createDocumentFragment();
+        const overview = createElement("div", "source-overview");
+        [
+          { kind: "first-party", label: "第一方", count: firstParty },
+          { kind: "third-party", label: "第三方", count: thirdParty }
+        ].forEach((item) => {
+          const button = createElement("button", "source-overview-button");
+          button.type = "button";
+          button.disabled = item.count === 0;
+          button.append(
+            createElement("span", "", item.label),
+            createElement("strong", "", `${item.count} · ${percent(item.count, visible.length)}%`)
+          );
+          button.addEventListener("click", () => applySourceKindFilter(item.kind));
+          overview.append(button);
+        });
+        const stack = createElement("div", "source-stack");
+        const firstSegment = createElement("span", "first-party");
+        const thirdSegment = createElement("span", "third-party");
+        firstSegment.style.width = `${percent(firstParty, visible.length)}%`;
+        thirdSegment.style.width = `${percent(thirdParty, visible.length)}%`;
+        stack.append(firstSegment, thirdSegment);
+
+        const repositoryMap = new Map();
+        visible.forEach((skill) => {
+          const key = skill.sourceLabel || skill.publisher || "未知来源";
+          const current = repositoryMap.get(key) || {
+            label: key,
+            count: 0,
+            types: new Set(),
+            sourceKind: skill.sourceKind
+          };
+          current.count += 1;
+          current.types.add(skill.type);
+          repositoryMap.set(key, current);
+        });
+        const repositories = [...repositoryMap.values()].sort(
+          (left, right) => right.count - left.count || left.label.localeCompare(right.label, "zh-CN")
+        );
+        const topRepositories = repositories.slice(0, 8);
+        const max = Math.max(...topRepositories.map((item) => item.count), 1);
+        const group = createElement("div", "distribution-group");
+        const header = createElement("div", "distribution-group-header");
+        header.append(
+          createElement("strong", "", "来源仓库 TOP 8"),
+          createElement("span", "", `${repositories.length} 个来源`)
+        );
+        const list = createElement("div", "distribution-list");
+        topRepositories.forEach((item) => {
+          list.append(
+            createDistributionRow({
+              label: item.label,
+              count: item.count,
+              max,
+              tone: "source",
+              onClick: () => applySourceSearch(item.label)
+            })
+          );
+        });
+        group.append(header, list);
+        chart.append(overview, stack, group);
+        elements.insightChart.replaceChildren(chart);
+
+        const { table, tbody } = createInsightTable([
+          { label: "来源仓库" },
+          { label: "类型" },
+          { label: "数量", numeric: true },
+          { label: "占比", numeric: true }
+        ]);
+        repositories.slice(0, 12).forEach((item) => {
+          const tr = document.createElement("tr");
+          const nameCell = document.createElement("td");
+          nameCell.append(
+            createActionButton(
+              item.label,
+              () => applySourceSearch(item.label),
+              `筛选来源 ${item.label}`
+            )
+          );
+          const typeCell = document.createElement("td");
+          const typeText = item.types.size > 1 ? "混合" : typeLabel([...item.types][0]);
+          const typeClass = item.types.size === 1 ? [...item.types][0] : "";
+          typeCell.append(createElement("span", `table-type ${typeClass}`, typeText));
+          tr.append(
+            nameCell,
+            typeCell,
+            createElement("td", "numeric", String(item.count)),
+            createElement("td", "numeric", `${percent(item.count, visible.length)}%`)
+          );
+          tbody.append(tr);
+        });
+        elements.insightTableWrap.replaceChildren(table);
+      }
+
+      function renderInsights(visible) {
+        const categoryScope = visible.some((skill) => skill.type === "marketplace")
+          ? "Marketplace 多分类可重复计数"
+          : "Builtin 运行时分类";
+        elements.insightsCaption.textContent = `当前 ${visible.length} 个结果 · ${state.insight === "category" ? categoryScope : "Git 来源口径"}`;
+        elements.insightTabs.forEach((button) => {
+          const active = button.dataset.insight === state.insight;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-pressed", String(active));
+        });
+        if (state.insight === "source") renderSourceInsights(visible);
+        else renderCategoryInsights(visible);
+      }
+
       function safeSourceUrl(value) {
         try {
           const url = new URL(value);
@@ -4550,20 +5310,36 @@
 
         const title = createElement("h3", "skill-title", skill.name);
         const slug = createElement("code", "skill-slug", skill.slug);
-        const description = createElement("p", "skill-description", skill.summary || skill.description || "暂无说明");
+        const descriptionText = skill.description || skill.summary || "暂无说明";
+        const descriptionBlock = createElement("div", "description-block");
+        const description = createElement("p", "skill-description", descriptionText);
+        descriptionBlock.append(description);
+        if (descriptionText.length > 120) {
+          const toggle = createElement("button", "description-toggle");
+          const toggleLabel = createElement("span", "", "展开说明");
+          toggle.type = "button";
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.append(toggleLabel);
+          toggle.insertAdjacentHTML(
+            "beforeend",
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>'
+          );
+          toggle.addEventListener("click", () => {
+            const expanded = !description.classList.contains("expanded");
+            description.classList.toggle("expanded", expanded);
+            toggle.classList.toggle("expanded", expanded);
+            toggle.setAttribute("aria-expanded", String(expanded));
+            toggleLabel.textContent = expanded ? "收起说明" : "展开说明";
+          });
+          descriptionBlock.append(toggle);
+        }
 
         const categories = createElement("div", "categories");
         (skill.categories || []).forEach((category) => {
           const button = createElement("button", "category-button", categoryLabel(category));
           button.type = "button";
           button.title = `筛选 ${categoryLabel(category)}`;
-          button.addEventListener("click", () => {
-            state.type = skill.type;
-            state.category = category;
-            populateCategories();
-            render();
-            document.getElementById("filters").scrollIntoView({ behavior: "smooth", block: "start" });
-          });
+          button.addEventListener("click", () => applyCategoryFilter(skill.type, category));
           categories.append(button);
         });
 
@@ -4579,8 +5355,19 @@
         link.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg>');
 
         footer.append(publisher, link);
-        card.append(kicker, title, slug, description, categories, footer);
+        card.append(kicker, title, slug, descriptionBlock, categories, footer);
         return card;
+      }
+
+      function syncDescriptionToggles() {
+        requestAnimationFrame(() => {
+          document.querySelectorAll(".description-block").forEach((block) => {
+            const description = block.querySelector(".skill-description");
+            const toggle = block.querySelector(".description-toggle");
+            if (!description || !toggle) return;
+            toggle.hidden = description.scrollHeight <= description.clientHeight + 1;
+          });
+        });
       }
 
       function updateUrl() {
@@ -4590,6 +5377,7 @@
         if (state.category !== "all") next.set("category", state.category);
         if (state.source !== "all") next.set("source", state.source);
         if (state.sort !== "name") next.set("sort", state.sort);
+        if (state.insight !== "category") next.set("view", state.insight);
         const query = next.toString();
         history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`);
       }
@@ -4597,10 +5385,12 @@
       function render() {
         const visible = filteredSkills();
         elements.grid.replaceChildren(...visible.map(renderCard));
+        syncDescriptionToggles();
         elements.grid.hidden = visible.length === 0;
         elements.empty.classList.toggle("visible", visible.length === 0);
         elements.resultCount.textContent = `找到 ${visible.length} 个 Skill`;
         elements.visibleCount.textContent = visible.length;
+        renderInsights(visible);
         elements.searchClear.classList.toggle("visible", Boolean(state.query));
         elements.reset.disabled = !(
           state.query || state.type !== "all" || state.category !== "all" || state.source !== "all" || state.sort !== "name"
@@ -4653,6 +5443,12 @@
         button.addEventListener("click", () => {
           state.type = button.dataset.type;
           populateCategories();
+          render();
+        });
+      });
+      elements.insightTabs.forEach((button) => {
+        button.addEventListener("click", () => {
+          state.insight = button.dataset.insight;
           render();
         });
       });
