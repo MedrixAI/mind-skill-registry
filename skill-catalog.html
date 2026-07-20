@@ -1418,7 +1418,7 @@
 
   <script id="skill-data" type="application/json">
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "sources": [
     {
       "type": "builtin",
@@ -4244,7 +4244,28 @@
         "policy",
         "compliance",
         "writing"
-      ]
+      ],
+      "presentation": {
+        "default_locale": "en-US",
+        "locales": {
+          "en-US": {
+            "description": "Explain a policy or document in plain language, covering scope, obligations, exceptions, and examples. Use when a user needs to understand, summarize, or communicate what a policy requires of them or their team.",
+            "starter_prompts": [
+              "Explain the policy I provide in plain language, highlighting who it applies to, required actions, deadlines, exceptions, and practical examples.",
+              "Compare the two policy versions I provide and summarize the material changes, affected teams, and actions we need to take.",
+              "Turn the compliance document I provide into a concise employee FAQ with clear guidance on what to do and what to avoid."
+            ]
+          },
+          "zh-CN": {
+            "description": "用通俗语言解释政策或文档，涵盖适用范围、义务、例外和示例。适用于用户需要理解、总结或传达某项政策对个人或团队的要求。",
+            "starter_prompts": [
+              "请用通俗语言解释我提供的政策，重点说明适用对象、必须采取的行动、截止时间、例外情况和实际示例。",
+              "请比较我提供的两个政策版本，总结重要变化、受影响的团队以及我们需要采取的行动。",
+              "请把我提供的合规文档整理成简明的员工常见问题，明确说明应该做什么和不应该做什么。"
+            ]
+          }
+        }
+      }
     },
     {
       "type": "marketplace",
@@ -4448,7 +4469,28 @@
         "operations",
         "sop",
         "writing"
-      ]
+      ],
+      "presentation": {
+        "default_locale": "en-US",
+        "locales": {
+          "en-US": {
+            "description": "Build clear, executable standard operating procedures from goals, roles, inputs, controls, and escalation rules. Use when a user needs to create or improve an SOP, runbook, or repeatable process.",
+            "starter_prompts": [
+              "Help me create an SOP. Start by asking for the process goal, roles, inputs, controls, exceptions, and escalation rules, then produce the finished procedure.",
+              "Review the SOP I provide, identify ambiguous or missing steps, and rewrite it so a new operator can execute it without additional guidance.",
+              "Turn the process notes I provide into a concise runbook with owners, prerequisites, numbered steps, validation checks, and escalation paths."
+            ]
+          },
+          "zh-CN": {
+            "description": "根据目标、角色、输入、控制措施和升级规则，创建清晰且可执行的标准操作程序。适用于用户需要创建或改进 SOP、运行手册或可重复流程。",
+            "starter_prompts": [
+              "请帮我创建一份 SOP。先询问流程目标、角色、输入、控制措施、例外情况和升级规则，然后输出完整程序。",
+              "请审查我提供的 SOP，找出含糊或缺失的步骤，并重写为新操作人员无需额外指导即可执行的版本。",
+              "请把我提供的流程笔记整理成简明的运行手册，包含负责人、前置条件、编号步骤、验证检查和升级路径。"
+            ]
+          }
+        }
+      }
     },
     {
       "type": "marketplace",
@@ -4689,7 +4731,28 @@
         "vendor",
         "comparison",
         "procurement"
-      ]
+      ],
+      "presentation": {
+        "default_locale": "en-US",
+        "locales": {
+          "en-US": {
+            "description": "Compare vendors or suppliers side-by-side across weighted criteria and produce a defensible recommendation. Use when a user needs to evaluate two or more vendors for a purchase, renewal, or consolidation decision.",
+            "starter_prompts": [
+              "Help me compare vendors for an upcoming purchase. Start by asking for the options, decision criteria, weights, constraints, and available evidence, then produce a recommendation.",
+              "Compare the vendor proposals I provide, score them against weighted criteria, identify evidence gaps and risks, and recommend the best option.",
+              "Review our current vendor against the alternatives I provide and advise whether we should renew, switch, or consolidate."
+            ]
+          },
+          "zh-CN": {
+            "description": "按照加权标准并排比较供应商，并给出有依据的建议。适用于用户需要为采购、续约或整合决策评估两个或更多供应商。",
+            "starter_prompts": [
+              "请帮我比较即将采购的供应商。先询问候选项、决策标准、权重、约束和现有证据，然后给出建议。",
+              "请比较我提供的供应商方案，按照加权标准评分，指出证据缺口和风险，并推荐最佳选项。",
+              "请将我们当前的供应商与我提供的替代方案进行比较，并建议续约、更换还是整合。"
+            ]
+          }
+        }
+      }
     },
     {
       "type": "marketplace",

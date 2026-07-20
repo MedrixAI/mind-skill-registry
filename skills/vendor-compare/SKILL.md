@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: "data-analysis"
   mind.market-categories: '["data-analysis","productivity-tools"]'
   mind.marketplace-summary: "Side-by-side vendor comparison with a weighted recommendation."
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Compare vendors or suppliers side-by-side across weighted criteria and produce a defensible recommendation. Use when a user needs to evaluate two or more vendors for a purchase, renewal, or consolidation decision.","starter_prompts":["Help me compare vendors for an upcoming purchase. Start by asking for the options, decision criteria, weights, constraints, and available evidence, then produce a recommendation.","Compare the vendor proposals I provide, score them against weighted criteria, identify evidence gaps and risks, and recommend the best option.","Review our current vendor against the alternatives I provide and advise whether we should renew, switch, or consolidate."]},"zh-CN":{"description":"按照加权标准并排比较供应商，并给出有依据的建议。适用于用户需要为采购、续约或整合决策评估两个或更多供应商。","starter_prompts":["请帮我比较即将采购的供应商。先询问候选项、决策标准、权重、约束和现有证据，然后给出建议。","请比较我提供的供应商方案，按照加权标准评分，指出证据缺口和风险，并推荐最佳选项。","请将我们当前的供应商与我提供的替代方案进行比较，并建议续约、更换还是整合。"]}}}'
   mind.publisher: "medrixai"
   mind.runtime-category: "report"
   mind.tags: '["vendor","comparison","procurement"]'

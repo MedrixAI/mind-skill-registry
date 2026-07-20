@@ -277,6 +277,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: A short Marketplace-facing summary.
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Perform a specific workflow. Use when the task needs X, Y, or Z.","starter_prompts":["Help me complete this workflow."]},"zh-CN":{"description":"执行一个特定工作流。适用于任务需要 X、Y 或 Z 时。","starter_prompts":["请帮我完成这个工作流。"]}}}'
   mind.publisher: medrixai
   mind.tags: '["example"]'
   mind.min-harness-version: ">=1.0.0"
@@ -317,6 +318,7 @@ The recognized set is closed:
 | `mind.market-primary` | Expected | Primary Marketplace category; approval copies this value |
 | `mind.market-categories` | Expected | JSON array string; secondary values remain Registry metadata |
 | `mind.marketplace-summary` | Optional | Registry display default; current candidate approval does not copy it |
+| `mind.presentation` | Optional | Localized Marketplace descriptions and ordered chat starter prompts; copied through candidate approval |
 | `mind.publisher` | Optional | Registry provenance/display default; not copied by current approval |
 | `mind.runtime-category` | Optional | Runtime/artifact hint; not a Marketplace category and not currently copied |
 | `mind.tags` | Optional | JSON array string; parsed into the candidate projection but not currently copied |
@@ -355,7 +357,50 @@ Keep all Registry metadata values as strings. The server parser accepts some
 native YAML arrays, but the Registry schema and current package convention use
 string-encoded JSON arrays.
 
-### 8.5 Third-party template
+### 8.5 Marketplace presentation
+
+`mind.presentation` is a JSON object encoded as a YAML string:
+
+```yaml
+mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Canonical description.","starter_prompts":["Help me with this task."]},"zh-CN":{"description":"本地化描述。","starter_prompts":["请帮我完成这项任务。"]}}}'
+```
+
+Its exact shape is:
+
+```text
+{
+  default_locale: string,
+  locales: Record<string, {
+    description: string,
+    starter_prompts?: string[]
+  }>
+}
+```
+
+Rules:
+
+- Use canonical locale tags such as `en-US` and `zh-CN`.
+- Provide at most 10 locales. Every locale requires a non-empty description of
+  at most 1024 Unicode code points.
+- The `default_locale` entry must exist, and its description must exactly equal
+  the top-level canonical `description`.
+- The default locale requires 1-8 non-empty starter prompts. Each prompt is at
+  most 4096 Unicode code points. Array order is display order and the first
+  prompt is the chat activation default.
+- A non-default locale may omit `starter_prompts` or use an empty array. The
+  selected locale then has no starter prompts; prompt lists never inherit from
+  another locale.
+- Keep starter prompts directly sendable. They should request a useful workflow
+  or ask the Skill to collect missing inputs rather than contain unexplained
+  placeholders.
+
+The Marketplace selects one locale entry by exact locale, then language
+fallback, then `default_locale`. Once selected, that entry's prompt list is
+authoritative: a missing or empty list does not continue fallback. This
+presentation metadata does not replace the top-level description used for Agent
+discovery.
+
+### 8.6 Third-party template
 
 ```yaml
 ---
@@ -623,14 +668,15 @@ and rollback. Do not claim a live rename after Registry sync alone.
 
 ## 15. Metadata and Reclassification Playbook
 
-Production drift detection currently hashes only:
+Production drift detection hashes:
 
 ```text
-description + instructions + sorted bundled file paths and contents
+description + instructions + sorted bundled file paths and contents + mind.presentation
 ```
 
 It excludes `name`, license, categories, tags, summary, publisher,
-distribution, minimum harness version, and most provenance metadata.
+distribution, minimum harness version, and most provenance metadata. Presentation
+is content-bearing metadata: changing it produces a review candidate.
 
 Consequences:
 
@@ -993,14 +1039,14 @@ Sync does not publish. Under `auto_update=review`:
 1. Open `Skills -> 更新队列`.
 2. Match candidate count and names to release evidence.
 3. Match candidate `Commit SHA` to the merged Registry commit.
-4. Review description, instructions, every bundled file, diff summary,
-   provenance, primary category, and risk notes.
+4. Review canonical and localized descriptions, starter prompts, instructions,
+   every bundled file, diff summary, provenance, primary category, and risk notes.
 5. Reject or stop on unexpected content or identity.
 6. Use `批准` only after the complete candidate is verified.
 
-Candidate approval is a transactional compare-and-swap. It copies
-description, instructions, bundled files, Registry commit provenance, and the
-primary Marketplace category; bumps the live version; and sets approved,
+Candidate approval is a transactional compare-and-swap. It copies description,
+localized presentation, instructions, bundled files, Registry commit provenance,
+and the primary Marketplace category; bumps the live version; and sets approved,
 listed, and enabled. A concurrent version conflict requires re-sync and fresh
 review.
 
@@ -1104,8 +1150,8 @@ It embeds both release lanes so it works when opened directly without a server:
 
 Every package add, update, re-vendor, move, rename, reclassification, removal,
 or batch operation must update `skill-catalog.html` in the same change. This
-includes description, summary, category, publisher, tag, provenance, and source
-changes. Do not hand-edit the embedded JSON block.
+includes description, presentation, summary, category, publisher, tag,
+provenance, and source changes. Do not hand-edit the embedded JSON block.
 
 After changing any Registry Skill, regenerate Marketplace data and preserve the
 existing Builtin snapshot:

@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: "business-operations"
   mind.market-categories: '["business-operations","knowledge-learning"]'
   mind.marketplace-summary: "Plain-language explanations of policies and compliance documents."
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Explain a policy or document in plain language, covering scope, obligations, exceptions, and examples. Use when a user needs to understand, summarize, or communicate what a policy requires of them or their team.","starter_prompts":["Explain the policy I provide in plain language, highlighting who it applies to, required actions, deadlines, exceptions, and practical examples.","Compare the two policy versions I provide and summarize the material changes, affected teams, and actions we need to take.","Turn the compliance document I provide into a concise employee FAQ with clear guidance on what to do and what to avoid."]},"zh-CN":{"description":"用通俗语言解释政策或文档，涵盖适用范围、义务、例外和示例。适用于用户需要理解、总结或传达某项政策对个人或团队的要求。","starter_prompts":["请用通俗语言解释我提供的政策，重点说明适用对象、必须采取的行动、截止时间、例外情况和实际示例。","请比较我提供的两个政策版本，总结重要变化、受影响的团队以及我们需要采取的行动。","请把我提供的合规文档整理成简明的员工常见问题，明确说明应该做什么和不应该做什么。"]}}}'
   mind.publisher: "medrixai"
   mind.runtime-category: "markdown"
   mind.tags: '["policy","compliance","writing"]'

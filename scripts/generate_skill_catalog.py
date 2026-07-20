@@ -50,6 +50,20 @@ def parse_json_list(value: object, field: str, path: Path) -> list[str]:
     return parsed
 
 
+def parse_json_object(value: object, field: str, path: Path) -> dict | None:
+    if value in (None, ""):
+        return None
+    if not isinstance(value, str):
+        raise ValueError(f"{field} must be a JSON object encoded as a string in {path}")
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"invalid {field} JSON in {path}: {exc}") from exc
+    if not isinstance(parsed, dict):
+        raise ValueError(f"{field} must be an object in {path}")
+    return parsed
+
+
 def repository_label(repo_url: str, commit: str) -> str:
     match = re.search(r"github\.com/([^/]+/[^/]+?)(?:\.git)?$", repo_url.rstrip("/"))
     repo = match.group(1) if match else repo_url
@@ -118,26 +132,30 @@ def build_marketplace_entries() -> list[dict]:
             publisher = str(metadata.get("mind.publisher") or "MedrixAI")
 
         description = str(data.get("description", "")).strip()
-        entries.append(
-            {
-                "type": "marketplace",
-                "slug": slug,
-                "name": str(data.get("name", slug)),
-                "description": description,
-                "summary": str(
-                    metadata.get("mind.marketplace-summary") or description
-                ).strip(),
-                "primaryCategory": primary,
-                "categories": categories,
-                "sourceKind": source_kind,
-                "sourceLabel": source_label,
-                "sourceUrl": source_url,
-                "publisher": publisher,
-                "mindId": str(metadata.get("mind.id", "")),
-                "license": str(data.get("license", "")),
-                "tags": parse_json_list(metadata.get("mind.tags"), "mind.tags", skill_path),
-            }
+        entry = {
+            "type": "marketplace",
+            "slug": slug,
+            "name": str(data.get("name", slug)),
+            "description": description,
+            "summary": str(
+                metadata.get("mind.marketplace-summary") or description
+            ).strip(),
+            "primaryCategory": primary,
+            "categories": categories,
+            "sourceKind": source_kind,
+            "sourceLabel": source_label,
+            "sourceUrl": source_url,
+            "publisher": publisher,
+            "mindId": str(metadata.get("mind.id", "")),
+            "license": str(data.get("license", "")),
+            "tags": parse_json_list(metadata.get("mind.tags"), "mind.tags", skill_path),
+        }
+        presentation = parse_json_object(
+            metadata.get("mind.presentation"), "mind.presentation", skill_path
         )
+        if presentation is not None:
+            entry["presentation"] = presentation
+        entries.append(entry)
     return entries
 
 
@@ -311,7 +329,7 @@ def main() -> int:
     validate_unique(entries)
 
     data = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "sources": [
             {
                 "type": "builtin",

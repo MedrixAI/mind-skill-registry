@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: "business-operations"
   mind.market-categories: '["business-operations","productivity-tools"]'
   mind.marketplace-summary: "Build clear and executable operating procedures."
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Build clear, executable standard operating procedures from goals, roles, inputs, controls, and escalation rules. Use when a user needs to create or improve an SOP, runbook, or repeatable process.","starter_prompts":["Help me create an SOP. Start by asking for the process goal, roles, inputs, controls, exceptions, and escalation rules, then produce the finished procedure.","Review the SOP I provide, identify ambiguous or missing steps, and rewrite it so a new operator can execute it without additional guidance.","Turn the process notes I provide into a concise runbook with owners, prerequisites, numbered steps, validation checks, and escalation paths."]},"zh-CN":{"description":"根据目标、角色、输入、控制措施和升级规则，创建清晰且可执行的标准操作程序。适用于用户需要创建或改进 SOP、运行手册或可重复流程。","starter_prompts":["请帮我创建一份 SOP。先询问流程目标、角色、输入、控制措施、例外情况和升级规则，然后输出完整程序。","请审查我提供的 SOP，找出含糊或缺失的步骤，并重写为新操作人员无需额外指导即可执行的版本。","请把我提供的流程笔记整理成简明的运行手册，包含负责人、前置条件、编号步骤、验证检查和升级路径。"]}}}'
   mind.publisher: "medrixai"
   mind.runtime-category: "report"
   mind.tags: '["operations","sop","writing"]'

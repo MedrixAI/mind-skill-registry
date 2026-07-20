@@ -82,6 +82,14 @@ mind-skill-registry/
 
 具体 frontmatter、稳定 `mind.id`、第三方 vendoring 和分类规则由 `CLAUDE.md` 说明。
 
+## Marketplace 本地化与输入提示
+
+Skill 可通过 JSON string 类型的 `metadata.mind.presentation` 配置多语言
+Marketplace 描述和多条可直接发送的 starter prompts。`default_locale` 的描述必须
+与顶层 canonical `description` 一致；加号激活 Skill 时默认使用当前语言的第一条
+prompt。locale entry 一旦选中，其 prompts 独立生效；缺省或空数组表示该语言没有
+prompts，不会继承默认语言。完整 shape、限制和示例见 [`CLAUDE.md`](CLAUDE.md#85-marketplace-presentation)。
+
 ## 本地校验
 
 ```bash
@@ -97,6 +105,7 @@ Validator 会检查 frontmatter、`mind.*` 字段、分类关系并计算 packag
 ## 重要边界
 
 - `mind.id` 是已发布 skill 的稳定身份，更新或移动目录时不能更换。
+- `mind.presentation` 只负责 Marketplace 展示和 chat starter prompts，不替代 Agent discovery 使用的顶层 `description`。
 - 本仓库是公开仓库，禁止提交 secrets、cookie、token、私钥、客户数据或生产凭据。
 - 第三方内容必须固定 upstream commit，并记录 license 和来源证据。
 - 从 Git 删除 package 不会自动下架线上旧 skill；必须先在 Webadmin 下架。

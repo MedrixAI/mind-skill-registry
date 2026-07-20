@@ -61,6 +61,10 @@
           "type": "string",
           "description": "Optional display summary overridable by Webadmin."
         },
+        "mind.presentation": {
+          "type": "string",
+          "description": "JSON object encoded as a string with default_locale and up to 10 localized description/starter_prompts entries. Descriptions are limited to 1024 Unicode code points and prompts to 4096. The default locale description must equal the canonical top-level description."
+        },
         "mind.publisher": {
           "type": "string",
           "description": "Optional display publisher overridable by Webadmin."

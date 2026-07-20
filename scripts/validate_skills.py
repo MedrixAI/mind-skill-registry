@@ -13,10 +13,12 @@ For each skills/<pkg>/SKILL.md:
   are required; missing either is an error.
   4. If mind.market-primary and mind.market-categories are present,
      assert the primary appears in the categories array.
-  5. Allow executable/script files under skills/ (script-capable skills run in the
+  5. If mind.presentation is present, validate its localized descriptions and
+     ordered starter prompts.
+  6. Allow executable/script files under skills/ (script-capable skills run in the
      claw sandbox via the shell tool; manually reviewed at webadmin-approve before
      listing). Script files are reported as INFO, not rejected.
-  6. Compute and print a content digest per package (sorted relative paths +
+  7. Compute and print a content digest per package (sorted relative paths +
      file bytes + length) for reproducibility (informational in Phase A).
 
 Exit non-zero on any violation.
@@ -52,6 +54,7 @@ RECOGNIZED_MIND_KEYS = {
     "mind.market-primary",
     "mind.market-categories",
     "mind.marketplace-summary",
+    "mind.presentation",
     "mind.publisher",
     "mind.runtime-category",
     "mind.tags",
@@ -63,6 +66,15 @@ RECOGNIZED_MIND_KEYS = {
     "mind.upstream.license",
     "mind.upstream.evidence-urls",
 }
+
+LOCALE_RE = re.compile(
+    r"^[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}|[0-9]{3}))?"
+    r"(?:-[A-Za-z0-9]{5,8})*$"
+)
+MAX_PRESENTATION_LOCALES = 10
+MAX_STARTER_PROMPTS = 8
+MAX_DESCRIPTION_CHARACTERS = 1024
+MAX_STARTER_PROMPT_CHARACTERS = 4096
 
 # Script files are allowed (reviewed at approve); collected to report as INFO.
 EXECUTABLE_EXTENSIONS = {".sh", ".py", ".bat", ".ps1", ".exe", ".cmd"}
@@ -91,6 +103,90 @@ def parse_frontmatter(path):
     if not isinstance(data, dict):
         return None, "frontmatter is not a mapping"
     return data, None
+
+
+def validate_presentation(raw, canonical_description):
+    """Validate the JSON-encoded Marketplace presentation contract."""
+    errors = []
+    if not isinstance(raw, str):
+        return ["mind.presentation must be a JSON object encoded as a string"]
+    try:
+        presentation = json.loads(raw)
+    except json.JSONDecodeError as e:
+        return [f"mind.presentation is not valid JSON: {e}"]
+    if not isinstance(presentation, dict):
+        return ["mind.presentation must decode to an object"]
+
+    unknown_keys = sorted(set(presentation) - {"default_locale", "locales"})
+    if unknown_keys:
+        errors.append(f"mind.presentation has unknown fields: {unknown_keys}")
+
+    default_locale = presentation.get("default_locale")
+    if not isinstance(default_locale, str) or not LOCALE_RE.fullmatch(default_locale):
+        errors.append("mind.presentation.default_locale must be a canonical locale tag")
+
+    locales = presentation.get("locales")
+    if not isinstance(locales, dict) or not locales:
+        errors.append("mind.presentation.locales must be a non-empty object")
+        return errors
+    if len(locales) > MAX_PRESENTATION_LOCALES:
+        errors.append(
+            f"mind.presentation.locales must contain at most {MAX_PRESENTATION_LOCALES} locales"
+        )
+    if isinstance(default_locale, str) and default_locale not in locales:
+        errors.append("mind.presentation.default_locale entry is missing from locales")
+
+    for locale, localized in locales.items():
+        prefix = f"mind.presentation.locales[{locale!r}]"
+        if not isinstance(locale, str) or not LOCALE_RE.fullmatch(locale):
+            errors.append(f"{prefix} uses an invalid locale tag")
+        if not isinstance(localized, dict):
+            errors.append(f"{prefix} must be an object")
+            continue
+        unknown_localized_keys = sorted(
+            set(localized) - {"description", "starter_prompts"}
+        )
+        if unknown_localized_keys:
+            errors.append(f"{prefix} has unknown fields: {unknown_localized_keys}")
+
+        description = localized.get("description")
+        if not isinstance(description, str) or not description.strip():
+            errors.append(f"{prefix}.description must be a non-empty string")
+        elif len(description) > MAX_DESCRIPTION_CHARACTERS:
+            errors.append(
+                f"{prefix}.description exceeds {MAX_DESCRIPTION_CHARACTERS} "
+                "Unicode code points"
+            )
+        if locale == default_locale and description != canonical_description:
+            errors.append(
+                "mind.presentation default locale description must equal the "
+                "canonical top-level description"
+            )
+
+        prompts = localized.get("starter_prompts")
+        if prompts is None:
+            prompts = []
+        elif not isinstance(prompts, list):
+            errors.append(f"{prefix}.starter_prompts must be an array of strings")
+            continue
+        if len(prompts) > MAX_STARTER_PROMPTS:
+            errors.append(
+                f"{prefix}.starter_prompts must contain at most {MAX_STARTER_PROMPTS} prompts"
+            )
+        if locale == default_locale and not prompts:
+            errors.append(
+                "mind.presentation default locale must contain at least one starter prompt"
+            )
+        for index, prompt in enumerate(prompts):
+            prompt_prefix = f"{prefix}.starter_prompts[{index}]"
+            if not isinstance(prompt, str) or not prompt.strip():
+                errors.append(f"{prompt_prefix} must be a non-empty string")
+            elif len(prompt) > MAX_STARTER_PROMPT_CHARACTERS:
+                errors.append(
+                    f"{prompt_prefix} exceeds {MAX_STARTER_PROMPT_CHARACTERS} "
+                    "Unicode code points"
+                )
+    return errors
 
 
 def validate_frontmatter(data, skill_path):
@@ -126,6 +222,9 @@ def validate_frontmatter(data, skill_path):
             for key in mind_keys:
                 if key not in RECOGNIZED_MIND_KEYS:
                     errors.append(f"unknown mind.* key (rejected): {key}")
+            presentation = metadata.get("mind.presentation")
+            if presentation is not None:
+                errors.extend(validate_presentation(presentation, data.get("description")))
             # market-primary must be in market-categories if both present
             primary = metadata.get("mind.market-primary")
             cats_raw = metadata.get("mind.market-categories")
