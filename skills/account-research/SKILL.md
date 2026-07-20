@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: account-research (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Research a company or person and get actionable sales intel. Works standalone with web search, supercharged when you connect enrichment tools or your CRM. Trigger with \"research [company]\", \"look up [person]\", \"intel on [prospect]\", \"who is [name] at [company]\", or \"tell me about [company]\".","starter_prompts":["Help me with account research. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply account research to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing account research work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"研究公司或个人并获得可执行的销售情报。可独立结合网页搜索使用，连接企业信息增强工具或 CRM 后效果更佳。适用于公司研究、联系人查询和潜在客户情报。","starter_prompts":["请帮我完成account research。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展account research，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的account research成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

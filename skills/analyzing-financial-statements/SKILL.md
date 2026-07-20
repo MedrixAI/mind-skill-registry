@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools", "business-operations"]'
   mind.marketplace-summary: analyzing-financial-statements (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"This skill calculates key financial ratios and metrics from financial statement data for investment analysis","starter_prompts":["Help me use analyzing financial statements for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply analyzing financial statements to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with analyzing financial statements and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"根据财务报表数据计算关键财务比率和指标，用于投资分析。","starter_prompts":["请帮我用analyzing financial statements完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用analyzing financial statements，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用analyzing financial statements审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/claude-cookbooks
   mind.upstream.commit: 67ce644d33e5933f0bcc0b6eb4113df41bbf3a8f

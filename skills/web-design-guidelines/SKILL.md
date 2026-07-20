@@ -12,6 +12,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: web-design-guidelines
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".","starter_prompts":["Help me create web design guidelines. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use web design guidelines to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for web design guidelines from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"按照 Web Interface Guidelines 审查 UI 代码。适用于 UI 审查、可访问性检查、设计或 UX 审计以及最佳实践检查。","starter_prompts":["请帮我完成web design guidelines。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用web design guidelines改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为web design guidelines提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/vercel-labs/agent-skills
   mind.upstream.commit: f8a72b9603728bb92a217a879b7e62e43ad76c81

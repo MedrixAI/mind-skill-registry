@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: csv-analysis (ljchg12-hue)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Automated CSV data analysis with statistical insights, pattern detection, visualization recommendations, and anomaly detection","starter_prompts":["Help me use csv analysis for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply csv analysis to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with csv analysis and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"自动分析 CSV 数据，提供统计洞察、模式识别、可视化建议和异常检测。","starter_prompts":["请帮我用csv analysis完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用csv analysis，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用csv analysis审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/ljchg12-hue/dotfiles
   mind.upstream.commit: aa5001cbf018bedcfc28fc67a2f119df062f838b

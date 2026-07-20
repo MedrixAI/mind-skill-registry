@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: knowledge-learning
   mind.market-categories: '["knowledge-learning"]'
   mind.marketplace-summary: software-ux-research (vasilyu1983)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Covers user research methods and research ops. Use when running interviews, usability tests, surveys, or A/B tests to de-risk product decisions.","starter_prompts":["Help me with software ux research. Start by asking for the question, sources or material, required depth, constraints, and output format, then complete the analysis.","Use software ux research to synthesize the sources I provide, distinguish evidence from assumptions, identify gaps or contradictions, and produce clear conclusions.","Critically review my current understanding with software ux research, challenge weak reasoning, and turn the findings into an actionable learning or research plan."]},"zh-CN":{"description":"涵盖用户研究方法和研究运营。适用于开展访谈、可用性测试、问卷或 A/B 测试，以降低产品决策风险。","starter_prompts":["请帮我完成software ux research。先询问研究问题、来源或材料、所需深度、约束和输出格式，然后完成分析。","请使用software ux research综合我提供的来源，区分证据与假设，识别缺口或矛盾，并形成清晰结论。","请使用software ux research批判性审查我当前的理解，挑战薄弱推理，并将发现转化为可执行的学习或研究计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/vasilyu1983/AI-Agents-public
   mind.upstream.commit: 6a223ba13c311c09b41c1dc09c14ab75e703894b

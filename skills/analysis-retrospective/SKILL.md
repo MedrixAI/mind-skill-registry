@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools", "knowledge-learning"]'
   mind.marketplace-summary: analysis-retrospective (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Post-analysis learning and process improvement. Use when completing major analysis projects, documenting lessons learned, or improving team analytical practices.","starter_prompts":["Help me use analysis retrospective for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply analysis retrospective to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with analysis retrospective and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"对已完成的分析进行复盘和流程改进。适用于重大分析项目结束后总结经验、记录教训，或改进团队的分析实践。","starter_prompts":["请帮我用analysis retrospective完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用analysis retrospective，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用analysis retrospective审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2

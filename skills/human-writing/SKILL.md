@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation", "knowledge-learning"]'
   mind.marketplace-summary: human-writing (pr-pm)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Write content that sounds natural, conversational, and authentically human - avoiding AI-generated patterns, corporate speak, and generic phrasing","starter_prompts":["Help me create human writing. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use human writing to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for human writing from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"创作自然、对话化且真实的人类风格内容，避免常见的 AI 腔、企业套话和泛泛表达。","starter_prompts":["请帮我完成human writing。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用human writing改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为human writing提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/pr-pm/prpm
   mind.upstream.commit: 903b956417062bd9fbbb1df7cee44ca8a8291126

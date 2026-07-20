@@ -13,6 +13,7 @@ metadata:
   mind.market-primary: general
   mind.market-categories: '["general"]'
   mind.marketplace-summary: install-skill
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Install agent skills from various sources including local paths, GitHub URLs, or the dot-agents repository. Use when adding new skills to a project or user environment.","starter_prompts":["Help me with install skill. Start by asking for the goal, relevant files or context, constraints, and desired output, then complete the workflow.","Apply install skill to the material I provide, explain the key findings or changes, and produce a polished result I can use directly.","Review my current work with install skill, identify gaps and risks, and return an improved version with clear next steps."]},"zh-CN":{"description":"从本地路径、GitHub URL 或 dot-agents 仓库等来源安装 Agent Skill。适用于向项目或用户环境添加新 Skill。","starter_prompts":["请帮我完成install skill。先询问目标、相关文件或上下文、约束和所需输出，然后完成整个流程。","请对我提供的材料应用install skill，说明关键发现或修改，并产出可直接使用的结果。","请使用install skill审查我当前的成果，识别缺口和风险，并返回改进版本及明确的后续步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/tnez/dot-agents
   mind.upstream.commit: f0427921b26697f792e5f7d47eecefe25d7caff0

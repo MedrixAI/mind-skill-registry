@@ -41,6 +41,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: excel (pluginagentmarketplace)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Advanced Excel and spreadsheet analytics techniques","starter_prompts":["Help me use excel for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply excel to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with excel and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"提供高级 Excel 和电子表格分析方法。","starter_prompts":["请帮我用excel完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用excel，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用excel审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/pluginagentmarketplace/custom-plugin-data-analyst
   mind.upstream.commit: 2150f932b448b967c6ae19f79b1611d712d4097c

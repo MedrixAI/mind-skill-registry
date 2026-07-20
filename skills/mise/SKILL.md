@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: mise (zenobi-us)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Expert in mise—a fast, flexible polyglot runtime and task manager. Specializes in tool version management, environment variable control, task automation, and shell integration across development workflows.","starter_prompts":["Help me use mise for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply mise to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with mise and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"精通 mise 多语言运行时和任务管理器，专注于工具版本管理、环境变量控制、任务自动化和 Shell 集成。","starter_prompts":["请帮我用mise完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用mise，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用mise审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/zenobi-us/dotfiles
   mind.upstream.commit: 6916b57f9de275b2d970749723f360f990f53b96

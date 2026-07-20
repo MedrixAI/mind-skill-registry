@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: meta-dispatcher-task-orchestrator (boshi-xixixi)
+  mind.presentation: '{"default_locale":"zh-CN","locales":{"zh-CN":{"description":"当用户需要将需求转化为可执行任务、进行技术选型或协调多个专业 Skill 协作时使用。此 Skill 充当任务调度中心，接收需求文档并智能路由到合适的专业领域。","starter_prompts":["请帮我用meta dispatcher task orchestrator完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用meta dispatcher task orchestrator，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用meta dispatcher task orchestrator审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]},"en-US":{"description":"Turn requirements into executable tasks, choose an appropriate technical approach, and coordinate multiple specialist Skills. Use as a task orchestration hub for requirements documents, solution planning, and routing work to the right domains.","starter_prompts":["Help me use meta dispatcher task orchestrator for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply meta dispatcher task orchestrator to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with meta dispatcher task orchestrator and turn it into a practical checklist or plan with priorities, owners, and validation steps."]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/boshi-xixixi/TraeSkill
   mind.upstream.commit: 9cf38e632bdfb9d91a965140ffcbdac8e45659b1

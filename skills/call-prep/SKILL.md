@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: call-prep (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Prepare for a sales call with account context, attendee research, and suggested agenda. Works standalone with user input and web research, supercharged when you connect your CRM, email, chat, or transcripts. Trigger with \"prep me for my call with [company]\", \"I''m meeting with [company] prep me\", \"call prep [company]\", or \"get me ready for [meeting]\".","starter_prompts":["Help me with call prep. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply call prep to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing call prep work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"结合客户背景、参会者研究和建议议程准备销售通话。可基于用户输入和网页研究独立使用，连接 CRM、邮件、聊天或转录记录后效果更佳。","starter_prompts":["请帮我完成call prep。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展call prep，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的call prep成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

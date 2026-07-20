@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: thoroughness (pr-pm)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Use when implementing complex multi-step tasks, fixing critical bugs, or when quality and completeness matter more than speed - ensures comprehensive implementation without shortcuts through systematic analysis, implementation, and verification phases","starter_prompts":["Help me use thoroughness for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply thoroughness to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with thoroughness and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"用于复杂多步骤实施、关键缺陷修复或质量与完整性优先的任务，通过系统化分析、实施和验证避免捷径。","starter_prompts":["请帮我用thoroughness完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用thoroughness，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用thoroughness审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/pr-pm/prpm
   mind.upstream.commit: 903b956417062bd9fbbb1df7cee44ca8a8291126

@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: brand-guidelines
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Applies Anthropic''s official brand colors and typography to any sort of artifact that may benefit from having Anthropic''s look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.","starter_prompts":["Help me create brand guidelines. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use brand guidelines to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for brand guidelines from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"将 Anthropic 官方品牌颜色和字体应用于需要统一品牌观感的各类作品。适用于品牌色、视觉规范、格式设计或企业设计标准相关任务。","starter_prompts":["请帮我完成brand guidelines。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用brand guidelines改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为brand guidelines提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

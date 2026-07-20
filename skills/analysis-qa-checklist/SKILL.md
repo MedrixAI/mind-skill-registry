@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: analysis-qa-checklist (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Pre-delivery quality assurance for analysis work. Use when reviewing analysis before sharing with stakeholders, checking for completeness, validating assumptions, or ensuring clarity of recommendations.","starter_prompts":["Help me use analysis qa checklist for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply analysis qa checklist to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with analysis qa checklist and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"对分析工作进行交付前质量检查。适用于在向利益相关者分享前审查分析、检查完整性、验证假设，或确保建议清晰可执行。","starter_prompts":["请帮我用analysis qa checklist完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用analysis qa checklist，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用analysis qa checklist审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2

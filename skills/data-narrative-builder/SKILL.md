@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation", "productivity-tools", "knowledge-learning"]'
   mind.marketplace-summary: data-narrative-builder (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Build compelling data-driven narratives. Use when presenting analysis results, creating stakeholder reports, or transforming a set of findings into a story that drives a specific decision or action.","starter_prompts":["Help me create data narrative builder. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use data narrative builder to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for data narrative builder from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"构建有说服力的数据叙事。适用于呈现分析结果、创建利益相关者报告，或将一组发现转化为推动具体决策或行动的故事。","starter_prompts":["请帮我完成data narrative builder。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用data narrative builder改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为data narrative builder提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2

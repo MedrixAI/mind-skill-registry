@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: visualization-builder (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Create effective, publication-ready data visualizations. Use when choosing chart types, designing presentation visuals, building dashboard charts, or applying visual design best practices to data output.","starter_prompts":["Help me use visualization builder for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply visualization builder to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with visualization builder and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"创建有效且可发表的数据可视化。适用于选择图表类型、设计演示视觉、构建仪表盘图表或优化数据输出。","starter_prompts":["请帮我用visualization builder完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用visualization builder，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用visualization builder审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2

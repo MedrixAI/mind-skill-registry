@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: draft-outreach (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Research a prospect then draft personalized outreach. Uses web research by default, supercharged with enrichment and CRM. Trigger with \"draft outreach to [person/company]\", \"write cold email to [prospect]\", \"reach out to [name]\".","starter_prompts":["Help me with draft outreach. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply draft outreach to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing draft outreach work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"研究潜在客户并撰写个性化外联内容。默认使用网页研究，结合企业信息增强和 CRM 后效果更佳。","starter_prompts":["请帮我完成draft outreach。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展draft outreach，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的draft outreach成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

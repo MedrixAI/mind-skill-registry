@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: weekly-review
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Summarize the past week''s daily notes, extracting key findings, links, action items, and potential atomic notes, and write the summary into the matching weekly note.","starter_prompts":["Help me use weekly review for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply weekly review to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with weekly review and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"总结过去一周的每日笔记，提取关键发现、链接、行动项和潜在原子笔记，并写入对应周记。","starter_prompts":["请帮我用weekly review完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用weekly review，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用weekly review审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/fredoliveira/obsidian-skills
   mind.upstream.commit: 16c5501b77ee3f99270c684741ba9ce83f46abca

@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: theme-factory
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.","starter_prompts":["Help me create theme factory. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use theme factory to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for theme factory from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"为幻灯片、文档、报告和 HTML 落地页等作品应用主题样式。提供预设颜色和字体，也可即时生成新主题。","starter_prompts":["请帮我完成theme factory。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用theme factory改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为theme factory提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

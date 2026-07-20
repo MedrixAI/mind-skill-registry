@@ -20,6 +20,7 @@ metadata:
   mind.market-primary: development-tools
   mind.market-categories: '["development-tools"]'
   mind.marketplace-summary: devops-expert
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Expert-level DevOps practices, culture, automation, and continuous delivery","starter_prompts":["Help me with devops expert. Start by asking for the repository or system context, environment, constraints, and acceptance criteria, then implement or configure the solution.","Use devops expert to diagnose the issue I provide, identify the root cause, make the smallest safe fix, and explain how to verify it.","Review my current devops expert approach for correctness, security, and maintainability, then return prioritized improvements and validation steps."]},"zh-CN":{"description":"提供专家级 DevOps 实践，涵盖文化、自动化和持续交付。","starter_prompts":["请帮我完成devops expert。先询问仓库或系统上下文、运行环境、约束和验收标准，然后实施或配置解决方案。","请使用devops expert诊断我提供的问题，定位根因，完成最小且安全的修复，并说明如何验证。","请从正确性、安全性和可维护性角度审查我当前的devops expert方案，并给出按优先级排序的改进和验证步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/personamanagmentlayer/pcl
   mind.upstream.commit: 5d3e0058cf1872c5a808ae2a83ebac8a7ce0a553

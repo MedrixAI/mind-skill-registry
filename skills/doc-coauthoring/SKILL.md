@@ -12,6 +12,7 @@ metadata:
   mind.market-primary: general
   mind.market-categories: '["general"]'
   mind.marketplace-summary: doc-coauthoring
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.","starter_prompts":["Help me with doc coauthoring. Start by asking for the goal, relevant files or context, constraints, and desired output, then complete the workflow.","Apply doc coauthoring to the material I provide, explain the key findings or changes, and produce a polished result I can use directly.","Review my current work with doc coauthoring, identify gaps and risks, and return an improved version with clear next steps."]},"zh-CN":{"description":"通过结构化流程协助用户共同撰写文档。适用于文档、提案、技术规格和决策记录，帮助传递上下文、迭代完善并验证读者体验。","starter_prompts":["请帮我完成doc coauthoring。先询问目标、相关文件或上下文、约束和所需输出，然后完成整个流程。","请对我提供的材料应用doc coauthoring，说明关键发现或修改，并产出可直接使用的结果。","请使用doc coauthoring审查我当前的成果，识别缺口和风险，并返回改进版本及明确的后续步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

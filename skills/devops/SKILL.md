@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: development-tools
   mind.market-categories: '["development-tools"]'
   mind.marketplace-summary: devops
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Deploy to Cloudflare (Workers, R2, D1), Docker, GCP (Cloud Run, GKE), Kubernetes (kubectl, Helm). Use for serverless, containers, CI/CD, GitOps, security audit.","starter_prompts":["Help me with devops. Start by asking for the repository or system context, environment, constraints, and acceptance criteria, then implement or configure the solution.","Use devops to diagnose the issue I provide, identify the root cause, make the smallest safe fix, and explain how to verify it.","Review my current devops approach for correctness, security, and maintainability, then return prioritized improvements and validation steps."]},"zh-CN":{"description":"部署和管理 Cloudflare Workers、R2、D1、Docker、GCP Cloud Run、GKE 与 Kubernetes。适用于无服务器、容器、CI/CD、GitOps 和安全审计。","starter_prompts":["请帮我完成devops。先询问仓库或系统上下文、运行环境、约束和验收标准，然后实施或配置解决方案。","请使用devops诊断我提供的问题，定位根因，完成最小且安全的修复，并说明如何验证。","请从正确性、安全性和可维护性角度审查我当前的devops方案，并给出按优先级排序的改进和验证步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/mrgoonie/claudekit-skills
   mind.upstream.commit: 80113d86bc4407f105af40a2c4ea58194f7c370a

@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: legal-risk-assessment (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Assess and classify legal risks using a severity-by-likelihood framework with escalation criteria. Use when evaluating contract risk, assessing deal exposure, classifying issues by severity, or determining whether a matter needs senior counsel or outside legal review.","starter_prompts":["Help me with legal risk assessment. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply legal risk assessment to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing legal risk assessment work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"使用严重程度与发生可能性矩阵评估和分类法律风险，并给出升级标准。适用于合同风险、交易敞口和法务升级判断。","starter_prompts":["请帮我完成legal risk assessment。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展legal risk assessment，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的legal risk assessment成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

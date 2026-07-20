@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: development-tools
   mind.market-categories: '["development-tools", "content-creation"]'
   mind.marketplace-summary: frontend-design
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don''t read as templated defaults.","starter_prompts":["Help me with frontend design. Start by asking for the repository or system context, environment, constraints, and acceptance criteria, then implement or configure the solution.","Use frontend design to diagnose the issue I provide, identify the root cause, make the smallest safe fix, and explain how to verify it.","Review my current frontend design approach for correctness, security, and maintainability, then return prioritized improvements and validation steps."]},"zh-CN":{"description":"在构建新界面或重塑现有界面时提供鲜明且有意图的视觉设计指导，帮助确定美学方向、字体并避免模板化默认设计。","starter_prompts":["请帮我完成frontend design。先询问仓库或系统上下文、运行环境、约束和验收标准，然后实施或配置解决方案。","请使用frontend design诊断我提供的问题，定位根因，完成最小且安全的修复，并说明如何验证。","请从正确性、安全性和可维护性角度审查我当前的frontend design方案，并给出按优先级排序的改进和验证步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/claude-code
   mind.upstream.commit: 1fb278b85d4546c7c04db3b3590e031b5a8a7571

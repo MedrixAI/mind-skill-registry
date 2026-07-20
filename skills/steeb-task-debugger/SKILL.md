@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: steeb-task-debugger (Hiizzzo)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Debug and fix task-related issues in STEEB app. This skill should be used when encountering task creation, completion, deletion, or state management problems in the STEEB task management system.","starter_prompts":["Help me use steeb task debugger for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply steeb task debugger to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with steeb task debugger and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"调试并修复 STEEB 应用中的任务问题。适用于任务创建、完成、删除或状态管理异常。","starter_prompts":["请帮我用steeb task debugger完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用steeb task debugger，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用steeb task debugger审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/Hiizzzo/Steeb
   mind.upstream.commit: d374899e98154d1bbcf33914e9c05060902e2634

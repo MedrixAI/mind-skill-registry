@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: dashboard-specification (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Design specifications for effective dashboards. Use when planning new dashboards, improving existing ones, or documenting dashboard requirements before development starts.","starter_prompts":["Help me use dashboard specification for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply dashboard specification to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with dashboard specification and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"设计有效仪表盘的规格说明。适用于规划新仪表盘、改进现有仪表盘，或在开发前记录仪表盘需求。","starter_prompts":["请帮我用dashboard specification完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用dashboard specification，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用dashboard specification审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2

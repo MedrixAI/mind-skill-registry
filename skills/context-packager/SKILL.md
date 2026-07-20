@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: knowledge-learning
   mind.market-categories: '["knowledge-learning"]'
   mind.marketplace-summary: context-packager (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Efficiently package context for AI-assisted analysis. Use when preparing to work with Claude on analysis, organizing context documents, or structuring prompts for complex analytical tasks.","starter_prompts":["Help me with context packager. Start by asking for the question, sources or material, required depth, constraints, and output format, then complete the analysis.","Use context packager to synthesize the sources I provide, distinguish evidence from assumptions, identify gaps or contradictions, and produce clear conclusions.","Critically review my current understanding with context packager, challenge weak reasoning, and turn the findings into an actionable learning or research plan."]},"zh-CN":{"description":"高效整理并打包用于 AI 辅助分析的上下文。适用于准备分析材料、组织上下文文档，或为复杂分析任务构建结构化提示。","starter_prompts":["请帮我完成context packager。先询问研究问题、来源或材料、所需深度、约束和输出格式，然后完成分析。","请使用context packager综合我提供的来源，区分证据与假设，识别缺口或矛盾，并形成清晰结论。","请使用context packager批判性审查我当前的理解，挑战薄弱推理，并将发现转化为可执行的学习或研究计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2

@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: development-tools
   mind.market-categories: '["development-tools"]'
   mind.marketplace-summary: web-artifacts-builder
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.","starter_prompts":["Help me with web artifacts builder. Start by asking for the repository or system context, environment, constraints, and acceptance criteria, then implement or configure the solution.","Use web artifacts builder to diagnose the issue I provide, identify the root cause, make the smallest safe fix, and explain how to verify it.","Review my current web artifacts builder approach for correctness, security, and maintainability, then return prioritized improvements and validation steps."]},"zh-CN":{"description":"使用 React、Tailwind CSS 和 shadcn/ui 创建复杂的多组件 HTML Artifact。适用于需要状态管理、路由或组件库的复杂作品。","starter_prompts":["请帮我完成web artifacts builder。先询问仓库或系统上下文、运行环境、约束和验收标准，然后实施或配置解决方案。","请使用web artifacts builder诊断我提供的问题，定位根因，完成最小且安全的修复，并说明如何验证。","请从正确性、安全性和可维护性角度审查我当前的web artifacts builder方案，并给出按优先级排序的改进和验证步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

@@ -13,6 +13,7 @@ metadata:
   mind.market-primary: general
   mind.market-categories: '["general"]'
   mind.marketplace-summary: pdf
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.","starter_prompts":["Help me with pdf. Start by asking for the goal, relevant files or context, constraints, and desired output, then complete the workflow.","Apply pdf to the material I provide, explain the key findings or changes, and produce a polished result I can use directly.","Review my current work with pdf, identify gaps and risks, and return an improved version with clear next steps."]},"zh-CN":{"description":"用于所有 PDF 相关任务，包括读取、提取、合并、拆分、旋转、添加水印、创建、填写表单、加解密、提取图片和 OCR。","starter_prompts":["请帮我完成pdf。先询问目标、相关文件或上下文、约束和所需输出，然后完成整个流程。","请对我提供的材料应用pdf，说明关键发现或修改，并产出可直接使用的结果。","请使用pdf审查我当前的成果，识别缺口和风险，并返回改进版本及明确的后续步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

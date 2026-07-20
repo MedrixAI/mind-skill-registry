@@ -12,6 +12,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: canvas
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"**The primary skill for terminal TUI components.** Covers spawning, controlling, and interacting with terminal canvases.\nUse when displaying calendars, documents, or flight bookings.\n","starter_prompts":["Help me create canvas. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use canvas to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for canvas from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"用于终端 TUI 组件的主要技能，涵盖终端画布的启动、控制和交互。适用于展示日历、文档或航班预订等终端界面。","starter_prompts":["请帮我完成canvas。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用canvas改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为canvas提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/dvdsgl/claude-canvas
   mind.upstream.commit: 2a88ac56bc38e5ab37c5619952686f757935ab80

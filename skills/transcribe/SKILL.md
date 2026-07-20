@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: transcribe
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Transcribe audio files to text with optional diarization and known-speaker hints. Use when a user asks to transcribe speech from audio/video, extract text from recordings, or label speakers in interviews or meetings.","starter_prompts":["Help me create transcribe. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use transcribe to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for transcribe from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"将音频文件转写为文本，并可选择说话人分离和已知说话人提示。适用于音视频转写以及访谈或会议说话人标注。","starter_prompts":["请帮我完成transcribe。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用transcribe改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为transcribe提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/openai/skills
   mind.upstream.commit: 49f948faa9258a0c61caceaf225e179651397431

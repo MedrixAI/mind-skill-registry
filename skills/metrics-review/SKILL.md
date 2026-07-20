@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: metrics-review (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Review and analyze product metrics with trend analysis and actionable insights. Use when running a weekly, monthly, or quarterly metrics review, investigating a sudden spike or drop, comparing performance against targets, or turning raw numbers into a scorecard with recommended actions.","starter_prompts":["Help me with metrics review. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply metrics review to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing metrics review work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"通过趋势分析和可执行洞察审查产品指标。适用于周期性指标复盘、调查突增突降、对照目标评估表现，或将原始数据转为带建议的记分卡。","starter_prompts":["请帮我完成metrics review。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展metrics review，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的metrics review成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

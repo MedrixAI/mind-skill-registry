@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: xlsx (Holo00)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Comprehensive spreadsheet work including creation, editing, and analysis of Excel files (.xlsx, .xlsm, .csv, .tsv). When Claude needs to work with spreadsheets for data analysis, financial modeling, or any Excel-related tasks.","starter_prompts":["Help me use xlsx holo00 for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply xlsx holo00 to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with xlsx holo00 and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"全面处理电子表格，包括创建、编辑和分析 Excel、CSV 与 TSV 文件，适用于数据分析、财务建模及其他 Excel 相关任务。","starter_prompts":["请帮我用xlsx holo00完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用xlsx holo00，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用xlsx holo00审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/Holo00/IdeaForge
   mind.upstream.commit: 1e4eb78ce4b9ef1f1bcf1815e60257a0096c0297

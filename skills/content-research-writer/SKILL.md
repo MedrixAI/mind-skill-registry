@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation", "knowledge-learning"]'
   mind.marketplace-summary: content-research-writer || content-research-writer (composiohq)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing process from solo effort to collaborative partnership.","starter_prompts":["Help me create content research writer. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use content research writer to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for content research writer from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"通过研究、引用、优化开头、迭代大纲和逐段反馈来协助创作高质量内容，将单人写作转变为协作式写作流程。","starter_prompts":["请帮我完成content research writer。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用content research writer改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为content research writer提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/ComposioHQ/awesome-claude-skills
   mind.upstream.commit: 92568c1edaff1bde5371154f036d959346c145a8

@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: development-tools
   mind.market-categories: '["development-tools"]'
   mind.marketplace-summary: mcp-builder
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).","starter_prompts":["Help me with mcp builder. Start by asking for the repository or system context, environment, constraints, and acceptance criteria, then implement or configure the solution.","Use mcp builder to diagnose the issue I provide, identify the root cause, make the smallest safe fix, and explain how to verify it.","Review my current mcp builder approach for correctness, security, and maintainability, then return prioritized improvements and validation steps."]},"zh-CN":{"description":"指导创建高质量 MCP 服务器，通过设计良好的工具让大模型与外部服务交互。适用于使用 Python FastMCP 或 Node/TypeScript MCP SDK 集成外部 API。","starter_prompts":["请帮我完成mcp builder。先询问仓库或系统上下文、运行环境、约束和验收标准，然后实施或配置解决方案。","请使用mcp builder诊断我提供的问题，定位根因，完成最小且安全的修复，并说明如何验证。","请从正确性、安全性和可维护性角度审查我当前的mcp builder方案，并给出按优先级排序的改进和验证步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

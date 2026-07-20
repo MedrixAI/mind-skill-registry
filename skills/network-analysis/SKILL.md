@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools", "knowledge-learning"]'
   mind.marketplace-summary: network-analysis (aj-geddes)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Analyze network structures, identify communities, measure centrality, and visualize relationships for social networks and organizational structures","starter_prompts":["Help me use network analysis for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply network analysis to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with network analysis and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"分析网络结构、识别社区、计算中心性并可视化关系，适用于社交网络和组织结构分析。","starter_prompts":["请帮我用network analysis完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用network analysis，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用network analysis审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/aj-geddes/useful-ai-prompts
   mind.upstream.commit: 3f5182cfd739fc113f4af5244a1cf342ad7f7911

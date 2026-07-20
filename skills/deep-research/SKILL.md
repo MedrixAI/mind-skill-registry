@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: knowledge-learning
   mind.market-categories: '["knowledge-learning"]'
   mind.marketplace-summary: deep-research (glebis)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"This skill should be used when conducting comprehensive research on any topic using the OpenAI Deep Research API. It automates prompt enhancement through interactive clarifying questions, saves research parameters, and executes deep research with web search capabilities. Use when the user asks for in-depth analysis, investigation, research summaries, or topic exploration.","starter_prompts":["Help me with deep research. Start by asking for the question, sources or material, required depth, constraints, and output format, then complete the analysis.","Use deep research to synthesize the sources I provide, distinguish evidence from assumptions, identify gaps or contradictions, and produce clear conclusions.","Critically review my current understanding with deep research, challenge weak reasoning, and turn the findings into an actionable learning or research plan."]},"zh-CN":{"description":"通过 OpenAI Deep Research API 对任意主题开展综合研究，利用交互式澄清问题优化提示、保存研究参数，并结合网页搜索执行深度研究。","starter_prompts":["请帮我完成deep research。先询问研究问题、来源或材料、所需深度、约束和输出格式，然后完成分析。","请使用deep research综合我提供的来源，区分证据与假设，识别缺口或矛盾，并形成清晰结论。","请使用deep research批判性审查我当前的理解，挑战薄弱推理，并将发现转化为可执行的学习或研究计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/glebis/claude-skills
   mind.upstream.commit: 85a8ec1f1cf77ac6ff0b63d3c2195116437ad5ab

@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: roadmap-update (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Update, create, or reprioritize your product roadmap. Use when adding a new initiative and deciding what moves to make room, shifting priorities after new information comes in, moving timelines due to a dependency slip, or building a Now/Next/Later view from scratch.","starter_prompts":["Help me with roadmap update. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply roadmap update to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing roadmap update work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"创建、更新或重新确定产品路线图优先级。适用于新增计划、调整优先级、移动时间线，或从零构建 Now/Next/Later 视图。","starter_prompts":["请帮我完成roadmap update。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展roadmap update，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的roadmap update成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

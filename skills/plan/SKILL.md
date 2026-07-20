@@ -14,6 +14,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: plan
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Strategic planning with optional interview workflow","starter_prompts":["Help me use plan for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply plan to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with plan and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"提供战略规划，并可选择通过访谈方式收集信息。","starter_prompts":["请帮我用plan完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用plan，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用plan审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/Yeachan-Heo/oh-my-claudecode
   mind.upstream.commit: 590fb988931d34a12604be0ca4215c818079018e

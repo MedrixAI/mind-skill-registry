@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: knowledge-learning
   mind.market-categories: '["knowledge-learning"]'
   mind.marketplace-summary: analyze (bntvllnt)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Universal multi-perspective analyzer for any topic, file, idea, or decision. Extract key points, find gaps/risks, identify improvements with actionable plans.","starter_prompts":["Help me with analyze. Start by asking for the question, sources or material, required depth, constraints, and output format, then complete the analysis.","Use analyze to synthesize the sources I provide, distinguish evidence from assumptions, identify gaps or contradictions, and produce clear conclusions.","Critically review my current understanding with analyze, challenge weak reasoning, and turn the findings into an actionable learning or research plan."]},"zh-CN":{"description":"从多个视角分析任意主题、文件、想法或决策，提取要点、发现缺口和风险，并给出可执行的改进计划。","starter_prompts":["请帮我完成analyze。先询问研究问题、来源或材料、所需深度、约束和输出格式，然后完成分析。","请使用analyze综合我提供的来源，区分证据与假设，识别缺口或矛盾，并形成清晰结论。","请使用analyze批判性审查我当前的理解，挑战薄弱推理，并将发现转化为可执行的学习或研究计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/bntvllnt/agent-skills
   mind.upstream.commit: 5f6f937ad7e0bd02d8cbfbf4e3db6e460f10e469

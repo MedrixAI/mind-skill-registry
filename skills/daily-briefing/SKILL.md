@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: daily-briefing (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Start your day with a prioritized sales briefing. Works standalone when you tell me your meetings and priorities, supercharged when you connect your calendar, CRM, and email. Trigger with \"morning briefing\", \"daily brief\", \"what''s on my plate today\", \"prep my day\", or \"start my day\".","starter_prompts":["Help me with daily briefing. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply daily briefing to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing daily briefing work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"生成按优先级排序的每日销售简报。用户提供会议和重点即可独立使用，连接日历、CRM 与邮件后效果更佳。","starter_prompts":["请帮我完成daily briefing。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展daily briefing，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的daily briefing成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

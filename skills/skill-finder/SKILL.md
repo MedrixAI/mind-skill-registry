@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: general
   mind.market-categories: '["general"]'
   mind.marketplace-summary: skill-finder
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Find and evaluate Claude skills for specific use cases using semantic search, Anthropic best practices assessment, and fitness scoring. Use when the user asks to find skills for a particular task (e.g., \"find me a skill for pitch decks\"), not for generic \"show all skills\" requests.","starter_prompts":["Help me with skill finder. Start by asking for the goal, relevant files or context, constraints, and desired output, then complete the workflow.","Apply skill finder to the material I provide, explain the key findings or changes, and produce a polished result I can use directly.","Review my current work with skill finder, identify gaps and risks, and return an improved version with clear next steps."]},"zh-CN":{"description":"使用语义搜索、最佳实践评估和适配度评分，为特定用例查找并评估 Claude Skill。适用于寻找具体任务的 Skill。","starter_prompts":["请帮我完成skill finder。先询问目标、相关文件或上下文、约束和所需输出，然后完成整个流程。","请对我提供的材料应用skill finder，说明关键发现或修改，并产出可直接使用的结果。","请使用skill finder审查我当前的成果，识别缺口和风险，并返回改进版本及明确的后续步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/tenequm/claude-plugins
   mind.upstream.commit: 5749256e977a36a5d81ee9ac62bae2977ee4137a

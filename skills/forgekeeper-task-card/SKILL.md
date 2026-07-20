@@ -14,6 +14,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: forgekeeper-task-card (gatewaybuddy)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Create Forgekeeper task cards following project conventions","starter_prompts":["Help me use forgekeeper task card for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply forgekeeper task card to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with forgekeeper task card and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"按照项目约定创建 Forgekeeper 任务卡。","starter_prompts":["请帮我用forgekeeper task card完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用forgekeeper task card，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用forgekeeper task card审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/gatewaybuddy/forgekeeper
   mind.upstream.commit: cc6f202d03f91fcc18285e1cf23578b326b856ba

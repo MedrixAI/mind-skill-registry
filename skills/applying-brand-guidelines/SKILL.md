@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: applying-brand-guidelines (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging","starter_prompts":["Help me with applying brand guidelines. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply applying brand guidelines to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing applying brand guidelines work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"为生成的文档统一应用企业品牌规范，包括颜色、字体、版式和信息表达。","starter_prompts":["请帮我完成applying brand guidelines。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展applying brand guidelines，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的applying brand guidelines成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/claude-cookbooks
   mind.upstream.commit: 67ce644d33e5933f0bcc0b6eb4113df41bbf3a8f

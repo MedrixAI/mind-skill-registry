@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: general
   mind.market-categories: '["general"]'
   mind.marketplace-summary: skill-discovery
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Discover agent skills on GitHub. Use when user asks to find new skills, search for skills, explore skill repositories, or wants to see trending/popular skills.","starter_prompts":["Help me with skill discovery. Start by asking for the goal, relevant files or context, constraints, and desired output, then complete the workflow.","Apply skill discovery to the material I provide, explain the key findings or changes, and produce a polished result I can use directly.","Review my current work with skill discovery, identify gaps and risks, and return an improved version with clear next steps."]},"zh-CN":{"description":"在 GitHub 上发现 Agent Skill。适用于查找新 Skill、搜索 Skill、浏览 Skill 仓库，或查看热门和流行 Skill。","starter_prompts":["请帮我完成skill discovery。先询问目标、相关文件或上下文、约束和所需输出，然后完成整个流程。","请对我提供的材料应用skill discovery，说明关键发现或修改，并产出可直接使用的结果。","请使用skill discovery审查我当前的成果，识别缺口和风险，并返回改进版本及明确的后续步骤。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/dejanr/dotfiles
   mind.upstream.commit: c1164c1b0da9a7100d7d64a653285fc3b4c616e1

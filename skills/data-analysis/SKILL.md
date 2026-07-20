@@ -14,6 +14,7 @@ metadata:
   mind.market-primary: data-analysis
   mind.market-categories: '["data-analysis"]'
   mind.marketplace-summary: data-analysis
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Comprehensive data analysis skill for CSV files using Python and pandas","starter_prompts":["Help me complete a data analysis task. Start by asking for the data, decision question, metrics, constraints, and required output, then perform the analysis.","Analyze the data I provide with data analysis, check quality and assumptions, surface patterns and anomalies, and summarize actionable findings.","Compare the scenarios or options I provide using data analysis, show the supporting evidence, and recommend the next action."]},"zh-CN":{"description":"使用 Python 和 pandas 对 CSV 文件进行全面数据分析。","starter_prompts":["请帮我完成data analysis任务。先询问数据、决策问题、指标、约束和所需输出，然后执行分析。","请使用data analysis分析我提供的数据，检查数据质量与假设，发现模式和异常，并总结可执行的洞察。","请使用data analysis比较我提供的情景或选项，展示支持证据，并建议下一步行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/vstorm-co/pydantic-deepagents
   mind.upstream.commit: 8b91848525f361b159fdd4c782c2f21a6f1b9871

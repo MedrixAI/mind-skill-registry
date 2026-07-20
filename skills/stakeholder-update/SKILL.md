@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: stakeholder-update (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Generate a stakeholder update tailored to audience and cadence. Use when writing a weekly or monthly status for leadership, announcing a launch, escalating a risk or blocker, or translating the same progress into exec-brief, engineering-detail, or customer-facing versions.","starter_prompts":["Help me with stakeholder update. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply stakeholder update to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing stakeholder update work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"根据受众和节奏生成利益相关者更新。适用于周报或月报、发布公告、风险升级，或转换为高管、工程和客户版本。","starter_prompts":["请帮我完成stakeholder update。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展stakeholder update，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的stakeholder update成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/knowledge-work-plugins
   mind.upstream.commit: 47caa757e4730eb8daf7d335470f692d4a68b59e

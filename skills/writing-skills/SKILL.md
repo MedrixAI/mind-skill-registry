@@ -8,6 +8,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: writing-skills
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Use when creating new skills, editing existing skills, or verifying skills work before deployment","starter_prompts":["Help me create writing skills. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use writing skills to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for writing skills from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"用于创建新 Skill、编辑现有 Skill，或在部署前验证 Skill 是否正常工作。","starter_prompts":["请帮我完成writing skills。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用writing skills改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为writing skills提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/obra/superpowers
   mind.upstream.commit: d884ae04edebef577e82ff7c4e143debd0bbec99

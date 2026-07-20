@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation", "knowledge-learning"]'
   mind.marketplace-summary: skill-creator (roeibajayo)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Design and create Claude Skills using progressive disclosure principles. Use when user request to build new or update skills, or when realizing a new skill is needed, based on repeated context or domain expertise.","starter_prompts":["Help me create skill creator roeibajayo. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use skill creator roeibajayo to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for skill creator roeibajayo from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"使用渐进式披露原则设计和创建 Claude Skill。适用于用户要求新建或更新 Skill，或从重复上下文和领域知识中识别新 Skill。","starter_prompts":["请帮我完成skill creator roeibajayo。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用skill creator roeibajayo改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为skill creator roeibajayo提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/roeibajayo/polygent-tools
   mind.upstream.commit: 77e9813d4ee8d88028f461d4fce479cb1b2f8f55

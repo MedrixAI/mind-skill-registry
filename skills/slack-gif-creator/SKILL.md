@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: slack-gif-creator
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.\"","starter_prompts":["Help me create slack gif creator. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use slack gif creator to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for slack gif creator from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"创建针对 Slack 优化的动画 GIF，提供约束、验证工具和动画设计概念。","starter_prompts":["请帮我完成slack gif creator。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用slack gif creator改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为slack gif creator提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

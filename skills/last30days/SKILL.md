@@ -73,6 +73,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools", "knowledge-learning"]'
   mind.marketplace-summary: last30days (mvanhorn)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.","starter_prompts":["Help me use last30days for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply last30days to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with last30days and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"研究过去 30 天内人们对任意主题的真实讨论，从多个社交、开发者和网页来源获取帖子与互动数据，并提供健康检查诊断缺失或故障来源。","starter_prompts":["请帮我用last30days完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用last30days，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用last30days审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/mvanhorn/last30days-skill
   mind.upstream.commit: 4b027919c76e24ac27875c854bfd9f57c0b7cb69

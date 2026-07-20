@@ -11,6 +11,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: algorithmic-art
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists'' work to avoid copyright violations.","starter_prompts":["Help me create algorithmic art. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use algorithmic art to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for algorithmic art from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"使用 p5.js、可复现的随机种子和交互式参数探索创作算法艺术。适用于代码艺术、生成艺术、流场或粒子系统；应创作原创作品，避免复制现有艺术家的作品。","starter_prompts":["请帮我完成algorithmic art。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用algorithmic art改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为algorithmic art提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/skills
   mind.upstream.commit: 9d2f1ae187231d8199c64b5b762e1bdf2244733d

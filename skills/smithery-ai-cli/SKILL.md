@@ -16,6 +16,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: smithery-ai/cli
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Find, connect, and use MCP tools and skills via the Smithery CLI. Use when the user searches for new tools or skills, wants to discover integrations, connect to an MCP, install a skill, or wants to interact with an external service (email, Slack, Discord, GitHub, Jira, Notion, databases, cloud APIs, monitoring, etc.).","starter_prompts":["Help me use smithery ai cli for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply smithery ai cli to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with smithery ai cli and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"通过 Smithery CLI 查找、连接并使用 MCP 工具和 Skill。适用于发现集成、连接 MCP、安装 Skill，或与各类外部服务交互。","starter_prompts":["请帮我用smithery ai cli完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用smithery ai cli，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用smithery ai cli审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/smithery-ai/cli
   mind.upstream.commit: 407ac3b33944a585357379bc213fdf1ee55464d7

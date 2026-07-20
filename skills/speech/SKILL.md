@@ -10,6 +10,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation"]'
   mind.marketplace-summary: speech
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Use when the user asks for text-to-speech narration or voiceover, accessibility reads, audio prompts, or batch speech generation via the OpenAI Audio API; run the bundled CLI (`scripts/text_to_speech.py`) with built-in voices and require `OPENAI_API_KEY` for live calls. Custom voice creation is out of scope.","starter_prompts":["Help me create speech. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use speech to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for speech from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"通过 OpenAI Audio API 进行文本转语音旁白、配音、无障碍朗读、音频提示或批量语音生成。实时调用需要 OPENAI_API_KEY，不支持自定义声音。","starter_prompts":["请帮我完成speech。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用speech改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为speech提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/openai/skills
   mind.upstream.commit: 49f948faa9258a0c61caceaf225e179651397431

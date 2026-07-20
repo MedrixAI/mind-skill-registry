@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations"]'
   mind.marketplace-summary: creating-financial-models (anthropics)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"This skill provides an advanced financial modeling suite with DCF analysis, sensitivity testing, Monte Carlo simulations, and scenario planning for investment decisions","starter_prompts":["Help me with creating financial models. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply creating financial models to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing creating financial models work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"提供高级财务建模能力，包括 DCF 分析、敏感性测试、蒙特卡洛模拟和情景规划，用于投资决策。","starter_prompts":["请帮我完成creating financial models。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展creating financial models，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的creating financial models成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/anthropics/claude-cookbooks
   mind.upstream.commit: 67ce644d33e5933f0bcc0b6eb4113df41bbf3a8f

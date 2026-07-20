@@ -15,6 +15,7 @@ metadata:
   mind.market-primary: productivity-tools
   mind.market-categories: '["productivity-tools"]'
   mind.marketplace-summary: task-breakdown
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Convert technical designs into actionable, sequenced implementation tasks. Create clear coding tasks that enable incremental progress, respect dependencies, and provide a roadmap for systematic feature development.","starter_prompts":["Help me use task breakdown for my task. Start by asking for the goal, inputs, deadline, constraints, and desired output, then complete the workflow.","Apply task breakdown to the material I provide, identify missing or inefficient steps, and produce a clearer, more reliable result.","Review my existing approach with task breakdown and turn it into a practical checklist or plan with priorities, owners, and validation steps."]},"zh-CN":{"description":"将技术设计转化为可执行且有顺序的实施任务，形成支持增量交付、尊重依赖关系的开发路线图。","starter_prompts":["请帮我用task breakdown完成任务。先询问目标、输入、截止时间、约束和所需输出，然后完成整个流程。","请对我提供的材料应用task breakdown，找出缺失或低效步骤，并产出更清晰、更可靠的结果。","请使用task breakdown审查我现有的方法，并将其整理为包含优先级、负责人和验证步骤的实用清单或计划。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/jasonkneen/kiro
   mind.upstream.commit: 22577b636dc3095f774ace4c846034514d9fa071

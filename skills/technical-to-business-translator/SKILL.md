@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: business-operations
   mind.market-categories: '["business-operations", "knowledge-learning"]'
   mind.marketplace-summary: technical-to-business-translator (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Translate technical analysis into business language. Use when explaining statistical concepts to non-analysts, simplifying technical findings, or bridging communication between data teams and business stakeholders.","starter_prompts":["Help me with technical to business translator. Start by asking for the business goal, stakeholders, available inputs, constraints, and desired decision or deliverable, then complete the workflow.","Apply technical to business translator to the material I provide, identify the most important findings, risks, and evidence gaps, and produce a decision-ready result.","Review my existing technical to business translator work, correct weak assumptions or missing details, and return an improved version with clear next actions."]},"zh-CN":{"description":"将技术分析翻译为业务语言。适用于向非分析人员解释统计概念、简化技术发现，或连接数据团队与业务沟通。","starter_prompts":["请帮我完成technical to business translator。先询问业务目标、利益相关者、现有输入、约束以及需要支持的决策或交付物，然后完成整个流程。","请对我提供的材料开展technical to business translator，找出最重要的发现、风险和证据缺口，并输出可用于决策的结果。","请审查我现有的technical to business translator成果，修正薄弱假设和遗漏细节，并给出改进版本及明确的后续行动。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2

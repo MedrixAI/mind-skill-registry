@@ -9,6 +9,7 @@ metadata:
   mind.market-primary: content-creation
   mind.market-categories: '["content-creation", "business-operations", "knowledge-learning"]'
   mind.marketplace-summary: executive-summary-generator (nimrodfisher)
+  mind.presentation: '{"default_locale":"en-US","locales":{"en-US":{"description":"Create concise executive summaries from detailed analysis. Use when preparing board decks, executive briefings, or condensing complex analysis into decision-ready formats for senior audiences.","starter_prompts":["Help me create executive summary generator. Start by asking for the audience, purpose, source material, tone, format, and constraints, then produce a polished result.","Use executive summary generator to improve the draft or assets I provide, explain the most important changes, and deliver the revised version.","Create three strong directions for executive summary generator from my brief, compare their tradeoffs, and develop the best option."]},"zh-CN":{"description":"从详细分析中生成简洁的执行摘要。适用于董事会材料、高管简报，或将复杂分析压缩为面向高级决策者的内容。","starter_prompts":["请帮我完成executive summary generator。先询问受众、目的、素材、语气、格式和约束，然后产出可直接使用的成品。","请用executive summary generator改进我提供的草稿或素材，说明最重要的修改，并交付修订后的版本。","请根据我的简报为executive summary generator提出三个有力方向，比较各自取舍，并完善最佳方案。"]}}}'
   mind.publisher: medrixai
   mind.upstream.repo: https://github.com/nimrodfisher/data-analytics-skills
   mind.upstream.commit: 88498848c174ef162eba31fe5b6071faf02f8dc2
