@@ -1,0 +1,14 @@
+# AGENTS.md
+
+> **Codex:** complete agent instructions are in [`CLAUDE.md`](CLAUDE.md).
+
+This file exists for Codex compatibility. Before any non-trivial change, read `CLAUDE.md` completely; do not assume the linked file has already been loaded.
+
+The short version:
+
+- Marketplace skills live under `skills/<slug>/`.
+- Preserve stable `metadata.mind.id` values when updating or moving a skill.
+- Follow `categories.yaml`, `policies/review-policy.yaml`, and `policies/trust.md`.
+- Run `python3 scripts/validate_skills.py`, `python3 tests/test_validate.py`, and `git diff --check` before handoff.
+- A merged Registry PR is not live until Mind Webadmin syncs and approves the candidate.
+- Do not push, merge, approve, or unlist unless that action is explicitly requested.

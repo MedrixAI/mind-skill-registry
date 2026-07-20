@@ -1,5 +1,5 @@
 # Phase-A CI for the official Mind Skill Registry.
-# Runs frontmatter validation, executable rejection, and content-digest
+# Runs frontmatter validation, script-capability reporting, and content-digest
 # computation on every push/PR to main and on any skills/** change.
 #
 # The full §6.7 gate suite is DEFERRED to Phase B:
@@ -11,7 +11,8 @@
 #   - per-package SPDX/license/notice/provenance consistency
 #   - risk-based review-policy enforcement (CODEOWNER review evidence)
 #   - first-party contract tests and eval fixtures
-# Phase A = script-free text skills only; CI fails closed on executables.
+# Script-capable packages are allowed but require manual security review before
+# Webadmin approval; the validator reports executable files as INFO.
 #
 # Spec: docs/superpowers/specs/2026-07-14-official-skill-registry-marketplace-design.md §6.7
 

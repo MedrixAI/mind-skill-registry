@@ -8,13 +8,15 @@ before they land).
 
 ## Phase A scope
 
-- Registry content is **script-free text** in Phase A. No executables
-  (`.sh`, `.py`, `.bat`, `.ps1`, `.exe`, `.cmd`) are permitted anywhere under
-  `skills/`; CI fails closed on any such file.
+- Registry packages may contain scripts and other executable-capable bundled
+  files. The validator reports them as `INFO`; it does not grant execution
+  permission or security approval. Changes to scripts, network behavior, or
+  capability declarations require the product-security review defined in
+  `policies/review-policy.yaml`.
 - The full §6.7 gate suite (deterministic archive build twice, SBOM, provenance
   attestation, secret scanning, static capability analysis) is **deferred to
-  Phase B**. Phase A CI runs frontmatter validation, executable rejection, and
-  content-digest computation only.
+  Phase B**. Current CI runs frontmatter validation and content-digest
+  computation; risk-based manual review remains required.
 - The **publisher-repo worker** lane (untrusted external Git, dedicated
   non-root intake worker with mTLS, no business secrets) is deferred (spec
   §4.2/§7.4). Phase A ships only the first-party Registry lane.
@@ -24,11 +26,12 @@ before they land).
 Two commits are recorded separately and never conflated:
 
 - The **Registry commit** (this repo) is Mind's version axis
-  (`upstream_ref.commit`). mind-api syncs from it, verifies the digest against
-  it, and rolls back to it.
-- The **upstream source commit** (`mind.upstream.commit` frontmatter) is
-  consumed only by Registry CI for drift detection; mind-api runtime never
-  fetches the third-party origin.
+  (`upstream_ref.commit`). mind-api SHA-pins it, computes the package digest,
+  stages a review candidate, and can re-sync a historical commit for rollback.
+- The **upstream source commit** (`mind.upstream.commit` frontmatter) records
+  the exact third-party snapshot used for provenance and review. Current CI
+  validates the metadata but does not re-fetch that origin; mind-api runtime
+  never fetches the third-party origin.
 
 ## Reference
 

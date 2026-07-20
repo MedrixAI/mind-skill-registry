@@ -1,46 +1,68 @@
-# mind-skill-registry
+# Mind Skill Registry
 
-The official Skill Registry for Mind (MedrixAI) — a protected, public, vendored
-Git repository that is the authoritative version store for officially maintained
-Agent Harness Skills. A Registry commit is synchronized into Mind as a staged
-candidate gated by review before it becomes visible, subscribable, or runnable.
-Git merge or source sync never publishes directly to the Marketplace.
+Mind 官方 Marketplace skill 的维护仓库。这里保存 skill 内容、附带文件、分类、license 和第三方来源信息。
 
-**Design spec:** `mind-api` repo
-`docs/superpowers/specs/2026-07-14-official-skill-registry-marketplace-design.md`
+## 日常协作方式
 
-**Mind API implementation:** `mind-api` repo (knowledge service
-`github_repo` source sync, `official_registry` trust profile).
+推荐直接在本仓库目录中使用 Claude Code 或 Codex：
 
-## Repository layout
-
+```bash
+git clone https://github.com/MedrixAI/mind-skill-registry.git
+cd mind-skill-registry
 ```
+
+然后告诉 agent 要新增或更新什么 skill。Agent 的完整规则在 [`CLAUDE.md`](CLAUDE.md)；Codex 会先读取 [`AGENTS.md`](AGENTS.md)，再按 `CLAUDE.md` 工作。
+
+示例：
+
+```text
+请新增一个 <skill-name>，作用是……。
+按照仓库 CLAUDE.md 完成内容、分类、license 和校验，先给我检查 diff，不要 push。
+```
+
+确认 diff 后，由 agent commit、push 并创建 PR。PR 通过 CI 和所需审核后合并到 `main`。
+
+## 发布链路
+
+Registry 合并不等于上线：
+
+```text
+本仓库 PR 合并
+  -> Mind Webadmin「Skills / 来源同步」
+  -> Mind Webadmin「Skills / 更新队列」检查并批准
+  -> Marketplace 上线
+```
+
+Webadmin 入口：`https://admin.mind.medrixai.com`。
+
+发布时记录合并后的完整 commit SHA，在更新队列中核对 candidate SHA 和数量后再批准。同步只生成待发布项；批准后才会进入 Marketplace。
+
+## 仓库结构
+
+```text
 mind-skill-registry/
-├── README.md                  # this file
-├── LICENSE                    # Apache-2.0 (covers tooling/schema only)
-├── CODEOWNERS                 # review ownership
-├── categories.yaml            # v1 seven-class taxonomy (spec §6.5)
-├── schemas/
-│   └── skill.schema.json      # SKILL.md frontmatter schema (spec §6.3)
-├── policies/
-│   ├── trust.md               # trust model + Phase A scope (spec §4.2)
-│   └── review-policy.yaml     # change-class → required-review mapping (spec §6.7)
-├── skills/                    # one directory per skill package
-│   ├── mind/<skill-name>/     # MedrixAI originals
-│   └── curated/<publisher>/<skill-name>/  # vendored third-party
-└── .github/workflows/
-    └── ci.yml                 # Phase-A CI gates
+├── CLAUDE.md                 # Agent 完整维护规范
+├── AGENTS.md                 # Codex 兼容入口，指向 CLAUDE.md
+├── categories.yaml           # Marketplace 7 类 taxonomy
+├── schemas/skill.schema.json # SKILL.md frontmatter schema
+├── policies/                 # trust 和 review policy
+├── scripts/validate_skills.py
+├── tests/test_validate.py
+└── skills/<slug>/            # 一个目录一个 skill package
+    ├── SKILL.md
+    ├── LICENSE / LICENSE.txt
+    ├── scripts/              # 可选
+    ├── references/           # 可选
+    └── assets/               # 可选
 ```
 
-There is no source-of-truth `catalog.yaml`. The package list is derived from a
-filesystem scan (stop on first `SKILL.md` in a subtree) plus each package's
-frontmatter `mind.id` (spec §3, §6.6).
+扫描器递归查找 `SKILL.md`，发现后的目录就是 package root，其下文件属于同一个 skill。当前 package 使用 `skills/<slug>/` 平铺结构。
 
-## Categories
+## Marketplace 分类
 
-The v1 taxonomy has seven stable slugs defined in `categories.yaml` (spec §6.5):
+新内容只使用 `categories.yaml` 中的 canonical slug：
 
-| Slug | zh-CN | Legacy aliases |
+| Slug | 中文 | 旧别名 |
 |---|---|---|
 | `general` | 通用 | — |
 | `development-tools` | 开发工具 | `code` |
@@ -50,47 +72,27 @@ The v1 taxonomy has seven stable slugs defined in `categories.yaml` (spec §6.5)
 | `business-operations` | 商业运营 | — |
 | `knowledge-learning` | 知识与学习 | `learning` |
 
-Five legacy single-value categories fold into `content-creation` by deliberate
-consolidation. Category IDs are permanent.
+具体 frontmatter、稳定 `mind.id`、第三方 vendoring 和分类规则由 `CLAUDE.md` 说明。
 
-## CI gates (Phase A)
+## 本地校验
 
-The CI workflow (`.github/workflows/ci.yml`) runs on every push/PR to `main` and
-on any `skills/**` change. Phase-A gates:
+```bash
+python3 -m pip install pyyaml  # 仅缺少依赖时
+python3 scripts/validate_skills.py
+python3 tests/test_validate.py
+git diff --check
+```
 
-- Parse YAML frontmatter for each `skills/*/SKILL.md`.
-- Assert required fields: `name`, `description`, `license`.
-- If `metadata.mind.*` keys present: assert `mind.id` + `mind.distribution` in
-  `{builtin, marketplace}`; reject unknown `mind.*` keys.
-- Assert `mind.market-primary` is in `mind.market-categories` (if both present).
-- Reject any `.sh`, `.py`, `.bat`, `.ps1`, `.exe`, `.cmd` file under `skills/`
-  (Phase A = no executables; fail closed).
-- Compute + print a content digest per package (sorted relative paths + file
-  bytes + length) for reproducibility (informational in Phase A).
+Validator 会检查 frontmatter、`mind.*` 字段、分类关系并计算 package digest。脚本文件允许作为 bundled file 存在，validator 会输出 `INFO`；脚本仍必须按 `policies/review-policy.yaml` 完成安全审查。
 
-**Deferred to Phase B** (full §6.7 suite): deterministic archive build twice,
-SBOM, provenance attestation, secret scanning, static capability analysis,
-per-package SPDX/license/notice consistency, risk-based review-policy
-enforcement, contract tests and eval fixtures.
+## 重要边界
 
-## Contribution model
-
-1. Author or vendor a skill under `skills/mind/<name>/` or
-   `skills/curated/<publisher>/<name>/`.
-2. Ensure the `SKILL.md` frontmatter passes `python scripts/validate_skills.py`.
-3. Open a PR against `main`.
-4. CI runs Phase-A gates. Required CODEOWNER review applies per
-   `policies/review-policy.yaml` (spec §6.7).
-5. Merge is a Registry commit — it is the version record, not a Marketplace
-   publish. Mind Webadmin sync resolves the commit SHA, verifies the digest,
-   stages a candidate, and a separate approve + list action publishes to the
-   Marketplace.
-
-**Registry merge ≠ Marketplace publish.** A merged commit becomes a Mind
-candidate only after Webadmin sync + review + approve.
+- `mind.id` 是已发布 skill 的稳定身份，更新或移动目录时不能更换。
+- 本仓库是公开仓库，禁止提交 secrets、cookie、token、私钥、客户数据或生产凭据。
+- 第三方内容必须固定 upstream commit，并记录 license 和来源证据。
+- 从 Git 删除 package 不会自动下架线上旧 skill；必须先在 Webadmin 下架。
+- Skill 内容在本仓库维护；摘要、展示图、精选、推荐、排序和下架在 Webadmin 维护。
 
 ## License
 
-Apache-2.0. The root license covers Registry tooling and schema only. Each
-package carries its own `LICENSE.txt` (and `NOTICE.txt`/`MODIFICATIONS.md` when
-applicable for vendored third-party content).
+仓库根目录 Apache-2.0 license 只覆盖 Registry tooling/schema。每个 skill package 记录自己的 license；第三方 package 按需携带 `NOTICE` / `MODIFICATIONS.md`。

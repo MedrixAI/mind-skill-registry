@@ -14,7 +14,7 @@ For each skills/<pkg>/SKILL.md:
   4. If mind.market-primary and mind.market-categories are present,
      assert the primary appears in the categories array.
   5. Allow executable/script files under skills/ (script-capable skills run in the
-     claw sandbox via the shell tool; human-reviewed at webadmin-approve before
+     claw sandbox via the shell tool; manually reviewed at webadmin-approve before
      listing). Script files are reported as INFO, not rejected.
   6. Compute and print a content digest per package (sorted relative paths +
      file bytes + length) for reproducibility (informational in Phase A).
@@ -174,9 +174,8 @@ def compute_digest(package_dir):
 
     For each file (sorted POSIX relative paths): fold the path, the byte
     length, the file bytes, and the executable bit (``os.stat(st_mode) &
-    0o111`` → ``1`` or ``0``) into the per-file digest stream. Phase A has
-    no executables so the bit is always 0, but the implementation honors
-    the spec for forward compatibility.
+    0o111`` → ``1`` or ``0``) into the per-file digest stream. Script-capable
+    packages are allowed, so this bit is part of the stable digest contract.
     """
     files = []
     for root, dirs, fs in os.walk(package_dir):
@@ -202,7 +201,7 @@ def main():
     all_errors = []
 
     # 1. Script-capable skills are ALLOWED (run in the claw sandbox via the shell
-    #    tool; human-reviewed at webadmin-approve before listing). Report as INFO.
+    #    tool; manually reviewed at webadmin-approve before listing). Report as INFO.
     script_files = check_no_executables()
     for v in script_files:
         print(f"INFO: script-capable (reviewed at approve): {v}")
