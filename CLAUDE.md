@@ -175,6 +175,8 @@ categories.yaml                 # canonical Marketplace taxonomy
 schemas/skill.schema.json       # documented frontmatter shape
 policies/review-policy.yaml     # change class to required approval
 policies/trust.md               # trust and security boundary
+skill-catalog.html              # standalone interactive Builtin/Marketplace catalog
+scripts/generate_skill_catalog.py # refreshes the catalog's embedded data
 scripts/validate_skills.py      # local and CI phase-A validator
 tests/test_validate.py          # validator self-test, run locally
 .github/workflows/ci.yml        # currently runs the validator only
@@ -861,6 +863,7 @@ Run for every Registry change:
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/validate_skills.py
 PYTHONDONTWRITEBYTECODE=1 python3 tests/test_validate.py
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py --check
 git diff --check
 git status --short
 ```
@@ -897,6 +900,7 @@ Before handoff, verify:
 - no duplicate slug, name, or `mind.id` was introduced;
 - all categories exist in `categories.yaml`;
 - every third-party field matches the pinned snapshot;
+- `skill-catalog.html` contains the current Marketplace package set;
 - the diff contains no unrelated or generated file;
 - no `__pycache__` remains.
 
@@ -1080,10 +1084,55 @@ withdrawal requires a separate disable, revocation, or deletion response.
 | Binary asset cannot be read through `read_skill` | Binary entries are base64 and text reads reject them | Materialize through a supported execution path |
 | Approval returns a version conflict | Live version changed after candidate creation | Re-sync and review a fresh candidate |
 
-## 26. Cross-Repository Catalog Follow-Up
+## 26. Interactive and Cross-Repository Catalog Maintenance
 
-The combined builtin and Marketplace inventory is maintained in the `mind-api`
-repository at:
+The standalone combined catalog is maintained in this repository at:
+
+```text
+skill-catalog.html
+```
+
+It embeds both release lanes so it works when opened directly without a server:
+
+- Marketplace entries come from the current Registry working tree;
+- Builtin entries are a snapshot of
+  `mind-api/knowledge/skills/preloaded/`;
+- Marketplace and Builtin categories remain separate because they have
+  different runtime meanings;
+- source links point to the corresponding Registry, `mind-api`, or pinned
+  third-party GitHub file.
+
+Every package add, update, re-vendor, move, rename, reclassification, removal,
+or batch operation must update `skill-catalog.html` in the same change. This
+includes description, summary, category, publisher, tag, provenance, and source
+changes. Do not hand-edit the embedded JSON block.
+
+After changing any Registry Skill, regenerate Marketplace data and preserve the
+existing Builtin snapshot:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py --check
+```
+
+When the Builtin lane changed or a fresh `mind-api` checkout is available,
+refresh both lanes by supplying its repository root:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py \
+  --mind-api-root /path/to/mind-api
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py --check
+```
+
+The generator always rebuilds Marketplace entries from `skills/*/SKILL.md`.
+Without `--mind-api-root`, it intentionally preserves the embedded Builtin
+snapshot so Registry-only maintenance does not depend on a second checkout.
+After generation, verify the displayed totals, type tabs, categories, search,
+source filters, source links, empty state, and mobile layout. A stale or missing
+catalog is a blocking validation failure, not an optional documentation
+follow-up.
+
+The audit-oriented Markdown inventory remains in the `mind-api` repository at:
 
 ```text
 docs/skill-catalog.md
@@ -1107,7 +1156,9 @@ A Registry change is ready for handoff only when:
 7. The final diff contains only intended files and no generated artifacts.
 8. Required approval classes are identified.
 9. Expected WebAdmin candidates and metadata projection limits are recorded.
-10. Production verification and rollback steps are concrete.
+10. The interactive catalog is regenerated and its filters and links are
+    verified.
+11. Production verification and rollback steps are concrete.
 
 For an authorized full release, definition of done additionally requires an
 `ok` source sync, exact candidate reconciliation, candidate approval,

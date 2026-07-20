@@ -22,6 +22,12 @@ cd mind-skill-registry
 
 确认 diff 后，由 agent commit、push 并创建 PR。PR 通过 CI 和所需审核后合并到 `main`。
 
+## Skill 全景目录
+
+[`skill-catalog.html`](skill-catalog.html) 是 Builtin 与 Marketplace Skill 的可交互清单。下载或克隆仓库后可直接打开，支持发布类型、分类、来源筛选和关键词搜索，并提供对应 GitHub 来源链接。
+
+任何 Marketplace Skill 增删改都必须在同一变更中刷新该 HTML。具体命令和 Builtin 快照更新方式见 [`CLAUDE.md`](CLAUDE.md#26-interactive-and-cross-repository-catalog-maintenance)。
+
 ## 发布链路
 
 Registry 合并不等于上线：
@@ -44,8 +50,10 @@ mind-skill-registry/
 ├── CLAUDE.md                 # Agent 完整维护规范
 ├── AGENTS.md                 # Codex 兼容入口，指向 CLAUDE.md
 ├── categories.yaml           # Marketplace 7 类 taxonomy
+├── skill-catalog.html        # Builtin / Marketplace 可交互清单
 ├── schemas/skill.schema.json # SKILL.md frontmatter schema
 ├── policies/                 # trust 和 review policy
+├── scripts/generate_skill_catalog.py
 ├── scripts/validate_skills.py
 ├── tests/test_validate.py
 └── skills/<slug>/            # 一个目录一个 skill package
@@ -80,6 +88,7 @@ mind-skill-registry/
 python3 -m pip install pyyaml  # 仅缺少依赖时
 python3 scripts/validate_skills.py
 python3 tests/test_validate.py
+python3 scripts/generate_skill_catalog.py --check
 git diff --check
 ```
 
