@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Phase-A validator for Registry skills.
+"""Validator for recursively organized Registry skill packages.
 
-For each skills/<pkg>/SKILL.md:
+For each recursively discovered skills/**/SKILL.md:
   1. Parse YAML frontmatter.
   2. Assert required fields: name, description, license.
   3. If metadata.mind.* keys are present:
@@ -57,6 +57,8 @@ RECOGNIZED_MIND_KEYS = {
     "mind.presentation",
     "mind.publisher",
     "mind.runtime-category",
+    "mind.runtime-default",
+    "mind.runtime-capabilities",
     "mind.tags",
     "mind.min-harness-version",
     "mind.upstream.repo",
@@ -78,6 +80,22 @@ MAX_STARTER_PROMPT_CHARACTERS = 4096
 
 # Script files are allowed (reviewed at approve); collected to report as INFO.
 EXECUTABLE_EXTENSIONS = {".sh", ".py", ".bat", ".ps1", ".exe", ".cmd"}
+RUNTIME_CATEGORIES = {
+    "deck",
+    "report",
+    "flashcard",
+    "webapp",
+    "video",
+    "audio",
+    "infographic",
+    # Legacy values remain valid for existing Marketplace packages. New
+    # Builtin packages use the canonical categories above.
+    "ppt",
+    "html",
+    "slides",
+    "markdown",
+}
+RUNTIME_CAPABILITIES = {"webapp:style-recipes"}
 
 
 def parse_frontmatter(path):
@@ -197,6 +215,19 @@ def validate_frontmatter(data, skill_path):
         val = data.get(field)
         if val is None or (isinstance(val, str) and not val.strip()):
             errors.append(f"missing or empty required field: {field}")
+    allowed_tools = data.get("allowed-tools")
+    if allowed_tools is not None:
+        valid_tools = (
+            isinstance(allowed_tools, str) and bool(allowed_tools.strip())
+        ) or (
+            isinstance(allowed_tools, list)
+            and bool(allowed_tools)
+            and all(isinstance(tool, str) and tool.strip() for tool in allowed_tools)
+        )
+        if not valid_tools:
+            errors.append(
+                "allowed-tools must be a non-empty string or an array of non-empty tool names"
+            )
     # metadata.mind.* validation
     metadata = data.get("metadata")
     if metadata is not None:
@@ -237,21 +268,80 @@ def validate_frontmatter(data, skill_path):
                         )
                 except (json.JSONDecodeError, TypeError) as e:
                     errors.append(f"mind.market-categories is not valid JSON: {e}")
+            runtime_category = metadata.get("mind.runtime-category")
+            if runtime_category and runtime_category not in RUNTIME_CATEGORIES:
+                errors.append(
+                    "mind.runtime-category must be one of "
+                    f"{sorted(RUNTIME_CATEGORIES)}, got: {runtime_category!r}"
+                )
+            runtime_default = metadata.get("mind.runtime-default")
+            if runtime_default is not None:
+                if runtime_default not in {"true", "false"}:
+                    errors.append("mind.runtime-default must be the string 'true' or 'false'")
+                elif runtime_default == "true":
+                    if dist != "builtin":
+                        errors.append("mind.runtime-default=true is allowed only for builtin skills")
+                    if not runtime_category:
+                        errors.append("mind.runtime-default=true requires mind.runtime-category")
+            capabilities_raw = metadata.get("mind.runtime-capabilities")
+            if capabilities_raw is not None:
+                try:
+                    capabilities = json.loads(capabilities_raw) if isinstance(capabilities_raw, str) else capabilities_raw
+                except (json.JSONDecodeError, TypeError) as e:
+                    errors.append(f"mind.runtime-capabilities is not valid JSON: {e}")
+                    capabilities = None
+                if not isinstance(capabilities, list) or any(
+                    not isinstance(capability, str) for capability in capabilities or []
+                ):
+                    errors.append("mind.runtime-capabilities must be a JSON array of strings")
+                elif unknown := sorted(set(capabilities) - RUNTIME_CAPABILITIES):
+                    errors.append(f"mind.runtime-capabilities contains unknown values: {unknown}")
+                if isinstance(capabilities, list) and "webapp:style-recipes" in capabilities and runtime_category != "webapp":
+                    errors.append("webapp:style-recipes requires mind.runtime-category=webapp")
+    errors.extend(validate_package_layout(data, skill_path))
     return errors
 
 
 def find_skill_packages():
-    """Walk skills/ and find directories containing SKILL.md (stop-on-first rule).
-    Returns list of (package_dir, skill_md_path)."""
+    """Find every package root, regardless of organizational directory depth."""
     packages = []
     if not os.path.isdir(SKILLS_DIR):
         return packages
     for root, dirs, files in os.walk(SKILLS_DIR):
+        dirs[:] = sorted(d for d in dirs if not d.startswith("."))
         if "SKILL.md" in files:
             packages.append((root, os.path.join(root, "SKILL.md")))
-            # stop-on-first: don't descend further into this package
-            dirs.clear()
-    return packages
+    return sorted(packages)
+
+
+def validate_package_layout(data, skill_path):
+    """Validate lane/category directories without using them as runtime truth."""
+    package_dir = os.path.dirname(skill_path)
+    skills_root = os.path.realpath(SKILLS_DIR)
+    package_root = os.path.realpath(package_dir)
+    if package_root != skills_root and not package_root.startswith(skills_root + os.sep):
+        return []
+    rel = os.path.relpath(package_dir, SKILLS_DIR).replace(os.sep, "/")
+    parts = rel.split("/")
+    if len(parts) < 3 or parts[0] not in {"builtin", "marketplace"}:
+        return ["package path must be skills/<builtin|marketplace>/<category>/.../<slug>"]
+    lane, organization = parts[0], parts[1]
+    metadata = data.get("metadata") if isinstance(data.get("metadata"), dict) else {}
+    distribution = metadata.get("mind.distribution")
+    errors = []
+    if distribution != lane:
+        errors.append(f"path lane {lane!r} must match mind.distribution {distribution!r}")
+    if lane == "builtin":
+        expected = metadata.get("mind.runtime-category") or "general"
+        if organization != expected:
+            errors.append(f"builtin organization {organization!r} must match runtime category {expected!r}")
+    else:
+        expected = metadata.get("mind.market-primary")
+        if not expected:
+            errors.append("marketplace packages require mind.market-primary")
+        elif organization != expected:
+            errors.append(f"marketplace organization {organization!r} must match mind.market-primary {expected!r}")
+    return errors
 
 
 def check_no_executables():
@@ -309,6 +399,10 @@ def main():
     packages = find_skill_packages()
     if not packages:
         print("INFO: no skill packages found under skills/ (nothing to validate)")
+    seen_names = {}
+    seen_ids = {}
+    seen_runtime_defaults = {}
+    package_roots = {os.path.realpath(pkg_dir) for pkg_dir, _ in packages}
     for pkg_dir, skill_path in packages:
         rel_pkg = os.path.relpath(pkg_dir, REGISTRY_ROOT)
         data, err = parse_frontmatter(skill_path)
@@ -318,10 +412,35 @@ def main():
         errs = validate_frontmatter(data, skill_path)
         for e in errs:
             all_errors.append(f"{rel_pkg}/SKILL.md: {e}")
+        name = data.get("name")
+        metadata = data.get("metadata", {}) if isinstance(data.get("metadata"), dict) else {}
+        mind_id = metadata.get("mind.id")
+        for value, seen, label in ((name, seen_names, "name"), (mind_id, seen_ids, "mind.id")):
+            if not value:
+                continue
+            if value in seen:
+                all_errors.append(f"{rel_pkg}/SKILL.md: duplicate {label} {value!r}; first used by {seen[value]}")
+            else:
+                seen[value] = rel_pkg
+        if metadata.get("mind.runtime-default") == "true":
+            category = metadata.get("mind.runtime-category")
+            if category in seen_runtime_defaults:
+                all_errors.append(
+                    f"{rel_pkg}/SKILL.md: duplicate runtime default for {category!r}; first used by {seen_runtime_defaults[category]}"
+                )
+            else:
+                seen_runtime_defaults[category] = rel_pkg
+        parent = os.path.realpath(os.path.dirname(pkg_dir))
+        while parent.startswith(os.path.realpath(SKILLS_DIR) + os.sep):
+            if parent in package_roots:
+                all_errors.append(
+                    f"{rel_pkg}/SKILL.md: nested package roots are not allowed; parent package is {os.path.relpath(parent, REGISTRY_ROOT)}"
+                )
+                break
+            parent = os.path.dirname(parent)
         # Print content digest (informational in Phase A)
         digest = compute_digest(pkg_dir)
-        mind_id = data.get("metadata", {}).get("mind.id", "<no-mind-id>") if isinstance(data.get("metadata"), dict) else "<no-mind-id>"
-        print(f"OK  {rel_pkg}  mind.id={mind_id}  digest=sha256:{digest}")
+        print(f"OK  {rel_pkg}  mind.id={mind_id or '<no-mind-id>'}  digest=sha256:{digest}")
 
     if all_errors:
         print("\nFAIL — validation errors:")

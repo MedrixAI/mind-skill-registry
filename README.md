@@ -1,6 +1,6 @@
 # Mind Skill Registry
 
-Mind 官方 Marketplace skill 的维护仓库。这里保存 skill 内容、附带文件、分类、license 和第三方来源信息。
+Mind 官方 Builtin 与 Marketplace skill 的唯一维护仓库。这里保存 skill 内容、附带文件、运行分类、Marketplace 分类、license 和第三方来源信息。
 
 ## 日常协作方式
 
@@ -26,7 +26,7 @@ cd mind-skill-registry
 
 [`skill-catalog.html`](skill-catalog.html) 是 Builtin 与 Marketplace Skill 的可交互清单。下载或克隆仓库后可直接打开，支持发布类型、分类、来源筛选、关键词搜索、Marketplace 展示语言切换和 starter prompts 预览，并提供对应 GitHub 来源链接。
 
-任何 Marketplace Skill 增删改都必须在同一变更中刷新该 HTML。具体命令和 Builtin 快照更新方式见 [`CLAUDE.md`](CLAUDE.md#26-interactive-and-cross-repository-catalog-maintenance)。
+任何 Skill 增删改都必须在同一变更中刷新该 HTML。具体命令见 [`CLAUDE.md`](CLAUDE.md#26-interactive-and-cross-repository-catalog-maintenance)。
 
 ## 发布链路
 
@@ -56,15 +56,17 @@ mind-skill-registry/
 ├── scripts/generate_skill_catalog.py
 ├── scripts/validate_skills.py
 ├── tests/test_validate.py
-└── skills/<slug>/            # 一个目录一个 skill package
-    ├── SKILL.md
-    ├── LICENSE / LICENSE.txt
-    ├── scripts/              # 可选
-    ├── references/           # 可选
-    └── assets/               # 可选
+└── skills/
+    ├── builtin/<runtime-category|general>/.../<slug>/
+    └── marketplace/<market-primary>/.../<slug>/
+        ├── SKILL.md
+        ├── LICENSE / LICENSE.txt
+        ├── scripts/          # 可选
+        ├── references/       # 可选
+        └── assets/           # 可选
 ```
 
-扫描器递归查找 `SKILL.md`，发现后的目录就是 package root，其下文件属于同一个 skill。当前 package 使用 `skills/<slug>/` 平铺结构。
+扫描器递归查找 `SKILL.md`，发现后的目录就是 package root，其下文件属于同一个 skill。`builtin`、`marketplace`、category 和更深的中间目录只用于组织；同步后的 `source`、运行分类和能力完全由 frontmatter 决定。package 之间不能互相嵌套。
 
 ## Marketplace 分类
 
@@ -94,12 +96,9 @@ prompts，不会继承默认语言。完整 shape、限制和示例见 [`CLAUDE.
 
 | 项目 | 覆盖 |
 |---|---:|
-| Marketplace Skill | 93 |
-| 含 `mind.presentation` | 93 / 93 |
-| 含 `en-US` | 93 / 93 |
-| 含 `zh-CN` | 93 / 93 |
-| starter prompts | 558（每个 Skill 两种语言各 3 条） |
-| 默认语言 | 92 个 `en-US`，1 个 `zh-CN` |
+| Builtin Skill | 95 |
+| Marketplace Skill | 94 |
+| 含 `mind.presentation` | 93 / 94 Marketplace |
 
 维护任一 Skill 时必须继续满足 presentation 合同，并重新生成
 `skill-catalog.html`。Catalog 的语言选择只影响离线目录展示；线上 Marketplace
@@ -115,7 +114,7 @@ python3 scripts/generate_skill_catalog.py --check
 git diff --check
 ```
 
-Validator 会检查 frontmatter、`mind.*` 字段、分类关系并计算 package digest。脚本文件允许作为 bundled file 存在，validator 会输出 `INFO`；脚本仍必须按 `policies/review-policy.yaml` 完成安全审查。
+Validator 会检查 frontmatter、lane/目录关系、稳定身份唯一性、运行分类/默认项/能力、Marketplace 分类关系，并计算 package digest。脚本文件允许作为 bundled file 存在，validator 会输出 `INFO`；脚本仍必须按 `policies/review-policy.yaml` 完成安全审查。
 
 ## 重要边界
 

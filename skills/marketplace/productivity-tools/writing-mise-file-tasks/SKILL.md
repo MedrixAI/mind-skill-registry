@@ -1,6 +1,20 @@
 ---
 name: writing-mise-file-tasks
 description: Use when creating complex mise tasks that require arguments, dependencies, or monorepo support. specialized guide for writing standalone task scripts (file tasks) with metadata and usage specs.
+license: MIT
+metadata:
+  mind.id: ai.medrix.skill.writing-mise-file-tasks
+  mind.distribution: marketplace
+  mind.market-primary: productivity-tools
+  mind.market-categories: '["productivity-tools"]'
+  mind.marketplace-summary: Write robust standalone mise task scripts with arguments and dependencies.
+  mind.publisher: medrixai
+  mind.upstream.repo: https://github.com/zenobi-us/dotfiles
+  mind.upstream.commit: 6916b57f9de275b2d970749723f360f990f53b96
+  mind.upstream.path: devtools/files/pi/agent/bundles/platform/skills/devtools/mise/writing-mise-file-tasks/SKILL.md
+  mind.upstream.import-mode: exact-snapshot
+  mind.upstream.license: MIT
+  mind.upstream.evidence-urls: '["https://github.com/zenobi-us/dotfiles/blob/6916b57f9de275b2d970749723f360f990f53b96/LICENSE"]'
 ---
 
 # Mise File Tasks

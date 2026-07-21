@@ -4,13 +4,13 @@
 Exercises the parser + frontmatter validator against fixtures under
 tests/fixtures/. Run with: ``python3 tests/test_validate.py``.
 
-Not wired into .github/workflows/ci.yml (CI only runs the Phase-A skills/
-gate). This harness is the local authoring check; CI remains green as long
-as skills/ is clean.
+CI runs this harness after validating the live Registry packages.
 """
 import json
 import os
 import sys
+import tempfile
+from pathlib import Path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -27,6 +27,14 @@ def _fixture_errors(name):
     if err:
         return [err]
     return validate_skills.validate_frontmatter(data, skill_md)
+
+
+def _fixture_data(name):
+    skill_md = os.path.join(FIXTURES, name, "SKILL.md")
+    data, err = validate_skills.parse_frontmatter(skill_md)
+    if err:
+        raise AssertionError(err)
+    return data
 
 
 def _presentation_errors(presentation, description="A canonical description."):
@@ -141,6 +149,57 @@ def main():
             failures.append(
                 f"{name}: expected error containing '{expected_err}', got: {' | '.join(errs)}"
             )
+
+    runtime_cases = [
+        ("unknown-runtime-category", {"mind.runtime-category": "not-a-runtime"}, "mind.runtime-category must be one of"),
+        ("unknown-runtime-capability", {"mind.runtime-capabilities": '["webapp:unknown"]'}, "contains unknown values"),
+        (
+            "style-recipe-wrong-category",
+            {"mind.runtime-category": "deck", "mind.runtime-capabilities": '["webapp:style-recipes"]'},
+            "requires mind.runtime-category=webapp",
+        ),
+        ("invalid-runtime-default", {"mind.runtime-category": "deck", "mind.runtime-default": "yes"}, "must be the string 'true' or 'false'"),
+        ("runtime-default-missing-category", {"mind.runtime-default": "true"}, "requires mind.runtime-category"),
+        (
+            "marketplace-runtime-default",
+            {"mind.distribution": "marketplace", "mind.runtime-category": "deck", "mind.runtime-default": "true"},
+            "allowed only for builtin skills",
+        ),
+    ]
+    for name, overrides, expected_err in runtime_cases:
+        data = _fixture_data("valid-builtin")
+        data["metadata"].update(overrides)
+        errs = validate_skills.validate_frontmatter(data, os.path.join(FIXTURES, "valid-builtin", "SKILL.md"))
+        if any(expected_err in error for error in errs):
+            print(f"PASS  {name}: correctly rejected ({expected_err})")
+        else:
+            failures.append(f"{name}: expected error containing '{expected_err}', got: {' | '.join(errs)}")
+
+    original_skills_dir = validate_skills.SKILLS_DIR
+    with tempfile.TemporaryDirectory() as temp_dir:
+        validate_skills.SKILLS_DIR = temp_dir
+        builtin_path = Path(temp_dir) / "builtin" / "webapp" / "nested" / "demo" / "SKILL.md"
+        builtin_path.parent.mkdir(parents=True)
+        data = _fixture_data("valid-builtin")
+        data["metadata"]["mind.runtime-category"] = "webapp"
+        errs = validate_skills.validate_package_layout(data, str(builtin_path))
+        if errs:
+            failures.append(f"recursive-builtin-layout: expected PASS, got {errs}")
+        else:
+            print("PASS  recursive-builtin-layout: validated cleanly")
+        marketplace_path = Path(temp_dir) / "marketplace" / "general" / "nested" / "demo" / "SKILL.md"
+        marketplace_path.parent.mkdir(parents=True)
+        data["metadata"].update({
+            "mind.distribution": "marketplace",
+            "mind.market-primary": "general",
+            "mind.market-categories": '["general"]',
+        })
+        errs = validate_skills.validate_package_layout(data, str(marketplace_path))
+        if errs:
+            failures.append(f"recursive-marketplace-layout: expected PASS, got {errs}")
+        else:
+            print("PASS  recursive-marketplace-layout: validated cleanly")
+    validate_skills.SKILLS_DIR = original_skills_dir
 
     multibyte_description = "界" * 1024
     errs = _presentation_errors(

@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh the embedded data in the standalone interactive Skill catalog.
-
-Marketplace entries always come from this Registry working tree. Builtin entries
-come from ``--mind-api-root`` when supplied; otherwise the existing embedded
-Builtin snapshot is preserved so normal Registry-only maintenance stays local.
-"""
+"""Refresh the embedded data in the standalone interactive Skill catalog."""
 
 from __future__ import annotations
 
@@ -96,7 +91,8 @@ def load_marketplace_categories() -> set[str]:
 def build_marketplace_entries() -> list[dict]:
     canonical_categories = load_marketplace_categories()
     entries = []
-    for skill_path in sorted((REGISTRY_ROOT / "skills").glob("*/SKILL.md")):
+    for skill_path in sorted((REGISTRY_ROOT / "skills" / "marketplace").rglob("SKILL.md")):
+        rel_path = skill_path.relative_to(REGISTRY_ROOT).as_posix()
         slug = skill_path.parent.name
         data = parse_frontmatter(skill_path)
         metadata = data.get("metadata") or {}
@@ -126,7 +122,7 @@ def build_marketplace_entries() -> list[dict]:
             source_label = "MedrixAI/mind-skill-registry"
             source_url = (
                 "https://github.com/MedrixAI/mind-skill-registry/blob/main/"
-                f"skills/{quote(slug, safe='-._~')}/SKILL.md"
+                f"{rel_path}"
             )
             source_kind = "first-party"
             publisher = str(metadata.get("mind.publisher") or "MedrixAI")
@@ -159,80 +155,17 @@ def build_marketplace_entries() -> list[dict]:
     return entries
 
 
-def classify_builtin(name: str) -> str:
-    normalized = name.lower()
-    if (
-        normalized == "ppt-master"
-        or normalized.startswith("html-deck-")
-        or normalized.startswith("html-ppt-")
-        or normalized.startswith("html-poster-")
-        or normalized.startswith("html-frame-")
-        or normalized in {"html-social-carousel", "html-magazine-poster"}
-    ):
-        return "deck"
-    if normalized in {"flashcard-master", "quiz-master"}:
-        return "flashcard"
-    if normalized in {
-        "report-master",
-        "html-data-report",
-        "html-finance-report",
-        "html-exec-briefing-memo",
-        "html-experiment-readout",
-        "html-doc-kami-parchment",
-        "html-docs-page",
-        "html-article-magazine",
-        "html-blog-post",
-        "html-meeting-notes",
-        "html-pm-spec",
-        "html-eng-runbook",
-        "html-weekly-update",
-        "html-digital-eguide",
-        "html-competitive-teardown",
-    }:
-        return "report"
-    if (
-        normalized in {"html-web-design-engineer", "web-design-engineer"}
-        or normalized.startswith("html-mobile-")
-        or normalized.startswith("html-saas-")
-        or normalized.startswith("html-pricing-")
-        or normalized.startswith("html-waitlist-")
-        or normalized.startswith("html-prototype-")
-        or normalized.startswith("html-web-proto-")
-        or normalized.startswith("html-flowai-")
-        or normalized.startswith("html-card-")
-        or normalized.startswith("html-social-")
-        or normalized
-        in {
-            "html-gamified-app",
-            "html-kanban-board",
-            "html-dashboard",
-            "html-live-dashboard",
-            "html-social-media-dashboard",
-            "html-team-okrs",
-            "html-resume-modern",
-            "html-invoice",
-            "html-email-marketing",
-            "html-dating-web",
-            "html-hr-onboarding",
-            "html-wireframe-sketch",
-        }
-    ):
-        return "webapp"
-    return "uncategorized"
-
-
-def build_builtin_entries(mind_api_root: Path) -> list[dict]:
-    skills_root = mind_api_root / "knowledge" / "skills" / "preloaded"
-    if not skills_root.is_dir():
-        raise ValueError(f"Builtin directory not found: {skills_root}")
-
+def build_builtin_entries() -> list[dict]:
     entries = []
-    for skill_path in sorted(skills_root.glob("*/SKILL.md")):
+    for skill_path in sorted((REGISTRY_ROOT / "skills" / "builtin").rglob("SKILL.md")):
         slug = skill_path.parent.name
         data = parse_frontmatter(skill_path)
+        metadata = data.get("metadata") or {}
+        rel_path = skill_path.relative_to(REGISTRY_ROOT).as_posix()
         name = str(data.get("name", slug))
         description = str(data.get("description", "")).strip()
-        category = classify_builtin(name)
+        category = str(metadata.get("mind.runtime-category") or "uncategorized")
+        tags = parse_json_list(metadata.get("mind.tags"), "mind.tags", skill_path)
         entries.append(
             {
                 "type": "builtin",
@@ -243,15 +176,12 @@ def build_builtin_entries(mind_api_root: Path) -> list[dict]:
                 "primaryCategory": category,
                 "categories": [category],
                 "sourceKind": "first-party",
-                "sourceLabel": "MedrixAI/mind-api",
-                "sourceUrl": (
-                    "https://github.com/MedrixAI/mind-api/blob/main/"
-                    f"knowledge/skills/preloaded/{quote(slug, safe='-._~')}/SKILL.md"
-                ),
+                "sourceLabel": "MedrixAI/mind-skill-registry",
+                "sourceUrl": f"https://github.com/MedrixAI/mind-skill-registry/blob/main/{rel_path}",
                 "publisher": "MedrixAI",
-                "mindId": "",
+                "mindId": str(metadata.get("mind.id", "")),
                 "license": str(data.get("license", "")),
-                "tags": [],
+                "tags": tags,
             }
         )
     return entries
@@ -295,11 +225,6 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--html", type=Path, default=DEFAULT_HTML)
     parser.add_argument(
-        "--mind-api-root",
-        type=Path,
-        help="Refresh Builtin entries from this mind-api checkout.",
-    )
-    parser.add_argument(
         "--check",
         action="store_true",
         help="Exit non-zero when the embedded Marketplace data is stale.",
@@ -310,17 +235,7 @@ def main() -> int:
     html = html_path.read_text(encoding="utf-8")
     existing = load_existing_catalog(html)
 
-    if args.mind_api_root:
-        builtin_entries = build_builtin_entries(args.mind_api_root.resolve())
-    else:
-        builtin_entries = [
-            entry for entry in existing["skills"] if entry.get("type") == "builtin"
-        ]
-        if not builtin_entries:
-            raise ValueError(
-                "no embedded Builtin snapshot; supply --mind-api-root for the initial build"
-            )
-
+    builtin_entries = build_builtin_entries()
     marketplace_entries = build_marketplace_entries()
     entries = sorted(
         [*builtin_entries, *marketplace_entries],
@@ -333,7 +248,7 @@ def main() -> int:
         "sources": [
             {
                 "type": "builtin",
-                "repository": "MedrixAI/mind-api",
+                "repository": "MedrixAI/mind-skill-registry",
                 "ref": "main",
                 "count": len(builtin_entries),
             },

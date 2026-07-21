@@ -7,7 +7,7 @@ assume any prior conversation, local setup, or production state.
 ## 1. Mission and System Boundary
 
 This repository is the reviewed Git source for officially maintained Mind
-Marketplace Skill packages. It owns:
+Builtin and Marketplace Skill packages. It owns:
 
 - `SKILL.md` instructions and discovery metadata;
 - bundled scripts, references, templates, and assets;
@@ -39,10 +39,10 @@ The live runtime source is the approved Mind database row. Existing
 Marketplace subscriptions reference that shared row rather than a copied Skill,
 so an approved content update reaches existing subscriptions immediately.
 
-Platform builtins are a separate release lane under
-`mind-api/knowledge/skills/preloaded/`. Current packages in this Registry use
-`mind.distribution: marketplace`. Although the contract accepts `builtin`, that
-value alone does not move a package into the platform-builtin lane.
+Builtin and Marketplace packages are separate Registry lanes that converge on
+the same source sync and candidate approval path. `mind.distribution` is the
+runtime source of truth: approved Builtins stay unlisted and are auto-on;
+approved Marketplace packages become listed and require tenant subscription.
 
 ## 2. Source-of-Truth Order
 
@@ -118,8 +118,8 @@ commit or push unless explicitly requested.
 | Re-vendor upstream | Preserve `mind.id`; update upstream SHA | Pending update when vendored bytes change | Required review, then approve |
 | Move directory only | Preserve `mind.id` and `name` | Usually `skipped`; provenance path can backfill | Usually none |
 | Rename `name` | Preserve `mind.id` | Registry approval currently preserves the live name | Separate supported rename path |
-| Reclassify primary category only | Preserve `mind.id` | Usually `skipped` | WebAdmin category update or runtime enhancement |
-| Change tags/summary/publisher only | Preserve `mind.id` | Usually `skipped` | WebAdmin for live display; tags are not fully projected |
+| Reclassify package-owned category | Preserve `mind.id` | Pending metadata update | Approve candidate and verify live filtering |
+| Change tags/summary/publisher only | Preserve `mind.id` | Pending metadata update | Approve candidate; WebAdmin overrides remain separate |
 | Remove package | Retire `mind.id`; never reuse | No deletion candidate | Unlist or stronger withdrawal first |
 | Batch maintenance | Preserve every existing `mind.id` | One result per content-drift package | Reconcile each candidate before approval |
 
@@ -155,17 +155,19 @@ to avoid a pause.
 
 ## 6. Repository and Package Discovery Model
 
-Current packages use this flat layout:
+Packages use this recursive organizational layout:
 
 ```text
-skills/<slug>/
-├── SKILL.md
-├── LICENSE or LICENSE.txt
-├── NOTICE.txt              # when required
-├── MODIFICATIONS.md        # curated third-party changes
-├── scripts/                # optional
-├── references/             # optional
-└── assets/                 # optional
+skills/
+├── builtin/<runtime-category|general>/.../<slug>/
+└── marketplace/<market-primary>/.../<slug>/
+    ├── SKILL.md
+    ├── LICENSE or LICENSE.txt
+    ├── NOTICE.txt              # when required
+    ├── MODIFICATIONS.md        # curated third-party changes
+    ├── scripts/                # optional
+    ├── references/             # optional
+    └── assets/                 # optional
 ```
 
 Important root files:
@@ -178,15 +180,15 @@ policies/trust.md               # trust and security boundary
 skill-catalog.html              # standalone interactive Builtin/Marketplace catalog
 scripts/generate_skill_catalog.py # refreshes the catalog's embedded data
 scripts/validate_skills.py      # local and CI phase-A validator
-tests/test_validate.py          # validator self-test, run locally
-.github/workflows/ci.yml        # currently runs the validator only
+tests/test_validate.py          # validator self-test, local and CI
+.github/workflows/ci.yml        # validator, self-tests, catalog check
 ```
 
 The Mind scanner walks recursively. The first `SKILL.md` found in a subtree
 defines the package root; every regular file beneath it becomes part of that
 package. The scanner then stops descending for additional packages. Therefore:
 
-- keep one package at `skills/<slug>/`;
+- keep one package under the correct lane/category; deeper grouping is allowed;
 - never place a second Skill package beneath another package;
 - treat a nested `SKILL.md` as an accidental bundled file unless that is
   explicitly intended;
@@ -208,7 +210,7 @@ Three identifiers have different roles:
 
 | Identifier | Role | Change rule |
 |---|---|---|
-| `skills/<slug>` | Git location | May move; keep readable and unique |
+| Recursive package path | Git location | May move; keep readable and unique |
 | frontmatter `name` | Runtime discovery name | Keep stable; live rename needs separate handling |
 | `metadata.mind.id` | Source reconciliation identity | Permanent after first publication |
 
@@ -233,11 +235,11 @@ letters, digits, and hyphens only.
 Before adding or renaming, inspect all identities:
 
 ```bash
-rg -n '^name:' skills/*/SKILL.md
-rg -n '^  mind\.id:' skills/*/SKILL.md
-find skills -mindepth 1 -maxdepth 1 -type d -print | sort
-rg --no-filename '^name:' skills/*/SKILL.md | sort | uniq -d
-rg --no-filename '^  mind\.id:' skills/*/SKILL.md | sort | uniq -d
+rg -n '^name:' skills -g SKILL.md
+rg -n '^  mind\.id:' skills -g SKILL.md
+find skills -name SKILL.md -print | sort
+rg --no-filename '^name:' skills -g SKILL.md | sort | uniq -d
+rg --no-filename '^  mind\.id:' skills -g SKILL.md | sort | uniq -d
 ```
 
 The last two commands must produce no output.
@@ -246,11 +248,11 @@ For a targeted check:
 
 ```bash
 rg -n '^name: <name>$|mind\.id: <mind-id>$' skills
-test ! -e 'skills/<slug>'
+find skills -type d -name '<slug>' -print
 ```
 
-Do not rely on the current validator to detect duplicate names, duplicate
-`mind.id` values, or case-insensitive path collisions.
+The validator rejects duplicate names and duplicate `mind.id` values. Keep the
+manual inventory for reviewer visibility and case-insensitive path collisions.
 
 Mind resolves an existing Registry Skill by `(source_id, mind.id)` first, then
 falls back to `(tenant_id, name)`. Changing `mind.id` can bind incorrectly by
@@ -300,7 +302,7 @@ permission.
 | `description` | Required | State capability and activation conditions |
 | `license` | Required | Match package evidence and redistributed bytes |
 | `metadata` | Required for Registry extensions | Flat string-to-string map |
-| `allowed-tools` | Optional | Array of tool names; no permission grant |
+| `allowed-tools` | Optional | Non-empty string or array of tool names; no permission grant |
 | `compatibility` | Optional | String describing dependencies or constraints |
 
 First-party packages may not invent other top-level fields. Vendored packages
@@ -314,15 +316,17 @@ The recognized set is closed:
 | Key | Required | Meaning and current projection |
 |---|---|---|
 | `mind.id` | Yes | Permanent Registry reconciliation key |
-| `mind.distribution` | Yes | `marketplace` for this Registry's current release lane |
+| `mind.distribution` | Yes | `builtin` auto-enables after approval; `marketplace` lists after approval |
 | `mind.market-primary` | Expected | Primary Marketplace category; approval copies this value |
 | `mind.market-categories` | Expected | JSON array string; secondary values remain Registry metadata |
-| `mind.marketplace-summary` | Optional | Registry display default; current candidate approval does not copy it |
+| `mind.marketplace-summary` | Optional | Registry display default; copied through candidate approval |
 | `mind.presentation` | Optional | Localized Marketplace descriptions and ordered chat starter prompts; copied through candidate approval |
-| `mind.publisher` | Optional | Registry provenance/display default; not copied by current approval |
-| `mind.runtime-category` | Optional | Runtime/artifact hint; not a Marketplace category and not currently copied |
-| `mind.tags` | Optional | JSON array string; parsed into the candidate projection but not currently copied |
-| `mind.min-harness-version` | Optional | Compatibility intent; not currently enforced during sync or runtime load |
+| `mind.publisher` | Optional | Registry provenance/display default; stored in package metadata |
+| `mind.runtime-category` | Optional | Closed runtime category; copied to `skills.category` |
+| `mind.runtime-default` | Optional | Builtin-only default for its runtime category; copied to package metadata; at most one per category |
+| `mind.runtime-capabilities` | Optional | Closed JSON array string; copied to package metadata |
+| `mind.tags` | Optional | JSON array string; copied to `skills.tags` |
+| `mind.min-harness-version` | Optional | Compatibility intent stored in package metadata |
 | `mind.upstream.repo` | Vendored | Canonical upstream HTTPS repository |
 | `mind.upstream.commit` | Vendored | Full 40-character upstream commit SHA |
 | `mind.upstream.path` | Vendored | Upstream package path |
@@ -338,6 +342,7 @@ extension. Attestation is a Registry release concern, not frontmatter.
 These metadata values are JSON arrays encoded as YAML strings:
 
 - `mind.market-categories`
+- `mind.runtime-capabilities`
 - `mind.tags`
 - `mind.upstream.evidence-urls`
 
@@ -402,10 +407,10 @@ discovery.
 
 Current full-Registry baseline as of 2026-07-21:
 
-- all 93 Marketplace packages carry `mind.presentation`;
-- every package carries both `en-US` and `zh-CN`;
-- every locale currently carries three ordered prompts, for 558 prompts total;
-- 92 packages default to `en-US`; the Chinese-native dispatcher defaults to
+- 93 of 94 Marketplace packages carry `mind.presentation`;
+- those 93 packages carry both `en-US` and `zh-CN`;
+- every localized entry currently carries three ordered prompts, for 558 prompts total;
+- 92 localized packages default to `en-US`; the Chinese-native dispatcher defaults to
   `zh-CN`.
 
 This baseline is release evidence, not a schema constant. Package additions or
@@ -463,22 +468,21 @@ Classification rules:
 5. Validate every category against `categories.yaml`; current local validation
    checks containment but not canonical membership.
 
-`mind.runtime-category` is a separate runtime/artifact hint. Known documented
-values are `report`, `ppt`, `html`, `flashcard`, `slides`, `markdown`, and
-`video`. Do not use a Marketplace category slug as a runtime category merely
-because the words are similar.
+`mind.runtime-category` is a separate runtime/artifact hint. Builtin packages
+use the canonical values `deck`, `report`, `flashcard`, `webapp`, `video`,
+`audio`, and `infographic`; existing Marketplace packages may retain the
+legacy values `ppt`, `html`, `slides`, or `markdown`. Do not use a Marketplace
+category slug as a runtime category merely because the words are similar.
 
-Current projection limits are load-bearing:
-
-- candidate approval copies only `mind.market-primary` to the single-value
-  `marketplace_category` database column;
-- secondary Marketplace categories are not persisted as filterable live data;
-- `mind.tags` does not populate the live `tags` column through current approval;
-- `skill_search` reads the separate runtime `category` and `tags` fields, not
-  Registry secondary categories;
-- `mind.runtime-category` does not currently populate that runtime category.
-
-Do not promise live filtering that these fields cannot currently provide.
+Candidate approval atomically projects package-owned metadata: `mind.market-primary`
+to the legacy single-value `marketplace_category` column, `mind.tags` to the
+live `tags` column, `mind.runtime-category` to the runtime `category` column,
+and complete package metadata (including secondary categories, runtime
+capabilities, license, compatibility, publisher, and provenance) to
+`package_metadata`. WebAdmin-owned listing/review controls remain separate.
+Secondary categories are therefore available in package metadata, but existing
+search/filter endpoints still primarily use the single category and tags
+columns; do not promise new filter behavior without an API change.
 
 ## 10. Content Quality Contract
 
@@ -648,9 +652,10 @@ legal approval. Script, network, or capability changes also require
 7. Re-run static risk review even when the upstream changelog appears benign.
 8. Run targeted tests for changed scripts and the full Registry checks.
 
-If only provenance metadata changes and content bytes remain identical, Mind
-can report `skipped`; this is expected because production drift detection does
-not hash most frontmatter metadata.
+Package-declared provenance (`mind.upstream.*`) is package metadata and creates
+a candidate when changed. Registry transport provenance (the source commit and
+package path) is backfilled without a candidate when package bytes and
+frontmatter are unchanged.
 
 ## 14. Move and Rename Playbook
 
@@ -668,50 +673,43 @@ not hash most frontmatter metadata.
 Preserve `mind.id`. Never create a replacement identity merely to rename the
 display or discovery name.
 
-Current review-path limitations:
-
-- drift detection does not hash `name`;
-- the pending snapshot does not carry `name`;
-- candidate approval preserves the existing live `name`.
-
-Therefore a Registry-only name edit does not guarantee a live rename. A complete
-rename plan must include a supported WebAdmin catalog update or a `mind-api`
-change, collision checks, content-preservation checks, subscription verification,
-and rollback. Do not claim a live rename after Registry sync alone.
+The package `name` participates in drift detection, is carried in the pending
+snapshot, and is applied on approval. A rename still requires global name and
+`mind.id` collision checks, content-preservation checks, subscription
+verification, and a rollback plan; preserve `mind.id` throughout.
 
 ## 15. Metadata and Reclassification Playbook
 
 Production drift detection hashes:
 
 ```text
-description + instructions + sorted bundled file paths and contents + mind.presentation
+name + description + instructions + sorted bundled files + package-owned metadata
 ```
 
-It excludes `name`, license, categories, tags, summary, publisher,
-distribution, minimum harness version, and most provenance metadata. Presentation
-is content-bearing metadata: changing it produces a review candidate.
+This includes stable `mind.id`, distribution, category, tags, summary, license,
+compatibility, allowed tools, publisher, minimum harness version, runtime
+defaults/capabilities, presentation, package-declared upstream provenance, and
+content digest. It excludes WebAdmin-owned listing/review/display controls and
+Registry transport provenance (source row ID, Registry commit/path, version
+pin). Transport provenance is backfilled when package content is unchanged, so
+an unrelated repo commit or directory-only move does not create a candidate.
 
 Consequences:
 
-- a pure primary-category change normally produces no pending candidate;
-- a primary category is copied only when another real content change produces a
-  candidate and that candidate is approved;
-- secondary categories, tags, publisher, runtime category, and minimum harness
-  version are not fully applied by current candidate approval;
+- a metadata-only package change produces a pending candidate;
+- approval atomically copies package-owned fields to live columns or
+  `package_metadata`;
 - Marketplace summary, showcase media, featured/recommended state, sort weight,
   and listing state are operational WebAdmin fields.
 
 For a pure live reclassification:
 
-1. Update Registry metadata to preserve desired Git intent.
-2. Apply the live primary category through WebAdmin only when explicitly in
-   scope, or implement the missing projection in `mind-api` when that is the
-   requested outcome.
-3. Verify Marketplace category filtering after the live update.
-4. Do not add a no-op content change to manufacture drift.
+1. Update Registry metadata and regenerate the catalog.
+2. Sync and approve the resulting candidate through WebAdmin.
+3. Verify the projected live fields and Marketplace category filtering.
 
-For display-only changes, use WebAdmin and do not rewrite Skill content. For
-tags or runtime-category behavior, state the current projection gap explicitly.
+For WebAdmin-owned display-only changes, use WebAdmin and do not rewrite Skill
+content.
 
 ## 16. Removal and Withdrawal Playbook
 
@@ -832,8 +830,8 @@ The local validator additionally reports `.bat`, `.ps1`, `.exe`, and `.cmd`.
 Review the union plus executable file modes:
 
 ```bash
-find skills/<slug> -type f -perm -111 -print
-find skills/<slug> -type f | rg '\.(py|sh|bash|js|ts|rb|pl|php|bat|ps1|cmd|exe)$'
+find skills -type f -perm -111 -print
+find skills -type f | rg '\.(py|sh|bash|js|ts|rb|pl|php|bat|ps1|cmd|exe)$'
 ```
 
 For every executable or capability change, inspect:
@@ -899,15 +897,15 @@ CI.
 | Closed `mind.*` key set | Yes | Yes | None when both pass |
 | `mind.id` / distribution present | Yes | Yes | Confirm format, uniqueness, and lifecycle |
 | Primary contained in category array | Partial; only when both fields exist | Yes when primary exists | Confirm presence and canonical slug membership |
-| `mind.tags` JSON syntax | No | Yes | Validate locally before handoff |
+| `mind.tags` JSON syntax | Yes through catalog generation | Yes | Confirm tag quality |
 | Evidence URL JSON syntax | No | Yes | Validate locally before handoff |
 | First-party unknown top-level fields | No | Rejected by Mind sync | Inspect mode and top-level keys |
 | Complete third-party provenance | No | Not fully enforced | Verify every upstream field and evidence |
-| Duplicate slug/name/`mind.id` | No | Can reconcile incorrectly or conflict | Registry-wide collision scan |
+| Duplicate slug/name/`mind.id` | Name and `mind.id`: Yes; path case collision: No | Can reconcile incorrectly or conflict | Registry-wide collision scan |
 | Unsafe symlink/submodule/LFS content | No | Official source sync rejects | Repository-wide scan |
 | Script capability risk | Partial `INFO` only | Script classification only | Static and targeted review |
 | Secret/license approval | No | No | Required review and evidence |
-| Metadata-only drift | No candidate prediction | Usually `skipped` | Plan separate live action |
+| Package metadata-only drift | Validated; catalog must update | Produces pending candidate | Review projected metadata |
 | Content size/portable paths | Incomplete | Inconsistent across sync and direct APIs | Apply compatibility budgets |
 
 The Registry validator prints an informational package digest. Mind sync
@@ -1057,11 +1055,12 @@ Sync does not publish. Under `auto_update=review`:
 5. Reject or stop on unexpected content or identity.
 6. Use `批准` only after the complete candidate is verified.
 
-Candidate approval is a transactional compare-and-swap. It copies description,
-localized presentation, instructions, bundled files, Registry commit provenance,
-and the primary Marketplace category; bumps the live version; and sets approved,
-listed, and enabled. A concurrent version conflict requires re-sync and fresh
-review.
+Candidate approval is a transactional compare-and-swap. It copies name,
+description, localized presentation, instructions, bundled files, source
+identity, Registry commit provenance, runtime category, tags, Marketplace
+summary, and complete package metadata; bumps the live version; and sets
+approved/enabled. Marketplace packages become listed, while Builtin packages
+remain unlisted. A concurrent version conflict requires re-sync and fresh review.
 
 ### 23.5 Operational display settings
 
@@ -1129,10 +1128,10 @@ withdrawal requires a separate disable, revocation, or deletion response.
 | Symptom | Likely cause | Correct response |
 |---|---|---|
 | Local validator passes, sync rejects | Stricter server frontmatter or unsafe-worktree check | Read sync error; fix the package or repository blocker |
-| Sync reports `skipped` after category/tag edit | Metadata excluded from content hash | Use the metadata playbook; do not add no-op content |
-| Registry `name` changed but live name did not | Name absent from drift hash and pending snapshot | Use the separate rename plan |
+| Sync reports `skipped` after package metadata edit | Runtime is older than the Registry metadata projection contract | Stop release; deploy the matching `mind-api` migration first |
+| Registry `name` changed but live name did not | Runtime is older than rename-safe candidate projection | Stop release; deploy the matching `mind-api` migration first |
 | Final bundled file was removed but remains live | A `nil` candidate file snapshot preserves existing live files | Stop release; fix approval semantics or use a verified full replacement path |
-| Secondary category or tag is absent live | Current approval does not persist it | Record projection limitation or implement runtime support |
+| Secondary category or package fact is absent live | Runtime is older than `package_metadata` projection | Stop release; deploy the matching `mind-api` migration first |
 | Candidate SHA differs from release SHA | Wrong source ref or newer Registry main | Stop; reconcile source and release evidence |
 | Unexpected candidate appears | Earlier pending drift or additional main changes | Review individually; do not bulk-approve |
 | Source status is `partial` | At least one package failed while others scanned | Resolve the complete failure set before release |
@@ -1153,13 +1152,12 @@ skill-catalog.html
 
 It embeds both release lanes so it works when opened directly without a server:
 
-- Marketplace entries come from the current Registry working tree;
-- Builtin entries are a snapshot of
-  `mind-api/knowledge/skills/preloaded/`;
+- Both release lanes come from the current Registry working tree under
+  `skills/builtin` and `skills/marketplace`;
 - Marketplace and Builtin categories remain separate because they have
   different runtime meanings;
-- source links point to the corresponding Registry, `mind-api`, or pinned
-  third-party GitHub file.
+- source links point to the corresponding Registry or pinned third-party GitHub
+  file.
 
 The catalog UI must expose presentation data rather than merely embed it:
 
@@ -1169,34 +1167,23 @@ The catalog UI must expose presentation data rather than merely embed it:
 - the selected locale and ordered starter prompts are inspectable, with the
   first prompt marked as the chat activation default;
 - search covers canonical metadata plus every localized description and prompt;
-- Builtin cards continue to show their canonical description because they use
-  the separate platform-builtin release lane.
+- Builtin cards continue to show their canonical package description.
 
 Every package add, update, re-vendor, move, rename, reclassification, removal,
 or batch operation must update `skill-catalog.html` in the same change. This
 includes description, presentation, summary, category, publisher, tag,
 provenance, and source changes. Do not hand-edit the embedded JSON block.
 
-After changing any Registry Skill, regenerate Marketplace data and preserve the
-existing Builtin snapshot:
+After changing any Registry Skill, regenerate both release lanes from this
+repository:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py --check
 ```
 
-When the Builtin lane changed or a fresh `mind-api` checkout is available,
-refresh both lanes by supplying its repository root:
-
-```bash
-PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py \
-  --mind-api-root /path/to/mind-api
-PYTHONDONTWRITEBYTECODE=1 python3 scripts/generate_skill_catalog.py --check
-```
-
-The generator always rebuilds Marketplace entries from `skills/*/SKILL.md`.
-Without `--mind-api-root`, it intentionally preserves the embedded Builtin
-snapshot so Registry-only maintenance does not depend on a second checkout.
+The generator scans every `SKILL.md` recursively under `skills/builtin` and
+`skills/marketplace`; it has no dependency on a `mind-api` checkout.
 After generation, verify the displayed totals, type tabs, categories, search,
 source filters, source links, empty state, and mobile layout. A stale or missing
 catalog is a blocking validation failure, not an optional documentation
@@ -1230,7 +1217,7 @@ A Registry change is ready for handoff only when:
 6. Package-specific verification and all required local checks pass.
 7. The final diff contains only intended files and no generated artifacts.
 8. Required approval classes are identified.
-9. Expected WebAdmin candidates and metadata projection limits are recorded.
+9. Expected WebAdmin candidates and projected package metadata are recorded.
 10. The interactive catalog is regenerated and its filters and links are
     verified.
 11. Production verification and rollback steps are concrete.
