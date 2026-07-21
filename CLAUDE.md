@@ -1211,8 +1211,11 @@ follow-up.
 
 A documentation- or catalog-shell-only Registry commit changes no package
 digest. WebAdmin source sync should therefore advance the source commit with an
-`ok` status while producing zero candidates. Do not introduce a no-op package
-edit merely to stamp the documentation commit onto live Skill releases.
+`ok` status without creating any new content candidate. If the queue is empty,
+it remains empty; if matching candidates are already pending, sync may advance
+their provenance SHA while preserving their count and pending status. Do not
+introduce a no-op package edit merely to stamp the documentation commit onto
+live Skill releases.
 
 The audit-oriented Markdown inventory remains in the `mind-api` repository at:
 
