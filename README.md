@@ -111,6 +111,13 @@ prompts，不会继承默认语言。完整 shape、限制和示例见 [`CLAUDE.
 | Marketplace Skill | 94 |
 | 含 `mind.presentation` | 93 / 94 Marketplace |
 
+同日生产迁移验收：官方 source `74d694f9-be91-4498-a921-a0d1a80fa80a`
+在候选 commit `02a469a7ce27a065a22842a803c0fa58d4ec5160` 生成的 184 个候选已全部
+批准，更新队列为 0；95 个 Builtin 均 approved+enabled+unlisted，94 个
+Marketplace 均 approved+enabled+listed。后续 docs-only commit 可让 source
+provenance 前移而不改变 package digest 或产生候选；实时状态仍以 Webadmin/数据库
+为准。`skill-catalog.html` 只表达当前 Git package inventory，不伪装成实时审批面板。
+
 维护任一 Skill 时必须继续满足 presentation 合同，并重新生成
 `skill-catalog.html`。Catalog 的语言选择只影响离线目录展示；线上 Marketplace
 仍根据用户 UI locale 解析 description 与 starter prompts。

@@ -1025,6 +1025,14 @@ WebAdmin provides `添加 Official Registry 来源` to prefill these values. Do 
 change the source to `auto`, remove the official trust profile, add credentials,
 or point it at an unreviewed repository.
 
+Migration approval evidence (2026-07-21; recheck before any later release):
+source `74d694f9-be91-4498-a921-a0d1a80fa80a` produced 184 candidates at commit
+`02a469a7ce27a065a22842a803c0fa58d4ec5160`; all were approved, leaving an empty
+queue, 95 approved/enabled/unlisted Builtins, and 94
+approved/enabled/listed Marketplace Skills. A later docs-only commit may advance
+source provenance without changing package digests. This evidence is not
+authority to skip live checks.
+
 Official sync uses HTTPS and an allowed host, resolves the configured ref to a
 full Registry commit SHA, fetches that SHA in a clean Git environment, verifies
 `HEAD`, rejects unsafe worktree content, and then scans packages.
@@ -1073,6 +1081,13 @@ identity, Registry commit provenance, runtime category, tags, Marketplace
 summary, and complete package metadata; bumps the live version; and sets
 approved/enabled. Marketplace packages become listed, while Builtin packages
 remain unlisted. A concurrent version conflict requires re-sync and fresh review.
+
+There is no server-side bulk-approval endpoint. When an explicitly authorized,
+fully reconciled candidate set is large, an operator may batch the client-side
+work by calling the existing `approve-candidate` route serially. Every item must
+still carry its own observed `expected_skill_version`, commit as an independent
+transaction with its own audit record, and stop the batch on the first conflict
+or failure. Never turn this orchestration into an approval bypass.
 
 Approval and tenant availability do not activate a Skill for every Agent.
 Runtime access still applies each Agent's `all` / `selected` / `none` policy:
