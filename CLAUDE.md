@@ -63,7 +63,7 @@ Important implementation paths in the `mind-api` repository:
 ```text
 knowledge/internal/agent/skills/skill.go
 knowledge/internal/application/service/skill_frontmatter.go
-knowledge/internal/application/service/skill_seed.go
+knowledge/internal/application/service/skill_package.go
 knowledge/internal/application/service/skill_syncer.go
 knowledge/internal/application/service/skill_update_admin.go
 knowledge/internal/application/service/skill_subscription_service.go
