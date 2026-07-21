@@ -25,9 +25,9 @@ Registry working tree
   -> WebAdmin sync of official-registry
   -> pending candidate in Mind database
   -> WebAdmin candidate approval
-  -> shared live Marketplace row
-  -> tenant subscription
-  -> Agent skill_search / read_skill
+  -> Builtin: shared unlisted, auto-on row
+     Marketplace: shared listed row -> tenant subscription
+  -> Agent skill_search / read_skill through the Mind database
 ```
 
 A commit, push, PR, merge, sync, approval, listing change, or removal is a
@@ -465,8 +465,9 @@ Classification rules:
 2. Include the primary value in `mind.market-categories`.
 3. Add a secondary value only when it materially improves discovery.
 4. Never use legacy aliases for new metadata.
-5. Validate every category against `categories.yaml`; current local validation
-   checks containment but not canonical membership.
+5. Validate every category against `categories.yaml`. The frontmatter
+   validator checks primary/array containment and lane/category path alignment;
+   the catalog check enforces canonical membership.
 
 `mind.runtime-category` is a separate runtime/artifact hint. Builtin packages
 use the canonical values `deck`, `report`, `flashcard`, `webapp`, `video`,
@@ -699,8 +700,11 @@ Consequences:
 - a metadata-only package change produces a pending candidate;
 - approval atomically copies package-owned fields to live columns or
   `package_metadata`;
-- Marketplace summary, showcase media, featured/recommended state, sort weight,
-  and listing state are operational WebAdmin fields.
+- `mind.marketplace-summary` is package-owned canonical metadata and is copied
+  on approval. WebAdmin may override the live summary, but an official override
+  must be reconciled back to the Registry to avoid future drift.
+- Showcase media, featured/recommended state, sort weight, and listing state
+  are operational WebAdmin fields.
 
 For a pure live reclassification:
 
@@ -879,15 +883,18 @@ carry its own correct license record.
 
 ## 21. Validation: Necessary but Not Sufficient
 
-Current CI runs only:
+Current CI runs:
 
 ```bash
 python3 scripts/validate_skills.py
+python3 tests/test_validate.py
+python3 scripts/generate_skill_catalog.py --check
 ```
 
-`tests/test_validate.py` is a local self-test for the validator and currently
-has a small fixture set. `schemas/skill.schema.json` is not executed by current
-CI.
+`tests/test_validate.py` is both a local and CI self-test for the validator.
+`schemas/skill.schema.json` documents the contract but is not executed
+directly by current CI; the Python validator is the authoritative closed
+`mind.*` gate.
 
 ### 21.1 Gate matrix
 
@@ -896,7 +903,7 @@ CI.
 | Required `name`, `description`, `license` | Yes | Yes | Confirm quality and byte limits |
 | Closed `mind.*` key set | Yes | Yes | None when both pass |
 | `mind.id` / distribution present | Yes | Yes | Confirm format, uniqueness, and lifecycle |
-| Primary contained in category array | Partial; only when both fields exist | Yes when primary exists | Confirm presence and canonical slug membership |
+| Primary/category/path consistency | Validator checks containment, required Marketplace primary, and path alignment; catalog check enforces canonical membership | Yes when primary exists | Confirm classification quality |
 | `mind.tags` JSON syntax | Yes through catalog generation | Yes | Confirm tag quality |
 | Evidence URL JSON syntax | No | Yes | Validate locally before handoff |
 | First-party unknown top-level fields | No | Rejected by Mind sync | Inspect mode and top-level keys |
@@ -957,7 +964,7 @@ Before handoff, verify:
 - no duplicate slug, name, or `mind.id` was introduced;
 - all categories exist in `categories.yaml`;
 - every third-party field matches the pinned snapshot;
-- `skill-catalog.html` contains the current Marketplace package set;
+- `skill-catalog.html` contains the current Builtin and Marketplace package sets;
 - the diff contains no unrelated or generated file;
 - no `__pycache__` remains.
 
@@ -1003,6 +1010,7 @@ name: official-registry
 source_type: github_repo
 repo_url: https://github.com/MedrixAI/mind-skill-registry
 branch: main
+sub_path: skills
 trust_profile: official_registry
 target_scope: builtin
 auto_update: review
@@ -1064,19 +1072,20 @@ remain unlisted. A concurrent version conflict requires re-sync and fresh review
 
 ### 23.5 Operational display settings
 
-After approval, use `Skills -> 目录` for live operational fields:
+After approval, use `Skills -> 目录` for live operational fields and explicit
+overrides:
 
-- Marketplace summary;
+- Marketplace summary override (canonical value remains Registry-owned);
 - showcase media and cover order;
 - featured and recommended state;
 - sort weight;
 - primary live category when a metadata-only reclassification is required;
 - listed/unlisted state.
 
-Do not replace Git-owned instructions or bundled content with a divergent
-WebAdmin copy. A WebAdmin catalog update sends a full content payload and stamps
-the row as admin-managed, so verify current content before any display-field
-update.
+Do not replace Git-owned instructions, presentation, summary, or bundled content
+with a divergent WebAdmin copy. A WebAdmin catalog update sends a full content
+payload and stamps the row as admin-managed, so verify current content before
+any display-field update and reconcile official metadata overrides back to Git.
 
 ### 23.6 Production verification
 

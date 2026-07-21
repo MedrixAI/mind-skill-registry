@@ -1130,7 +1130,7 @@
 
     .catalog-notes {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
       margin-top: 24px;
     }
@@ -1371,7 +1371,7 @@
       <section class="intro" aria-labelledby="page-title">
         <div class="intro-copy">
           <h1 id="page-title">Mind Skills<br>全景目录</h1>
-          <p>Builtin 与 Marketplace Skill 的统一浏览入口。可按发布类型、分类和来源筛选，也可搜索名称、说明、标签、发布方或 GitHub 来源。</p>
+          <p>官方 Registry 中 Builtin 与 Marketplace package 的统一浏览入口。可按发布类型、分类和来源筛选，也可搜索名称、说明、标签、发布方或 GitHub 来源。</p>
         </div>
         <div class="scope-note">
           <strong>两套分类口径</strong>
@@ -1497,8 +1497,12 @@
           本页记录官方 Registry 中两个发布 lane 的当前 Skill。生产环境还可能包含租户自建、上传、fork、已下架或历史遗留内容。
         </div>
         <div class="note">
-          <strong>Registry 合并不等于 Marketplace 发布</strong>
-          Registry 合并后，WebAdmin 同步只生成待审候选；完成候选批准后才进入 Marketplace。
+          <strong>递归 package，frontmatter 决定语义</strong>
+          扫描器在任意组织层级发现第一个 SKILL.md 后，将该目录及其资源作为一个 package；Builtin、Marketplace 和分类目录不替代 mind.* frontmatter。
+        </div>
+        <div class="note">
+          <strong>Registry 合并不等于运行时发布</strong>
+          WebAdmin 同步只生成待审候选；批准后 Builtin 才成为 unlisted/auto-on，Marketplace 才成为 listed/可订阅。
         </div>
         <div class="note">
           <strong>Marketplace presentation 覆盖</strong>
@@ -1509,7 +1513,7 @@
   </main>
 
   <footer>
-    <div class="shell">数据来源：MedrixAI/mind-skill-registry。来源链接指向 Registry package 或固定版本的上游 Skill 文件。</div>
+    <div class="shell">数据来源：MedrixAI/mind-skill-registry。官方 source 从 skills 子目录递归同步；来源链接指向 Registry package 或固定版本的上游 Skill 文件。</div>
   </footer>
 
   <script id="skill-data" type="application/json">

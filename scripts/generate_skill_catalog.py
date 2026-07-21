@@ -227,7 +227,7 @@ def main() -> int:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Exit non-zero when the embedded Marketplace data is stale.",
+        help="Exit non-zero when the embedded Builtin/Marketplace catalog data is stale.",
     )
     args = parser.parse_args()
 

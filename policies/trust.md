@@ -15,8 +15,9 @@ before they land).
   `policies/review-policy.yaml`.
 - The full §6.7 gate suite (deterministic archive build twice, SBOM, provenance
   attestation, secret scanning, static capability analysis) is **deferred to
-  Phase B**. Current CI runs frontmatter validation and content-digest
-  computation; risk-based manual review remains required.
+  Phase B**. Current CI runs frontmatter/package validation, validator
+  self-tests, content-digest reporting, and generated catalog consistency;
+  risk-based manual review remains required.
 - The **publisher-repo worker** lane (untrusted external Git, dedicated
   non-root intake worker with mTLS, no business secrets) is deferred (spec
   §4.2/§7.4). Phase A ships only the first-party Registry lane.
