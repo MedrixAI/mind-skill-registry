@@ -25,8 +25,9 @@ Registry working tree
   -> WebAdmin sync of official-registry
   -> pending candidate in Mind database
   -> WebAdmin candidate approval
-  -> Builtin: shared unlisted, auto-on row
-     Marketplace: shared listed row -> tenant subscription
+  -> Builtin: shared unlisted row -> tenant available without subscription
+     Marketplace: shared listed row -> tenant subscription -> available
+  -> Agent all / selected / none activation policy
   -> Agent skill_search / read_skill through the Mind database
 ```
 
@@ -41,8 +42,11 @@ so an approved content update reaches existing subscriptions immediately.
 
 Builtin and Marketplace packages are separate Registry lanes that converge on
 the same source sync and candidate approval path. `mind.distribution` is the
-runtime source of truth: approved Builtins stay unlisted and are auto-on;
-approved Marketplace packages become listed and require tenant subscription.
+runtime lane source of truth: approved Builtins stay unlisted and become
+tenant-available without a subscription; approved Marketplace packages become
+listed and require a tenant subscription. Availability does not bypass an
+Agent's `all` / `selected` / `none` activation policy. A Skill must be active
+for that Agent before `read_skill` can load it.
 
 ## 2. Source-of-Truth Order
 
@@ -316,7 +320,7 @@ The recognized set is closed:
 | Key | Required | Meaning and current projection |
 |---|---|---|
 | `mind.id` | Yes | Permanent Registry reconciliation key |
-| `mind.distribution` | Yes | `builtin` auto-enables after approval; `marketplace` lists after approval |
+| `mind.distribution` | Yes | `builtin` becomes tenant-available without subscription after approval; `marketplace` lists and requires subscription after approval; Agent activation remains separate |
 | `mind.market-primary` | Expected | Primary Marketplace category; approval copies this value |
 | `mind.market-categories` | Expected | JSON array string; secondary values remain Registry metadata |
 | `mind.marketplace-summary` | Optional | Registry display default; copied through candidate approval |
@@ -1070,6 +1074,11 @@ summary, and complete package metadata; bumps the live version; and sets
 approved/enabled. Marketplace packages become listed, while Builtin packages
 remain unlisted. A concurrent version conflict requires re-sync and fresh review.
 
+Approval and tenant availability do not activate a Skill for every Agent.
+Runtime access still applies each Agent's `all` / `selected` / `none` policy:
+Builtin skips the tenant subscription step, while Marketplace requires
+subscription first; both then require Agent activation before `read_skill`.
+
 ### 23.5 Operational display settings
 
 After approval, use `Skills -> 目录` for live operational fields and explicit
@@ -1094,8 +1103,10 @@ Verify all applicable paths:
 1. Marketplace discovery by exact name and primary category.
 2. Marketplace detail, summary, and showcase media.
 3. Subscription from a clean test tenant.
-4. `skill_search` visibility after subscription.
-5. `read_skill` instructions and text bundled files.
+4. Builtin tenant availability without subscription, or Marketplace
+   `skill_search` visibility after subscription.
+5. Explicit Agent activation followed by `read_skill` instructions and text
+   bundled files; then deactivate and verify the prior Agent policy is restored.
 6. Primary workflow in a safe environment.
 7. Existing subscription behavior for an approved update.
 8. Absence from new discovery after unlisting.

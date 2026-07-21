@@ -12,4 +12,5 @@ The short version:
 - Follow `categories.yaml`, `policies/review-policy.yaml`, and `policies/trust.md`.
 - Run `python3 scripts/validate_skills.py`, `python3 tests/test_validate.py`, `python3 scripts/generate_skill_catalog.py --check`, and `git diff --check` before handoff.
 - A merged Registry PR is not live until Mind Webadmin syncs and approves the candidate.
+- Builtin availability skips tenant subscription but never bypasses an Agent's `all` / `selected` / `none` activation policy; Marketplace requires subscription before the same Agent activation step.
 - Do not push, merge, approve, or unlist unless that action is explicitly requested.

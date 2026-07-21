@@ -1502,7 +1502,7 @@
         </div>
         <div class="note">
           <strong>Registry 合并不等于运行时发布</strong>
-          WebAdmin 同步只生成待审候选；批准后 Builtin 才成为 unlisted/auto-on，Marketplace 才成为 listed/可订阅。
+          WebAdmin 同步只生成待审候选；批准后 Builtin 以 unlisted 方式对 tenant 可用且无需订阅，Marketplace 才成为 listed/可订阅；两者仍受具体 Agent activation policy 控制。
         </div>
         <div class="note">
           <strong>Marketplace presentation 覆盖</strong>
