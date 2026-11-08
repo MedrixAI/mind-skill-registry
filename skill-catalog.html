@@ -1524,7 +1524,7 @@
       "type": "builtin",
       "repository": "MedrixAI/mind-skill-registry",
       "ref": "main",
-      "count": 95
+      "count": 102
     },
     {
       "type": "marketplace",
@@ -1534,6 +1534,160 @@
     }
   ],
   "skills": [
+    {
+      "type": "builtin",
+      "slug": "bio-bulk-rnaseq",
+      "name": "bio-bulk-rnaseq",
+      "description": "Assess and analyze bulk RNA-seq count data with a reproducible sample-aware differential-expression workflow. Use when comparing gene expression between biological groups from a count matrix or verified quantification.",
+      "summary": "Assess and analyze bulk RNA-seq count data with a reproducible sample-aware differential-expression workflow. Use when comparing gene expression between biological groups from a count matrix or verified quantification.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-bulk-rnaseq/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-bulk-rnaseq",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "rna-seq",
+        "differential-expression"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-dataset-discovery",
+      "name": "bio-dataset-discovery",
+      "description": "Find and assess public biomedical datasets. Use when a user seeks GEO or BioProject studies by disease, organism, tissue, assay, or sample design.",
+      "summary": "Find and assess public biomedical datasets. Use when a user seeks GEO or BioProject studies by disease, organism, tissue, assay, or sample design.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-dataset-discovery/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-dataset-discovery",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "dataset",
+        "discovery"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-figure-builder",
+      "name": "bio-figure-builder",
+      "description": "Design and generate traceable biomedical figures from supplied measurements or analysis results. Use for single-cell embeddings, volcano plots, heatmaps, pathway figures, or other research charts with verifiable data and annotations.",
+      "summary": "Design and generate traceable biomedical figures from supplied measurements or analysis results. Use for single-cell embeddings, volcano plots, heatmaps, pathway figures, or other research charts with verifiable data and annotations.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-figure-builder/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-figure-builder",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "visualization",
+        "figures"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-pathway-enrichment",
+      "name": "bio-pathway-enrichment",
+      "description": "Interpret a gene list or ranked gene results through pathway and gene-set enrichment with explicit background, identifier mapping, and multiple-testing controls. Use for GO or pathway analysis of biological data.",
+      "summary": "Interpret a gene list or ranked gene results through pathway and gene-set enrichment with explicit background, identifier mapping, and multiple-testing controls. Use for GO or pathway analysis of biological data.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-pathway-enrichment/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-pathway-enrichment",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "pathway",
+        "enrichment"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-proteomics-ms",
+      "name": "bio-proteomics-ms",
+      "description": "Assess and analyze quantitative mass-spectrometry proteomics data with sample-aware quality control and differential protein abundance analysis. Use for bottom-up LC-MS/MS protein or peptide quantification, including label-free, DIA, DDA or isobaric-label experiments.",
+      "summary": "Assess and analyze quantitative mass-spectrometry proteomics data with sample-aware quality control and differential protein abundance analysis. Use for bottom-up LC-MS/MS protein or peptide quantification, including label-free, DIA, DDA or isobaric-label experiments.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-proteomics-ms/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-proteomics-ms",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "proteomics",
+        "mass-spectrometry"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-single-cell-qc",
+      "name": "bio-single-cell-qc",
+      "description": "Inspect single-cell RNA-seq data and sample metadata for analysis readiness. Use when a user provides a count matrix, AnnData, 10x files, or a QC summary and asks about data quality, cell filtering, or sample-level limitations.",
+      "summary": "Inspect single-cell RNA-seq data and sample metadata for analysis readiness. Use when a user provides a count matrix, AnnData, 10x files, or a QC summary and asks about data quality, cell filtering, or sample-level limitations.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-single-cell-qc/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-single-cell-qc",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "single-cell",
+        "quality-control"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-single-cell-rnaseq",
+      "name": "bio-single-cell-rnaseq",
+      "description": "Plan and, when authorized tools and inputs exist, analyze single-cell RNA-seq data from quality-controlled counts to clustering and cautious cell annotation. Use for exploratory single-cell analysis or sample-aware comparisons.",
+      "summary": "Plan and, when authorized tools and inputs exist, analyze single-cell RNA-seq data from quality-controlled counts to clustering and cautious cell annotation. Use for exploratory single-cell analysis or sample-aware comparisons.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-single-cell-rnaseq/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-single-cell-rnaseq",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "single-cell",
+        "transcriptomics"
+      ]
+    },
     {
       "type": "builtin",
       "slug": "citation-generator",

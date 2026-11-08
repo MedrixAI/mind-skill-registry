@@ -111,6 +111,8 @@ prompts，不会继承默认语言。完整 shape、限制和示例见 [`CLAUDE.
 | Marketplace Skill | 94 |
 | 含 `mind.presentation` | 93 / 94 Marketplace |
 
+当前工作树新增 7 个 Bio Builtin Skill 后，Registry 目录包含 102 个 Builtin、94 个 Marketplace；上表保留 2026-07-21 的历史发布基线。工作树数量不代表生产审批或发布状态。
+
 同日生产迁移验收：官方 source `74d694f9-be91-4498-a921-a0d1a80fa80a`
 在候选 commit `02a469a7ce27a065a22842a803c0fa58d4ec5160` 生成的 184 个候选已全部
 批准，更新队列为 0；95 个 Builtin 均 approved+enabled+unlisted，94 个
