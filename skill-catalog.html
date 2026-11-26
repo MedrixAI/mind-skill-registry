@@ -1524,7 +1524,7 @@
       "type": "builtin",
       "repository": "MedrixAI/mind-skill-registry",
       "ref": "main",
-      "count": 102
+      "count": 105
     },
     {
       "type": "marketplace",
@@ -1602,6 +1602,29 @@
     },
     {
       "type": "builtin",
+      "slug": "bio-gwas-sumstats",
+      "name": "bio-gwas-sumstats",
+      "description": "Inspect and analyze human GWAS summary statistics for a defined trait, including allele harmonization checks, locus evidence and cautious gene prioritization. Use when supplied a full summary-statistics file or a public study accession; not for individual-level genotypes.",
+      "summary": "Inspect and analyze human GWAS summary statistics for a defined trait, including allele harmonization checks, locus evidence and cautious gene prioritization. Use when supplied a full summary-statistics file or a public study accession; not for individual-level genotypes.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-gwas-sumstats/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-gwas-sumstats",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "genomics",
+        "gwas",
+        "summary-statistics"
+      ]
+    },
+    {
+      "type": "builtin",
       "slug": "bio-pathway-enrichment",
       "name": "bio-pathway-enrichment",
       "description": "Interpret a gene list or ranked gene results through pathway and gene-set enrichment with explicit background, identifier mapping, and multiple-testing controls. Use for GO or pathway analysis of biological data.",
@@ -1646,6 +1669,30 @@
     },
     {
       "type": "builtin",
+      "slug": "bio-rnaseq-preprocess",
+      "name": "bio-rnaseq-preprocess",
+      "description": "Check and process bulk RNA-seq FASTQ reads into reproducible gene or transcript quantification with sample-level QC. Use when raw bulk RNA-seq reads need a count matrix before differential expression; use bio-bulk-rnaseq for an already verified count matrix.",
+      "summary": "Check and process bulk RNA-seq FASTQ reads into reproducible gene or transcript quantification with sample-level QC. Use when raw bulk RNA-seq reads need a count matrix before differential expression; use bio-bulk-rnaseq for an already verified count matrix.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-rnaseq-preprocess/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-rnaseq-preprocess",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "rna-seq",
+        "fastq",
+        "quality-control",
+        "quantification"
+      ]
+    },
+    {
+      "type": "builtin",
       "slug": "bio-single-cell-qc",
       "name": "bio-single-cell-qc",
       "description": "Inspect single-cell RNA-seq data and sample metadata for analysis readiness. Use when a user provides a count matrix, AnnData, 10x files, or a QC summary and asks about data quality, cell filtering, or sample-level limitations.",
@@ -1686,6 +1733,29 @@
         "bioinformatics",
         "single-cell",
         "transcriptomics"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-wgs-germline",
+      "name": "bio-wgs-germline",
+      "description": "Assess human whole-genome germline sequencing quality and short-variant calls, from FASTQ/BAM/gVCF/VCF at the available stage through a reproducible research-grade variant report. Use for inherited SNVs and small indels; not tumor somatic calling or clinical diagnosis.",
+      "summary": "Assess human whole-genome germline sequencing quality and short-variant calls, from FASTQ/BAM/gVCF/VCF at the available stage through a reproducible research-grade variant report. Use for inherited SNVs and small indels; not tumor somatic calling or clinical diagnosis.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-wgs-germline/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-wgs-germline",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "genomics",
+        "wgs",
+        "germline-variants"
       ]
     },
     {
