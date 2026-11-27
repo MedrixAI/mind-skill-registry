@@ -1524,7 +1524,7 @@
       "type": "builtin",
       "repository": "MedrixAI/mind-skill-registry",
       "ref": "main",
-      "count": 95
+      "count": 107
     },
     {
       "type": "marketplace",
@@ -1534,6 +1534,278 @@
     }
   ],
   "skills": [
+    {
+      "type": "builtin",
+      "slug": "bio-bulk-rnaseq",
+      "name": "bio-bulk-rnaseq",
+      "description": "Assess and analyze bulk RNA-seq count data with a reproducible sample-aware differential-expression workflow. Use when comparing gene expression between biological groups from a count matrix or verified quantification.",
+      "summary": "Assess and analyze bulk RNA-seq count data with a reproducible sample-aware differential-expression workflow. Use when comparing gene expression between biological groups from a count matrix or verified quantification.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-bulk-rnaseq/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-bulk-rnaseq",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "rna-seq",
+        "differential-expression"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-dataset-discovery",
+      "name": "bio-dataset-discovery",
+      "description": "Find and assess public biomedical datasets. Use when a user seeks GEO or BioProject studies by disease, organism, tissue, assay, or sample design.",
+      "summary": "Find and assess public biomedical datasets. Use when a user seeks GEO or BioProject studies by disease, organism, tissue, assay, or sample design.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-dataset-discovery/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-dataset-discovery",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "dataset",
+        "discovery"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-figure-builder",
+      "name": "bio-figure-builder",
+      "description": "Design and generate traceable biomedical figures from supplied measurements or analysis results. Use for single-cell embeddings, volcano plots, heatmaps, pathway figures, or other research charts with verifiable data and annotations.",
+      "summary": "Design and generate traceable biomedical figures from supplied measurements or analysis results. Use for single-cell embeddings, volcano plots, heatmaps, pathway figures, or other research charts with verifiable data and annotations.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-figure-builder/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-figure-builder",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "visualization",
+        "figures"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-gwas-cohort",
+      "name": "bio-gwas-cohort",
+      "description": "Plan and analyze individual-level genotype plus phenotype data for a cohort GWAS with sample/variant QC, relatedness or population-structure control, association testing and reproducible summary statistics. Use when authorized cohort-level genotypes and real phenotype metadata are available; not for summary-statistics-only input.",
+      "summary": "Plan and analyze individual-level genotype plus phenotype data for a cohort GWAS with sample/variant QC, relatedness or population-structure control, association testing and reproducible summary statistics. Use when authorized cohort-level genotypes and real phenotype metadata are available; not for summary-statistics-only input.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-gwas-cohort/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-gwas-cohort",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "genomics",
+        "gwas",
+        "cohort",
+        "genotype-phenotype"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-gwas-sumstats",
+      "name": "bio-gwas-sumstats",
+      "description": "Inspect and analyze human GWAS summary statistics for a defined trait, including allele harmonization checks, locus evidence and cautious gene prioritization. Use when supplied a full summary-statistics file or a public study accession; not for individual-level genotypes.",
+      "summary": "Inspect and analyze human GWAS summary statistics for a defined trait, including allele harmonization checks, locus evidence and cautious gene prioritization. Use when supplied a full summary-statistics file or a public study accession; not for individual-level genotypes.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-gwas-sumstats/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-gwas-sumstats",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "genomics",
+        "gwas",
+        "summary-statistics"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-pathway-enrichment",
+      "name": "bio-pathway-enrichment",
+      "description": "Interpret a gene list or ranked gene results through pathway and gene-set enrichment with explicit background, identifier mapping, and multiple-testing controls. Use for GO or pathway analysis of biological data.",
+      "summary": "Interpret a gene list or ranked gene results through pathway and gene-set enrichment with explicit background, identifier mapping, and multiple-testing controls. Use for GO or pathway analysis of biological data.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-pathway-enrichment/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-pathway-enrichment",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "pathway",
+        "enrichment"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-proteomics-ms",
+      "name": "bio-proteomics-ms",
+      "description": "Assess and analyze quantitative mass-spectrometry proteomics data with sample-aware quality control and differential protein abundance analysis. Use for bottom-up LC-MS/MS protein or peptide quantification, including label-free, DIA, DDA or isobaric-label experiments.",
+      "summary": "Assess and analyze quantitative mass-spectrometry proteomics data with sample-aware quality control and differential protein abundance analysis. Use for bottom-up LC-MS/MS protein or peptide quantification, including label-free, DIA, DDA or isobaric-label experiments.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-proteomics-ms/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-proteomics-ms",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "proteomics",
+        "mass-spectrometry"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-rnaseq-preprocess",
+      "name": "bio-rnaseq-preprocess",
+      "description": "Check and process bulk RNA-seq FASTQ reads into reproducible gene or transcript quantification with sample-level QC. Use when raw bulk RNA-seq reads need a count matrix before differential expression; use bio-bulk-rnaseq for an already verified count matrix.",
+      "summary": "Check and process bulk RNA-seq FASTQ reads into reproducible gene or transcript quantification with sample-level QC. Use when raw bulk RNA-seq reads need a count matrix before differential expression; use bio-bulk-rnaseq for an already verified count matrix.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-rnaseq-preprocess/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-rnaseq-preprocess",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "rna-seq",
+        "fastq",
+        "quality-control",
+        "quantification"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-single-cell-qc",
+      "name": "bio-single-cell-qc",
+      "description": "Inspect single-cell RNA-seq data and sample metadata for analysis readiness. Use when a user provides a count matrix, AnnData, 10x files, or a QC summary and asks about data quality, cell filtering, or sample-level limitations.",
+      "summary": "Inspect single-cell RNA-seq data and sample metadata for analysis readiness. Use when a user provides a count matrix, AnnData, 10x files, or a QC summary and asks about data quality, cell filtering, or sample-level limitations.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-single-cell-qc/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-single-cell-qc",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "single-cell",
+        "quality-control"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-single-cell-rnaseq",
+      "name": "bio-single-cell-rnaseq",
+      "description": "Plan and, when authorized tools and inputs exist, analyze single-cell RNA-seq data from quality-controlled counts to clustering and cautious cell annotation. Use for exploratory single-cell analysis or sample-aware comparisons.",
+      "summary": "Plan and, when authorized tools and inputs exist, analyze single-cell RNA-seq data from quality-controlled counts to clustering and cautious cell annotation. Use for exploratory single-cell analysis or sample-aware comparisons.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-single-cell-rnaseq/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-single-cell-rnaseq",
+      "license": "MIT",
+      "tags": [
+        "bioinformatics",
+        "single-cell",
+        "transcriptomics"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-wgs-germline",
+      "name": "bio-wgs-germline",
+      "description": "Assess human whole-genome germline sequencing quality and short-variant calls, from FASTQ/BAM/gVCF/VCF at the available stage through a reproducible research-grade variant report. Use for inherited SNVs and small indels; not tumor somatic calling or clinical diagnosis.",
+      "summary": "Assess human whole-genome germline sequencing quality and short-variant calls, from FASTQ/BAM/gVCF/VCF at the available stage through a reproducible research-grade variant report. Use for inherited SNVs and small indels; not tumor somatic calling or clinical diagnosis.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-wgs-germline/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-wgs-germline",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "genomics",
+        "wgs",
+        "germline-variants"
+      ]
+    },
+    {
+      "type": "builtin",
+      "slug": "bio-wgs-somatic",
+      "name": "bio-wgs-somatic",
+      "description": "Assess tumor-normal whole-genome sequencing and research-grade somatic SNV/small-indel calls from the available FASTQ, alignment, or VCF stage. Use for cancer WGS quality review, matched-normal calling plans, and evidence-limited variant reports; not inherited variant analysis or clinical diagnosis.",
+      "summary": "Assess tumor-normal whole-genome sequencing and research-grade somatic SNV/small-indel calls from the available FASTQ, alignment, or VCF stage. Use for cancer WGS quality review, matched-normal calling plans, and evidence-limited variant reports; not inherited variant analysis or clinical diagnosis.",
+      "primaryCategory": "uncategorized",
+      "categories": [
+        "uncategorized"
+      ],
+      "sourceKind": "first-party",
+      "sourceLabel": "MedrixAI/mind-skill-registry",
+      "sourceUrl": "https://github.com/MedrixAI/mind-skill-registry/blob/main/skills/builtin/general/bio-wgs-somatic/SKILL.md",
+      "publisher": "MedrixAI",
+      "mindId": "ai.medrix.skill.builtin.bio-wgs-somatic",
+      "license": "Apache-2.0",
+      "tags": [
+        "bioinformatics",
+        "genomics",
+        "wgs",
+        "somatic-variants",
+        "cancer"
+      ]
+    },
     {
       "type": "builtin",
       "slug": "citation-generator",
